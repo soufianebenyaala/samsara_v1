@@ -14,6 +14,7 @@ import {AuthProvider} from "../contexts/AuthContext"
 import {useAuth} from '../contexts/AuthContext'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
+import firebase from "../firebase"
 
 
 
@@ -108,13 +109,13 @@ const useStyles = makeStyles((theme) => ({
     color: props=> props.fontColor,
   },
 }));
-function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp}){
+function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url}){
   
 
   if(currentUser){
     return(
       <Link to={{ pathname :"/profile/account"}}>
-      <Avatar alt="Remy Sharp" src="https://cdn.pixabay.com/photo/2015/12/23/14/56/man-profile-1105761_960_720.jpg"  size="medium" className={` ${classes.large} ${classes.space_button} ${classes.fontColor}`} />
+      <Avatar alt="Remy Sharp" src={url}  size="medium" className={` ${classes.large} ${classes.space_button} ${classes.fontColor}`} />
       </Link>
      
     );
@@ -129,6 +130,26 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
   
 }
 function Header(props) {
+  const [url, seturl]= useState("")
+   useEffect(() => {
+    // Update the document title using the browser API
+    async function getphoto(){
+    if(currentUser){
+    var storage = firebase.storage();
+    var storageRef = storage.ref();
+    storageRef.child('profile/'+currentUser.uid).getDownloadURL().then((URL)=>
+    {
+      
+      seturl(URL)
+      
+    });
+  }
+  
+  }
+  getphoto();
+    
+   
+  });
   const history = useHistory()
     const classes = useStyles(props);
     const searchbar=props.mySearchBar?<SearchBar />:null
@@ -191,7 +212,7 @@ function Header(props) {
           <div className={classes.free_chip}  >FREE</div>
           </Button>
 
-          {avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp})}
+          {avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url})}
           {currentUser ? 
            <Button 
            onClick={handleLogout}  
