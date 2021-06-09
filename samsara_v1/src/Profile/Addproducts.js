@@ -149,6 +149,7 @@ export default function Dashboard() {
   const [discerption, setdiscerption] = useState("");
   const [latitude, setlatitude] = useState("");
   const [longitude, setlongitude] = useState("");
+  const [telephone, settelephone] = useState("");
 
   const handleChangeNbrOfBathRooms = (event, newNbr) => {
     setNbrOfBathRooms(newNbr);
@@ -170,7 +171,7 @@ export default function Dashboard() {
   setfiles
   setimages
   setdiscerption*/
-  const uploadimage = () => {
+  const uploadimage =async () => {
     var urlF = [];
     var urlI = [];
     if (files != []) {
@@ -220,6 +221,7 @@ export default function Dashboard() {
         discerption: discerption,
         latitude: latitude,
         longitude: longitude,
+        telephone:telephone
       });
 
       await db.collection("users")
@@ -245,6 +247,7 @@ export default function Dashboard() {
             discerption: doc.data().discerption,
             latitude: doc.data().latitude,
             longitude: doc.data().longitude,
+            telephone:doc.data().telephone
           });
         }
       });
@@ -356,7 +359,8 @@ export default function Dashboard() {
             Ami={Ami}
             setlatitude={setlatitude}
             setlongitude={setlongitude}
-
+            settelephone={settelephone}
+            telephone={telephone}
             buildingName={buildingName}
             urlfile={urlfile}
             urlimage={urlimage}

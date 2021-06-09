@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -21,8 +21,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './DashbordComp/listItems';
 import Products from './Products/productsTable';
-import Deposits from './DashbordComp/Deposits';
-import Orders from './DashbordComp/Order';
+import { useAuth } from "../contexts/AuthContext";
+import { db, storage, storageRef } from "../firebase";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -121,6 +122,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const history = useHistory();
+  const { currentUser } = useAuth();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,7 +132,6 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
   return (
     <div className={classes.root}>
       <CssBaseline />

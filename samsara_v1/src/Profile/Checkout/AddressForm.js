@@ -169,7 +169,7 @@ export default function AddressForm(props) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <TextField
             onChange={(e) => {
               props.setadress(e.target.value);
@@ -183,7 +183,7 @@ export default function AddressForm(props) {
             autoComplete="given-name"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <TextField
             onChange={(e) => {
               props.setzipcode(e.target.value);
@@ -193,6 +193,22 @@ export default function AddressForm(props) {
             id="Zip_code"
             name="Zip_code"
             label="Zip code"
+            type="number"
+            fullWidth
+            autoComplete="family-name"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            onChange={(e) => {
+              props.settelephone(e.target.value);
+            }}
+            value={props.telephone}
+            required
+            id="telephone"
+            name="telephone"
+            label="Telephone"
+            type="number"
             fullWidth
             autoComplete="family-name"
           />

@@ -76,6 +76,8 @@ function getStepContent(step, props) {
           Ami={props.Ami}
           setdiscerption={props.setdiscerption}
           discerption={props.discerption}
+          settelephone={props.settelephone}
+          telephone={props.telephone}
         />
       );
     case 1:
