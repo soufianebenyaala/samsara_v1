@@ -14,13 +14,13 @@ import {
  Badge ,
  Container ,
  Grid ,
- Paper ,
+ Button ,
  Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './DashbordComp/listItems';
-import Chart from './DashbordComp/Chart';
+import Products from './Products/productsTable';
 import Deposits from './DashbordComp/Deposits';
 import Orders from './DashbordComp/Order';
 
@@ -177,7 +177,15 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-
+        <Button
+        color="primary"
+        variant="contained"
+        href="/Addproduct"
+        
+      >
+        Add product
+      </Button>
+      <Products/>
         </Container>
       </main>
     </div>

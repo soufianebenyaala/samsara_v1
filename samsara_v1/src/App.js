@@ -13,6 +13,8 @@ import Search from "./SearchPage/SearchPage"
 import Dashboard from "./Profile/Dashbord"
 import Profile from "./Profile/Profile"
 import Products from "./Profile/Products"
+import Addproduct from "./Profile/Addproducts"
+
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
               <Route path="/Dashboard" component={Dashboard} />
               <Route path="/profile" component={Profile} />
               <Route path="/products" component={Products} />
+              <Route path="/Addproduct" component={Addproduct} />
               <Redirect exact path="/"/>
             </Switch>
           </AuthProvider>
