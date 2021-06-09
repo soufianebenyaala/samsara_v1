@@ -39,6 +39,7 @@ export default function PaymentForm(props) {
             onChange={(e) => {
               props.setlatitude(e.target.value);
             }}
+            value={props.latitude}
             required
             id="Latitude"
             label="Latitude"
@@ -52,6 +53,7 @@ export default function PaymentForm(props) {
             onChange={(e) => {
               props.setlongitude(e.target.value);
             }}
+            value={props.longitude}
             required
             id="Longitude"
             label="Longitude"

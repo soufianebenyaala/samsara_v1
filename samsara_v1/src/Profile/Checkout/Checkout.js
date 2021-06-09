@@ -59,49 +59,46 @@ function getStepContent(step, props) {
       return (
         <AddressForm
           setbuildingName={props.setbuildingName}
+          buildingName={props.buildingName}
           setadress={props.setadress}
+          adress={props.adress}
           setzipcode={props.setzipcode}
+          zipcode={props.zipcode}
           setprice={props.setprice}
+          price={props.price}
           setNbrOfRooms={props.handelNbrOfRooms}
           nbrOfRooms={props.NbrOfRooms}
           setNbrOfBathRooms={props.handelNbrOfBathRooms}
           nbrOfBathRooms={props.NbrOfBathRooms}
           setCat={props.setCat}
+          Cat={props.Cat}
           setAmi={props.setAmi}
-          setdiscerption={props.setdiscerption}
           Ami={props.Ami}
+          setdiscerption={props.setdiscerption}
+          discerption={props.discerption}
         />
       );
     case 1:
       return (
         <PaymentForm
           seturlfile={props.seturlfile}
+          urlfile={props.urlfile}
           seturlimage={props.seturlimage}
+          urlimage={props.urlimage}
           setfiles={props.setfiles}
+          files={props.files}
           setimages={props.setimages}
-          setdiscerption={props.setdiscerption}
+          images={props.images}
           setlongitude={props.setlongitude}
           setlatitude={props.setlatitude}
+          latitude={props.latitude}
+          longitude={props.longitude}
         />
       );
     case 2:
       return (
         <Review
-          buildingName={props.buildingName}
-          urlfile={props.urlfile}
-          urlimage={props.urlimage}
-          adress={props.adress}
-          zipcode={props.zipcode}
-          price={props.price}
-          NbrOfBathRooms={props.NbrOfBathRooms}
-          NbrOfRooms={props.NbrOfRooms}
-          Cat={props.Cat}
-          Ami={props.Ami}
-          files={props.files}
-          images={props.images}
-          discerption={props.discerption}
-          latitude={props.latitude}
-          longitude={props.longitude}
+          product={props}
         />
       );
     default:
