@@ -17,7 +17,6 @@ export default function PaymentForm(props) {
           <Typography variant="h6" component="h1">
             put a document that validate your ownership of the proprety:
           </Typography>
-
           <DragAndDrop files={props.files} setFiles={props.setfiles} />
         </Grid>
 

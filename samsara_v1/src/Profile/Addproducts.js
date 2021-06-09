@@ -170,9 +170,9 @@ export default function Dashboard() {
   setfiles
   setimages
   setdiscerption*/
-  const uploadimage = () =>{
-    var urlF =[]
-    var urlI =[]
+  const uploadimage = () => {
+    var urlF = [];
+    var urlI = [];
     if (files != []) {
       files.map(async (file) => {
         // Upload file and metadata to the object 'images/mountains.jpg'
@@ -180,30 +180,29 @@ export default function Dashboard() {
         var DownloadURL = await storage
           .ref("files")
           .child(file.name)
-          .getDownloadURL()
-        urlF.push(DownloadURL)
+          .getDownloadURL();
+        urlF.push(DownloadURL);
         seturlimage(urlI);
       });
     }
     if (images != []) {
       images.map(async (image) => {
-        
         // Upload image and metadata to the object 'images/mountains.jpg'
         await storageRef.child("images/" + image.name).put(image);
         var DownloadURL = await storage
           .ref("images")
           .child(image.name)
-          .getDownloadURL()
-        urlI.push(DownloadURL)
+          .getDownloadURL();
+        urlI.push(DownloadURL);
         seturlfile(urlF);
       });
     }
-  }
+  };
   const submit = async () => {
-     await uploadimage()
-    
-console.log(urlfile,urlimage,)
-      await db
+    await uploadimage();
+
+    console.log(urlfile, urlimage);
+    await db
       .collection("users")
       .doc(currentUser.uid)
       .collection("products")
@@ -222,8 +221,35 @@ console.log(urlfile,urlimage,)
         latitude: latitude,
         longitude: longitude,
       });
-  };
 
+      await db.collection("users")
+      .doc(currentUser.uid)
+      .collection("products")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(async (doc) => {
+        if (doc.exists) {
+          // Convert to City object
+          await db.collection("Allproduct").doc(doc.id).set({
+            userUid:currentUser.uid,
+            buildingName: doc.data().buildingName,
+            adress: doc.data().adress,
+            zipcode: doc.data().zipcode,
+            price: doc.data().price,
+            NumberOfRooms:doc.data().NumberOfRooms,
+            NumberOfBathRooms: doc.data().NumberOfBathRooms,
+            categorie: doc.data().categorie,
+            aminities: doc.data().aminities,
+            urlimage: doc.data().urlimage,
+            urlfile: doc.data().urlfile,
+            discerption: doc.data().discerption,
+            latitude: doc.data().latitude,
+            longitude: doc.data().longitude,
+          });
+        }
+      });
+    });
+   }
 
   console.log({
     urlfile,
@@ -241,7 +267,7 @@ console.log(urlfile,urlimage,)
     discerption,
     longitude,
     latitude,
-    loading
+    loading,
   });
   const handleDrawerOpen = () => {
     setOpen(true);
