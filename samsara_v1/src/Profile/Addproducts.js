@@ -249,6 +249,8 @@ export default function Dashboard() {
         }
       });
     });
+
+    history.push("/products")
    }
 
   console.log({
@@ -354,6 +356,7 @@ export default function Dashboard() {
             Ami={Ami}
             setlatitude={setlatitude}
             setlongitude={setlongitude}
+
             buildingName={buildingName}
             urlfile={urlfile}
             urlimage={urlimage}
@@ -366,6 +369,7 @@ export default function Dashboard() {
             discerption={discerption}
             latitude={latitude}
             longitude={longitude}
+            
             submit={submit}
             //product={product}
           />

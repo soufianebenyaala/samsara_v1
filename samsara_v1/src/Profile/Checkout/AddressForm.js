@@ -140,6 +140,7 @@ export default function AddressForm(props) {
               props.setbuildingName(e.target.value);
             }}
             required
+            value={props.buildingName}
             id="address1"
             name="address1"
             label="Build name"
@@ -155,6 +156,7 @@ export default function AddressForm(props) {
               onChange={(e) => {
                 props.setCat(e.target.value);
               }}
+              value={props.Cat}
               inputProps={{
                 name: "Categorie",
                 id: "age-native-simple",
@@ -172,6 +174,7 @@ export default function AddressForm(props) {
             onChange={(e) => {
               props.setadress(e.target.value);
             }}
+            value={props.adress}
             required
             id="Address"
             name="Address"
@@ -185,6 +188,7 @@ export default function AddressForm(props) {
             onChange={(e) => {
               props.setzipcode(e.target.value);
             }}
+            value={props.zipcode}
             required
             id="Zip_code"
             name="Zip_code"
@@ -199,6 +203,7 @@ export default function AddressForm(props) {
             onChange={(e) => {
               props.setprice(e.target.value);
             }}
+            value={props.price}
             label="Price"
             type="number"
             required
@@ -265,6 +270,7 @@ export default function AddressForm(props) {
             onChange={(e) => {
               props.setdiscerption(e.target.value);
             }}
+            value={props.discerption}
             id="outlined-multiline-static"
             label="Description"
             multiline
