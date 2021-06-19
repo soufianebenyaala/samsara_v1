@@ -171,7 +171,7 @@ export default function Dashboard() {
   setfiles
   setimages
   setdiscerption*/
-  const uploadimage =async () => {
+  const uploadimage = () => {
     var urlF = [];
     var urlI = [];
     if (files != []) {
@@ -200,7 +200,7 @@ export default function Dashboard() {
     }
   };
   const submit = async () => {
-    await uploadimage();
+    uploadimage();
 
     console.log(urlfile, urlimage);
     await db
