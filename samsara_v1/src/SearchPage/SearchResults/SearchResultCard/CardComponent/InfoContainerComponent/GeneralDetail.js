@@ -15,7 +15,7 @@ const GeneralDetail = (props) => {
     return(
       <div>
       <div className={classes.priceAndIcon}>
-                  <Typography className={classes.price} component="div">${props.price}+</Typography>
+                  <Typography className={classes.price} component="div">$1,620+</Typography>
                   <div className={`${classes.icons}`}>
                   <IconButton className={classes.iconBtn}  onClick={props.setOpen}>
                       <InfoOutlinedIcon className={classes.infoIcon}/>
@@ -31,10 +31,9 @@ const GeneralDetail = (props) => {
                   <div className={classes.bedAndBathInfo}>
                     <div className={classes.bedAndBathInfo}>
                     <img alt="" height="16" loading="lazy" src="https://d214hhm15p4t1d.cloudfront.net/nzr/eba3d027411e573009ffee8064fa4af6511c849d/img/bedIcon.3bf807c0.svg" width="16"/>
-                      <Typography className={classes.bedAndBathText}  component="div">Studio -{props.NumberOfRooms} Beds</Typography>
+                      <Typography className={classes.bedAndBathText} component="div">Studio - 2 Beds</Typography>
                       <img alt="" height="16" loading="lazy" src="https://d214hhm15p4t1d.cloudfront.net/nzr/eba3d027411e573009ffee8064fa4af6511c849d/img/bathIcon.4adadf28.svg" width="16"/>
-                      <Typography className={classes.bedAndBathText} component="div">
-                        {props.NumberOfBathRooms} Baths</Typography>
+                      <Typography className={classes.bedAndBathText} component="div">1 - 2 Baths</Typography>
                       
                     </div>
                   </div>
@@ -42,13 +41,13 @@ const GeneralDetail = (props) => {
                 </div>
                 <div className={classes.header}>
               <Link className={`${classes.headerText} ${classes.TextStrong}`} href="#"  onClick={preventDefault} >
-                {props.buildingName}
+                The Irby
               </Link>
               <CheckCircleIcon color="primary" className={classes.headericon}/>
               </div>
               <div className={classes.LocationText}>
               <Link className={classes.adress} href="#"  onClick={preventDefault} >
-              {props.address}
+              South Tuxedo Park · Atlanta
               </Link>
               </div>
               <div className={classes.aminities}>
@@ -58,7 +57,7 @@ const GeneralDetail = (props) => {
               </div>
               <div className={classes.paidPhone}>
                 <PhoneInTalkIcon color="primary" style={{height:"16px",width:"15px"}}/>
-                <Typography style={{margineLeft:"6px",}} component="div">{props.tel}</Typography>
+                <Typography style={{margineLeft:"6px",}} component="div">(762) 239-0669</Typography>
               </div>
               </div>
     )
