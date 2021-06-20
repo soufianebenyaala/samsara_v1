@@ -171,11 +171,12 @@ export default function Dashboard() {
   setfiles
   setimages
   setdiscerption*/
-  const uploadimage = () => {
+  const uploadimage = async () => {
     var urlF = [];
     var urlI = [];
     if (files != []) {
-      files.map(async (file) => {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         // Upload file and metadata to the object 'images/mountains.jpg'
         await storageRef.child("files/" + file.name).put(file);
         var DownloadURL = await storage
@@ -184,11 +185,11 @@ export default function Dashboard() {
           .getDownloadURL();
         urlF.push(DownloadURL);
         seturlimage(urlI);
-      });
+      }
     }
     if (images != []) {
-      images.map(async (image) => {
-        // Upload image and metadata to the object 'images/mountains.jpg'
+      for (let i = 0; i < images.length; i++) {
+        const image = images[i];
         await storageRef.child("images/" + image.name).put(image);
         var DownloadURL = await storage
           .ref("images")
@@ -196,7 +197,7 @@ export default function Dashboard() {
           .getDownloadURL();
         urlI.push(DownloadURL);
         seturlfile(urlF);
-      });
+      }
     }
   };
   const submit = async () => {
