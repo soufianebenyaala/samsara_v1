@@ -8,8 +8,15 @@ const InfoContainer = (props) => {
   
   return(
     <div className={classes.infoContainer}>
-      <GeneralDetail hidden={props.isHidden} setOpen={props.handelClickMoreInfo}/>
-      <MoreInfo setOpen={props.handelClickMoreInfo} hidden={props.isHidden}/>
+      <GeneralDetail price={props.price} 
+      NumberOfBathRooms={props.NumberOfBathRooms}
+      NumberOfRooms={props.NumberOfRooms}
+      image={props.image}
+      address={props.address}
+      tel={props.tel}
+      buildingName={props.buildingName}
+      hidden={props.isHidden} setOpen={props.handelClickMoreInfo}/>
+      <MoreInfo disc={props.disc} address={props.address} zip={props.zip} setOpen={props.handelClickMoreInfo} hidden={props.isHidden}/>
       <Contact handelClickOnTour={props.handelClickOnTour} handelClickOnMessage={props.handelClickOnMessage}/>
     </div>
   );

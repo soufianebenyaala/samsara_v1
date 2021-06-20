@@ -14,7 +14,7 @@ const MoreInfo = (props) => {
           <div className={classes.overlayContent}>
             <div className={classes.header}>
               <Link className={`${classes.headerText} ${classes.TextStrong}`} href="#"  onClick={preventDefault} >
-              469 Oakdale Rd Ne, Atlanta, 30307
+              {props.address}, {props.zip}
               </Link>
               <IconButton className={classes.verified}>
               <CheckCircleIcon color="primary" className={classes.headericon}/>
@@ -23,11 +23,11 @@ const MoreInfo = (props) => {
             </div>
             <div className={classes.LocationText}>
             <Link className={classes.adress} href="#"  onClick={preventDefault} >
-              South Tuxedo Park · Atlanta
+              {props.address}
               </Link>
             </div>
             <Typography component="div" className={classes.overlayInfo}>
-            Air Conditioning, High Ceilings, Fireplace, Dishwasher, Balcony, Hardwood Floor, Central Heat, Walk In Closet, In Unit Laundry, Onsite Management, Concierge Service, Fitness Center, Package Service, Residents Lounge, Swimming Pool, Outdoor Space, Controlled Access, Elevator
+           {props.disc}
             </Typography>
             <Typography className={classes.moreDetail}>See more photos and details</Typography>
           </div>

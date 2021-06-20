@@ -21,30 +21,26 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 15px 2px',
     },
 }))
-const RailCurentSearchView= ()=> {
-const [loading, setLoading] = useState([])
+function RailCurentSearchView (props){
+  const classes=useStyles()
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const {currentUser}=useAuth();
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
   const [blogs,setBlogs]=useState([])
   
   
   
+  
   const fetchBlogs=async()=>{
-    const x=[]
+    
     
     const response=db.collection('Allproduct');
     const data=await response.get();
    
     data.docs.map(item=>{
-      x.push(item.data())
-     
-      setBlogs([blogs,item.data()])
+      const x=item.data()
+      
+      setBlogs(blogs =>[...blogs,x])
+      console.log(blogs)
+      
       
       
      
@@ -56,16 +52,17 @@ const [loading, setLoading] = useState([])
     })
     
   }
+  
   useEffect(() => {
     fetchBlogs();
-    console.log(blogs)
+    
   }, [])
   
 
   
 
   
-    const classes=useStyles()
+    
    
     return (
         <div className={classes.contentSection}>
@@ -73,13 +70,26 @@ const [loading, setLoading] = useState([])
                 <StikyHeader/>
                 <div className={classes.listables}>
                 {
-        blogs && blogs.map(blog=>{
-          return(
-          
-              <h4>{blog.address}</h4>
+       
+       blogs && blogs.map(blog=>{
+        return(
+         
+            <DrawerSearch price={blog.price}
+            NumberOfBathRooms={blog.NumberOfBathRooms}
+            NumberOfRooms={blog.NumberOfRooms}
+            image={blog.urlimage[0]}
+            address={blog.adress}
+            tel={blog.telephone}
+            disc={blog.discerption}
+            zip={blog.zipcode}
+            buildingName={blog.buildingName}
+            
+            ></DrawerSearch>
+         
+        )
+      })
 
-          )
-        })
+      
       }
                
                   

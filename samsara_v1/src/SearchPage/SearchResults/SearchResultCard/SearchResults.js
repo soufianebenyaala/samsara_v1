@@ -17,8 +17,17 @@ const SearchResults=(props)=> {
       <div className={classes.listItemContainer}>
         <div className={classes.listItem}>
           <div className={`${classes.card} ${classes.content} `}>
-            <ImageContainer/>
-            <InfoConatiner handelClickOnTour={props.handelClickOnTour} handelClickOnMessage={props.handelClickOnMessage} isHidden={isHidden} handelClickMoreInfo={handelClickMoreInfo}/>
+            <ImageContainer image={props.image}/>
+            <InfoConatiner price={props.price} 
+            NumberOfBathRooms={props.NumberOfBathRooms}
+            NumberOfRooms={props.NumberOfRooms}
+            address={props.address}
+            tel={props.tel}
+            disc={props.disc}
+            zip={props.zip}
+            buildingName={props.buildingName}
+            
+            handelClickOnTour={props.handelClickOnTour} handelClickOnMessage={props.handelClickOnMessage} isHidden={isHidden} handelClickMoreInfo={handelClickMoreInfo}/>
           </div>
         </div>
       </div>
