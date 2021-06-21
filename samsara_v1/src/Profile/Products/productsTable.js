@@ -20,26 +20,28 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { db } from '../../firebase';
+import { useState ,useEffect} from 'react';
 
-function createData(Building_name,address,zip_code, price,NumberOfRooms,NumberOfBathRooms,categorie,aminities,discerption) {
-  return { Building_name,address,zip_code, price,NumberOfRooms,NumberOfBathRooms,categorie,aminities,discerption };
+
+function createData(Building_name,address,zip_code, price,NumberOfRooms,NumberOfBathRooms,categorie,discerption) {
+  return { Building_name,address,zip_code, price,NumberOfRooms,NumberOfBathRooms,categorie,discerption };
+}
+var rows = [];
+
+function addDataTorows(blogs){
+  /*for(var i = 0 ; i<blogs.length;i++){
+    rows[i]={Building_name:blogs[i].buildingName,address:blogs[i].adress ,zip_code:blogs[i].zipcode , price:blogs[i].price,NumberOfRooms:blogs[i].NumberOfRooms ,NumberOfBathRooms:blogs[i].NumberOfBathRooms ,categorie:blogs[i].categorie ,discerption:blogs[i].discerption}
+  }*/
+  blogs && blogs.map((blog)=>{
+    console.log(blogs)
+    rows.push({Building_name:blog.buildingName,address:blog.adress ,zip_code:blog.zipcode , price:blog.price,NumberOfRooms:blog.NumberOfRooms ,NumberOfBathRooms:blog.NumberOfBathRooms ,categorie:blog.categorie ,discerption:blog.discerption})
+  
+  })
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3, 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9, 305, 3.7, 67, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0, 305, 3.7, 67, 4.3),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 305, 3.7, 67, 4.3),
-  createData('Honeycomb', 408, 3.2, 87, 6.5, 305, 3.7, 67, 4.3),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 305, 3.7, 67, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0, 305, 3.7, 67, 4.3),
-  createData('KitKat', 518, 26.0, 65, 7.0, 305, 3.7, 67, 4.3),
-  createData('Lollipop', 392, 0.2, 98, 0.0, 305, 3.7, 67, 4.3),
-  createData('Marshmallow', 318, 0, 81, 2.0, 305, 3.7, 67, 4.3),
-  createData('Nougat', 360, 19.0, 9, 37.0, 305, 3.7, 67, 4.3),
-  createData('Oreo', 437, 18.0, 63, 4.0, 305, 3.7, 67, 4.3),
-];
+
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -69,21 +71,21 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: 'Building_name', numeric: false, disablePadding: true, label: 'Building name' },
-  { id: 'address', numeric: true, disablePadding: false, label: 'address' },
-  { id: 'zip_code', numeric: true, disablePadding: false, label: 'zip code' },
-  { id: 'price', numeric: true, disablePadding: false, label: 'price' },
-  { id: 'NumberOfRooms', numeric: true, disablePadding: false, label: 'NumberOfRooms' },
-  { id: 'NumberOfBathRooms', numeric: true, disablePadding: false, label: 'NumberOfBathRooms' },
-  { id: 'categorie', numeric: true, disablePadding: false, label: 'categorie' },
-  { id: 'aminities', numeric: true, disablePadding: false, label: 'aminities' },
-  { id: 'discerption', numeric: true, disablePadding: false, label: 'discerption' },
+  { id: 'address', numeric: false, disablePadding: true, label: 'address' },
+  { id: 'zip_code', numeric: false, disablePadding: true, label: 'zip code' },
+  { id: 'price', numeric: false, disablePadding: true, label: 'price' },
+  { id: 'NumberOfRooms', numeric: false, disablePadding: true, label: 'NumberOfRooms' },
+  { id: 'NumberOfBathRooms', numeric: false, disablePadding: true, label: 'NumberOfBathRooms' },
+  { id: 'categorie', numeric: false, disablePadding: true, label: 'categorie' },
+  { id: 'discerption', numeric: false, disablePadding: true, label: 'discerption' },
 ];
 
-function EnhancedTableHead(props) {
+function  EnhancedTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+
 
   return (
     <TableHead>
@@ -226,6 +228,28 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+
+
+  const [blogs,setBlogs]=useState([])
+  const fetchBlogs = async()=>{
+    const response=db.collection('Allproduct');
+    const data=await response.get();
+    
+    data.docs.map(item=>{
+      const x=item.data()
+      setBlogs(blogs =>[...blogs,x])
+    })
+    }
+    
+    useEffect(() => {
+    fetchBlogs();  
+    }, [])
+    addDataTorows(blogs)
+    console.log(rows)
+    console.log(rows[0])
+    console.log(typeof(rows[3]))
+
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -312,7 +336,7 @@ export default function EnhancedTable() {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.Building_name}
+                      key={row.price}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -330,7 +354,6 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.NumberOfRooms}</TableCell>
                       <TableCell align="right">{row.NumberOfBathRooms}</TableCell>
                       <TableCell align="right">{row.categorie}</TableCell>
-                      <TableCell align="right">{row.aminities}</TableCell>
                       <TableCell align="right">{row.discerption}</TableCell>
                       
                     </TableRow>

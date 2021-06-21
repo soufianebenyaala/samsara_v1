@@ -3,7 +3,8 @@ import { useState } from 'react';
 import ReactMapGL, {Marker,Popup} from 'react-map-gl';
 import Room from '@material-ui/icons/Room';
 
-function Map() {
+
+function Map(props) {
   const [viewport, setViewport] = useState({
     latitude: 33.886917,
     longitude: 9.537499,
@@ -23,19 +24,22 @@ const popup=()=>{
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapStyle="mapbox://styles/soufiane0213/ckq539lxz0o8i18p3eep9obvt"
     >
-    <Marker onclick={popup} latitude={33.886917} longitude={9.537499} offsetLeft={-20} offsetTop={-10}>
-        <Room style={{fontSize:viewport.zoom *7,color:"red"}} />
-    </Marker>
-    <Popup
-          latitude={33.886917}
-          longitude={9.537499}
-          closeButton={true}
-          closeOnClick={false}
-          onClose={() => togglePopup(false)}
-          anchor="left" >
-          <div>You are here</div>
-    </Popup>
+    {props.blogs && props.blogs.map((blog)=>(
 
+      <Marker  latitude={parseFloat(blog.latitude)} longitude={parseFloat(blog.longitude)} offsetLeft={-20} offsetTop={-10}>
+      <Room style={{fontSize:viewport.zoom *4,color:"red"}} />
+      <Popup
+        latitude={parseFloat(blog.latitude)}
+        longitude={parseFloat(blog.longitude)}
+        closeButton={true}
+        closeOnClick={false}
+        onClose={() => togglePopup(false)}
+        anchor="left" >
+        <div>You are here</div>
+      </Popup>
+      </Marker>
+     
+    ))}
   </ReactMapGL>
   );
 }
