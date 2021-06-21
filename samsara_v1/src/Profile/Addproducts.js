@@ -171,9 +171,8 @@ export default function Dashboard() {
   setfiles
   setimages
   setdiscerption*/
-  const uploadimage = async () => {
+  const uploadfile = async () => {
     var urlF = [];
-    var urlI = [];
     if (files != []) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
@@ -184,9 +183,12 @@ export default function Dashboard() {
           .child(file.name)
           .getDownloadURL();
         urlF.push(DownloadURL);
-        seturlimage(urlI);
+        seturlfile(urlF);
       }
     }
+  }
+  const uploadimage = async () => {
+    var urlI = [];
     if (images != []) {
       for (let i = 0; i < images.length; i++) {
         const image = images[i];
@@ -196,14 +198,11 @@ export default function Dashboard() {
           .child(image.name)
           .getDownloadURL();
         urlI.push(DownloadURL);
-        seturlfile(urlF);
+        seturlimage(urlI);
       }
     }
   };
-  const submit = async () => {
-    uploadimage();
-
-    console.log(urlfile, urlimage);
+  const addToDataBase = async () => {
     await db
       .collection("users")
       .doc(currentUser.uid)
@@ -222,40 +221,44 @@ export default function Dashboard() {
         discerption: discerption,
         latitude: latitude,
         longitude: longitude,
-        telephone:telephone
+        telephone: telephone
       });
 
-      await db.collection("users")
+    await db.collection("users")
       .doc(currentUser.uid)
       .collection("products")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach(async (doc) => {
-        if (doc.exists) {
-          // Convert to City object
-          await db.collection("Allproduct").doc(doc.id).set({
-            userUid:currentUser.uid,
-            buildingName: doc.data().buildingName,
-            adress: doc.data().adress,
-            zipcode: doc.data().zipcode,
-            price: doc.data().price,
-            NumberOfRooms:doc.data().NumberOfRooms,
-            NumberOfBathRooms: doc.data().NumberOfBathRooms,
-            categorie: doc.data().categorie,
-            aminities: doc.data().aminities,
-            urlimage: doc.data().urlimage,
-            urlfile: doc.data().urlfile,
-            discerption: doc.data().discerption,
-            latitude: doc.data().latitude,
-            longitude: doc.data().longitude,
-            telephone:doc.data().telephone
-          });
-        }
+          if (doc.exists) {
+            // Convert to City object
+            await db.collection("Allproduct").doc(doc.id).set({
+              userUid: currentUser.uid,
+              buildingName: doc.data().buildingName,
+              adress: doc.data().adress,
+              zipcode: doc.data().zipcode,
+              price: doc.data().price,
+              NumberOfRooms: doc.data().NumberOfRooms,
+              NumberOfBathRooms: doc.data().NumberOfBathRooms,
+              categorie: doc.data().categorie,
+              aminities: doc.data().aminities,
+              urlimage: doc.data().urlimage,
+              urlfile: doc.data().urlfile,
+              discerption: doc.data().discerption,
+              latitude: doc.data().latitude,
+              longitude: doc.data().longitude,
+              telephone: doc.data().telephone
+            });
+          }
+        });
       });
-    });
-
+  }
+  const submit = async () => {
+    await uploadimage()
+    await uploadfile()
+    await addToDataBase()
     history.push("/products")
-   }
+  }
 
   console.log({
     urlfile,
@@ -374,9 +377,9 @@ export default function Dashboard() {
             discerption={discerption}
             latitude={latitude}
             longitude={longitude}
-            
+
             submit={submit}
-            //product={product}
+          //product={product}
           />
         </Container>
       </main>

@@ -14,27 +14,6 @@ function Map(props) {
 const popup=()=>{
   togglePopup(true)
 }
-console.log(props.blog)
-function markerrender(blogs){
-  blogs && blogs.map((blog)=>{
-    console.log("run");
-     return(
-      <Marker  latitude={parseFloat(blog.latitude)} longitude={parseFloat(blog.longitude)} offsetLeft={-20} offsetTop={-10}>
-      <Room style={{fontSize:viewport.zoom *7,color:"red"}} />
-      <Popup
-
-        latitude={parseFloat(blog.latitude)}
-        longitude={parseFloat(blog.longitude)}
-        closeButton={true}
-        closeOnClick={false}
-        onClose={() => togglePopup(false)}
-        anchor="left" >
-        <div>You are here</div>
-      </Popup>
-      </Marker>
-     )
-  })
-}
 
   return (
     <ReactMapGL
@@ -45,9 +24,22 @@ function markerrender(blogs){
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapStyle="mapbox://styles/soufiane0213/ckq539lxz0o8i18p3eep9obvt"
     >
-    {markerrender(props.blogs)}
+    {props.blogs && props.blogs.map((blog)=>(
 
-
+      <Marker  latitude={parseFloat(blog.latitude)} longitude={parseFloat(blog.longitude)} offsetLeft={-20} offsetTop={-10}>
+      <Room style={{fontSize:viewport.zoom *4,color:"red"}} />
+      <Popup
+        latitude={parseFloat(blog.latitude)}
+        longitude={parseFloat(blog.longitude)}
+        closeButton={true}
+        closeOnClick={false}
+        onClose={() => togglePopup(false)}
+        anchor="left" >
+        <div>You are here</div>
+      </Popup>
+      </Marker>
+     
+    ))}
   </ReactMapGL>
   );
 }
