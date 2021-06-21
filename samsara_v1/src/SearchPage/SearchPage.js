@@ -6,6 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import RailCurentSearchView from "./SearchRailComponent/RailCurentSearchView";
 import SearchHeader from '../navbar/SearchHeader'
 import theme from "../theme";
+import { db } from '../firebase';
+import { useState ,useEffect} from 'react';
+import {useAuth} from '../contexts/AuthContext';
+
 const useStyles = makeStyles((theme) => ({
   mainView: {
     position: "relative",
@@ -42,6 +46,20 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPage(props) {
   const classes = useStyles();
+  const [blogs,setBlogs]=useState([])
+  const fetchBlogs=async()=>{
+    const response=db.collection('Allproduct');
+    const data=await response.get();
+
+    data.docs.map(item=>{
+      const x=item.data()
+      setBlogs(blogs =>[...blogs,x])
+    })
+  }
+
+  useEffect(() => {
+    fetchBlogs();  
+  }, [])
   return (
     <div>
         <SearchHeader mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
@@ -50,13 +68,13 @@ function SearchPage(props) {
           <div className={classes.RailRail}>
             <div className={classes.RailPlaceholder}>
               
-              <RailCurentSearchView />
+              <RailCurentSearchView blogs={blogs}/>
             </div>
           </div>
         </div>
       </div>
       <div className={classes.mapContainer}>
-        <Maps />
+        <Maps blogs={blogs}/>
       </div>
     </div>
   );

@@ -23,81 +23,27 @@ const useStyles = makeStyles((theme) => ({
 }))
 function RailCurentSearchView (props){
   const classes=useStyles()
-
-  const [blogs,setBlogs]=useState([])
   
-  
-  
-  
-  const fetchBlogs=async()=>{
-    
-    
-    const response=db.collection('Allproduct');
-    const data=await response.get();
-   
-    data.docs.map(item=>{
-      const x=item.data()
-      
-      setBlogs(blogs =>[...blogs,x])
-      console.log(blogs)
-      
-      
-      
-     
-
-
-    
-    
-    
-    })
-    
-  }
-  
-  useEffect(() => {
-    fetchBlogs();
-    
-  }, [])
-  
-
-  
-
-  
-    
-   
     return (
         <div className={classes.contentSection}>
             <div className={classes.StikyHeaderContainer}>
                 <StikyHeader/>
                 <div className={classes.listables}>
-                {
-       
-       blogs && blogs.map(blog=>{
-        return(
-         
-            <DrawerSearch price={blog.price}
-            NumberOfBathRooms={blog.NumberOfBathRooms}
-            NumberOfRooms={blog.NumberOfRooms}
-            image={blog.urlimage[0]}
-            address={blog.adress}
-            tel={blog.telephone}
-            disc={blog.discerption}
-            zip={blog.zipcode}
-            buildingName={blog.buildingName}
-            
-            ></DrawerSearch>
-         
-        )
-      })
 
-      
-      }
-               
-                  
-
-       
-                       
-                        
-                        
+                   {props.blogs && props.blogs.map(blog=>{
+                     return(
+                       <DrawerSearch price={blog.price}
+                       NumberOfBathRooms={blog.NumberOfBathRooms}
+                       NumberOfRooms={blog.NumberOfRooms}
+                       image={blog.urlimage[0]}
+                       address={blog.adress}
+                       tel={blog.telephone}
+                       disc={blog.discerption}
+                       zip={blog.zipcode}
+                       buildingName={blog.buildingName}
+                       ></DrawerSearch>)}
+                     )
+                   }
                 </div>
             </div>
         </div>

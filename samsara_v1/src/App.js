@@ -16,10 +16,8 @@ import Products from "./Profile/Products"
 import Addproduct from "./Profile/Addproducts"
 
 
-
 function App() {
   return (
-
       <div>
         <Router>
           <AuthProvider>
@@ -39,7 +37,6 @@ function App() {
           </AuthProvider>
         </Router>
       </div>
-   
   )
 }
 
