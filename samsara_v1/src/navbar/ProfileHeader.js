@@ -9,6 +9,8 @@ import SearchBar from './SearchBar';
 import SignUpDialog from './SignUpDialog';
 import LogInDialog from './LogInDialog';
 import Avatar from '@material-ui/core/Avatar';
+import Drawer from '@material-ui/core/Drawer';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import {AuthProvider} from "../contexts/AuthContext"
 import {useAuth} from '../contexts/AuthContext'
@@ -109,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
     color: props=> props.fontColor,
   },
 }));
+
 function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url}){
   
 
@@ -129,7 +132,7 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
   }
   
 }
-function Header(props) {
+function ProfileHeader(props) {
   const [url, seturl]= useState("")
    useEffect(() => {
     // Update the document title using the browser API
@@ -191,13 +194,13 @@ function Header(props) {
   
   return (
     <div className={classes.root}>
-      <AppBar className={props.className} position={(props.position!=null)?props.position:'static'} color={props.color}>
-        <Toolbar className={props.toolbar}>
-        <DrawerComponent 
-        handelClickOpenSignIn={handelClickOpenSignIn} 
-        handelClickOpenSignUp={handelClickOpenSignUp} 
-        color={props.fontColor} />
-
+      <AppBar className={props.className}  position={(props.position!=null)?props.position:'static'} color={props.color}>
+        <Toolbar >
+          
+          {props.list}
+      
+         
+      
           <IconButton >
               <img alt="myLogo" className={classes.logo_img}  src={props.Logo} />
           </IconButton>
@@ -240,4 +243,4 @@ function Header(props) {
     </div>)
 }
 
-export default Header
+export default ProfileHeader

@@ -8,6 +8,8 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CardActions,
+
   Divider,
   Grid,
   TextField
@@ -95,7 +97,7 @@ const AccountProfileDetails = (props) => {
         <CardContent>
           <Grid
             container
-            spacing={3}
+            spacing={6}
           >
             <Grid
               item
@@ -202,6 +204,9 @@ const AccountProfileDetails = (props) => {
           </Grid>
         </CardContent>
         <Divider />
+        <CardActions style={{display: "flex",
+    padding: "8px",
+    justifyContent: "flex-end",}} >
         <Box
           style={{
             display: 'flex',
@@ -210,13 +215,14 @@ const AccountProfileDetails = (props) => {
           }}
         >
           <Button
-            color="primary"
             variant="contained"
             onClick={updateProfile}
+            style={{backgroundColor: "cornflowerblue" , color:"#fff",textTransform:"none"}}
           >
             Save details
           </Button>
         </Box>
+        </CardActions>
       </Card>
     </form>
   );

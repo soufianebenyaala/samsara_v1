@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import ProfileHeader from '../navbar/ProfileHeader';
 import {
   CssBaseline,
   Drawer,
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -133,11 +135,50 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  const list=()=>(
+    <>
+    <div className={classes.toolbarIcon}>
+    <IconButton className={clsx(
+        classes.menuButton,
+        !open && classes.menuButtonHidden
+      )} onClick={handleDrawerClose}>
+      <ChevronLeftIcon />
+    </IconButton>
+  </div>
+  <IconButton
+    edge="start"
+    color="inherit"
+    aria-label="open drawer"
+    onClick={handleDrawerOpen}
+    className={clsx(
+      classes.menuButton,
+      open && classes.menuButtonHidden
+    )}
+  >
+    <MenuIcon />
+  </IconButton>
+  </>)
   return (
+    <>
+     {<ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>}
     <div className={classes.root}>
+    <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        }}
+        open={open}
+      >
+        
+        <Divider />
+        <List>{mainListItems}</List>
+        <Divider />
+        <List>{secondaryListItems}</List>
+      </Drawer>
+
       <CssBaseline />
-      <AppBar
+      
+      {/*<AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
@@ -170,24 +211,8 @@ export default function Dashboard() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-
+      */}
+    
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
@@ -200,10 +225,10 @@ export default function Dashboard() {
           >
             <Container maxWidth="lg">
               <Grid container spacing={3}>
-                <Grid item lg={4} md={6} xs={12}>
+                <Grid style={{display: "flex"}} item lg={4} md={6} xs={12}>
                   <AccountProfile />
                 </Grid>
-                <Grid item lg={8} md={6} xs={12}>
+                <Grid  item lg={8} md={6} xs={12}>
                   <AccountProfileDetails />
                 </Grid>
               </Grid>
@@ -212,5 +237,6 @@ export default function Dashboard() {
         </Container>
       </main>
     </div>
+</>
   );
 }
