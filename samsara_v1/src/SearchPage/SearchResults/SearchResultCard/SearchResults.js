@@ -22,7 +22,8 @@ const SearchResults = (props) => {
     >
       <div className={classes.listItem}>
         <div className={`${classes.card} ${classes.content} `}>
-          <ImageContainer image={props.image}
+          <ImageContainer
+            image={props.image}
             handelOpenDetail={props.handelOpenDetail}
           />
           <InfoConatiner
@@ -38,7 +39,6 @@ const SearchResults = (props) => {
             handelClickOnMessage={props.handelClickOnMessage}
             isHidden={isHidden}
             handelClickMoreInfo={handelClickMoreInfo}
-            
           />
         </div>
       </div>
