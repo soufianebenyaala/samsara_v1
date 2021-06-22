@@ -41,7 +41,7 @@ function AccountProfile(props) {
       city: "Los Angeles",
       country: "USA",
       jobTitle: "Senior Developer",
-      name: "Katarina Smith",
+      name: "Mohamed Jed",
       timezone: "GTM-7",
     },
   };
@@ -51,7 +51,7 @@ function AccountProfile(props) {
     city: "Los Angeles",
     country: "USA",
     jobTitle: "Senior Developer",
-    name: "Katarina Smith",
+    name: "Mohamed Jed",
     timezone: "GTM-7",
   };
   const { currentUser } = useAuth();

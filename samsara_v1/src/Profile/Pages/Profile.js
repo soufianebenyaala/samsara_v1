@@ -1,40 +1,18 @@
 import React from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import ProfileHeader from '../navbar/ProfileHeader';
 import {
   CssBaseline,
-  Drawer,
   Box,
-  List,
-  Typography,
-  Divider,
-  IconButton,
   Container,
   Grid,
-  Link,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import  MainListItems from "./DashbordComp/MainListItems";
-
-import AccountProfile from '../Profile/account/AccountProfile';
-import AccountProfileDetails from '../Profile/account/AccountProfileDetails';
-import img from '../Home/blacklogo-01.svg'
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import AccountProfile from '../../Profile/account/AccountProfile';
+import AccountProfileDetails from '../../Profile/account/AccountProfileDetails';
+
+
+
 
 const drawerWidth = 240;
 
@@ -120,56 +98,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const list=()=>(
-    <>
-    <div className={classes.toolbarIcon}>
-    <IconButton className={clsx(
-        classes.menuButton,
-        !open && classes.menuButtonHidden
-      )} onClick={handleDrawerClose}>
-      <ChevronLeftIcon />
-    </IconButton>
-  </div>
-  <IconButton
-    edge="start"
-    color="inherit"
-    aria-label="open drawer"
-    onClick={handleDrawerOpen}
-    className={clsx(
-      classes.menuButton,
-      open && classes.menuButtonHidden
-    )}
-  >
-    <MenuIcon />
-  </IconButton>
-  </>)
   return (
     <>
-     <ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo={img}/>
-    <div className={classes.root}>
-    <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        
-        <Divider />
-        <List><MainListItems/></List>
- 
-      </Drawer>
-
-      <CssBaseline />
-      <main className={classes.content}>
+    
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Box
@@ -191,8 +122,7 @@ export default function Dashboard() {
             </Container>
           </Box>
         </Container>
-      </main>
-    </div>
+      
 </>
   );
 }
