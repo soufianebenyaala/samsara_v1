@@ -37,22 +37,6 @@ export const mainListItems = (
         <ListItemText primary="Profile" />
       </ListItem>
     </Link>
-    <Link href="/Dashboard" >
-      <ListItem button>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Reports" />
-      </ListItem>
-    </Link>
-    <Link href="/Dashboard" >
-      <ListItem button>
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-        <ListItemText primary="Integrations" />
-      </ListItem>
-    </Link>
   </div>
 );
 
