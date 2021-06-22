@@ -1,5 +1,5 @@
 import React,{useState,useEffect } from 'react'
-import { fade,makeStyles } from '@material-ui/core/styles';
+import { fade,makeStyles,withStyles  } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,7 @@ import {useAuth} from '../contexts/AuthContext'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
 import firebase from "../firebase"
+import Badge from '@material-ui/core/Badge';
 
 
 
@@ -110,14 +111,52 @@ const useStyles = makeStyles((theme) => ({
     background:"white"
   }
 }));
-
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    right: "26%",
+    bottom: "7%",
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge);
 function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url}){
   
 
   if(currentUser){
     return(
       <Link to={{ pathname :"/profile/account"}}>
+        <StyledBadge
+        overlap="circle"
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        variant="dot"
+        >
       <Avatar alt="Remy Sharp" src={url}  size="medium" className={` ${classes.large} ${classes.space_button} ${classes.fontColor}`} />
+      </StyledBadge>
       </Link>
      
     );

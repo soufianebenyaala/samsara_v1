@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect,useContext } from 'react'
+import React,{useState,useEffect } from 'react'
 import { fade,makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,8 +9,7 @@ import SearchBar from './SearchBar';
 import SignUpDialog from './SignUpDialog';
 import LogInDialog from './LogInDialog';
 import Avatar from '@material-ui/core/Avatar';
-
-import {AuthProvider} from "../contexts/AuthContext"
+import Badge from '@material-ui/core/Badge';
 import {useAuth} from '../contexts/AuthContext'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
@@ -115,7 +114,16 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
   if(currentUser){
     return(
       <Link to={{ pathname :"/profile/account"}}>
+        <Badge
+        overlap="circle"
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        variant="dot"
+        >
       <Avatar alt="Remy Sharp" src={url}  size="medium" className={` ${classes.large} ${classes.space_button} ${classes.fontColor}`} />
+      </Badge>
       </Link>
      
     );
