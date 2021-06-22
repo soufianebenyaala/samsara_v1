@@ -14,7 +14,9 @@ const SearchResults=(props)=> {
       setisHidden(myclass)
     }
     return (
-      <div className={classes.listItemContainer}>
+      <div 
+      onClick={()=>{props.setIDbuilding(props.idValue)}}
+      className={classes.listItemContainer}>
         <div className={classes.listItem}>
           <div className={`${classes.card} ${classes.content} `}>
             <ImageContainer image={props.image}/>
