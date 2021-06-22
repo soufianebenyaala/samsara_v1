@@ -16,6 +16,7 @@ const SearchResults=(props)=> {
     return (
       <div 
       onClick={()=>{props.setIDbuilding(props.idValue)}}
+
       className={classes.listItemContainer}>
         <div className={classes.listItem}>
           <div className={`${classes.card} ${classes.content} `}>

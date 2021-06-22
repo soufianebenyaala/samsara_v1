@@ -14,7 +14,6 @@ function Map(props) {
   const popup = () => {
     togglePopup(true)
   }
-console.log(props.IDbuilding);
   return (
     <ReactMapGL
       {...viewport}
@@ -26,21 +25,35 @@ console.log(props.IDbuilding);
     >
       {props.blogs && props.blogs.map((blog) => (
 
-        <Marker id={blog.id} key={blog.id} latitude={parseFloat(blog["data"].latitude)} longitude={parseFloat(blog["data"].longitude)} offsetLeft={-20} offsetTop={-10}>
-          <Room style={{ fontSize: viewport.zoom * 4, color: "red" }} />
+        <Marker 
+          id={blog.id}
+          key={blog.id} 
+          latitude={parseFloat(blog["data"].latitude)} 
+          longitude={parseFloat(blog["data"].longitude)} 
+          offsetLeft={-3.5 * viewport.zoom}
+          offsetTop={-7 * viewport.zoom}
+          >
+          <Room style={{ fontSize: viewport.zoom * 7, color: "red" }} />
           {(props.IDbuilding == blog.id) ? (
             <Popup
+              key={blog.id}
               latitude={parseFloat(blog["data"].latitude)}
               longitude={parseFloat(blog["data"].longitude)}
               closeButton={true}
               closeOnClick={false}
               onClose={() => togglePopup(false)}
               anchor="left" >
-              <div>You are here</div>
-            </Popup>) : (
-            <>
-            </>
-          )
+              <div className="card">
+                <label>building Name</label>
+                <h4 className="place">{blog["data"].buildingName}</h4>
+                <label>adress</label>
+                <p className="desc">{blog["data"].adress}</p>
+                <label>price</label>
+                <span className="username">
+                  Created by <b>{blog["data"].price}</b>
+                </span>
+              </div>
+            </Popup>) : (<></>)
           }
 
         </Marker>
