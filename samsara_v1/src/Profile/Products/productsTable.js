@@ -55,19 +55,20 @@ function addDataTorows(blogs) {
   }*/
   blogs &&
     blogs.map((blog) => {
-      console.log(blogs);
       rows.push({
-        Building_name: blog.buildingName,
-        address: blog.adress,
-        zip_code: blog.zipcode,
-        price: blog.price,
-        NumberOfRooms: blog.NumberOfRooms,
-        NumberOfBathRooms: blog.NumberOfBathRooms,
-        categorie: blog.categorie,
-        discerption: blog.discerption,
+        id_Building:blog.id,
+        Building_name: blog["data"].buildingName,
+        address: blog["data"].adress,
+        zip_code: blog["data"].zipcode,
+        price: blog["data"].price,
+        NumberOfRooms: blog["data"].NumberOfRooms,
+        NumberOfBathRooms: blog["data"].NumberOfBathRooms,
+        categorie: blog["data"].categorie,
+        discerption: blog["data"].discerption,
       });
     });
 }
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -307,12 +308,11 @@ export default function EnhancedTable() {
 
   const [blogs, setBlogs] = useState([]);
   const fetchBlogs = async () => {
-    const response = db.collection("Allproduct");
+    const response =  db.collection("Allproduct");
     const data = await response.get();
 
     data.docs.map((item) => {
-      const x = item.data();
-      setBlogs((blogs) => [...blogs, x]);
+       setBlogs((blogs) => [...blogs, {id:item.id,data:item.data()}]);
     });
   };
 
@@ -320,9 +320,7 @@ export default function EnhancedTable() {
     fetchBlogs();
   }, []);
   addDataTorows(blogs);
-  console.log(rows);
-  console.log(rows[0]);
-  console.log(typeof rows[3]);
+  console.log(rows)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -332,7 +330,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.Building_name);
       setSelected(newSelecteds);
       return;
     }
@@ -404,17 +402,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.Building_name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.Building_name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.price}
+                      key={row.id_Building}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">

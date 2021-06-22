@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles'
 import ProfileHeader from '../navbar/ProfileHeader';
@@ -7,16 +7,17 @@ import AddIcon from '@material-ui/icons/Add';
 import img from '../Home/blacklogo-01.svg'
 
 import {
- Drawer,
- List ,
- Typography,
- Divider ,
- IconButton ,
- Container ,
- Link } from '@material-ui/core';
+  Drawer,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  Container,
+  Link
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import  MainListItems from './DashbordComp/MainListItems';
+import MainListItems from './DashbordComp/MainListItems';
 import Products from './Products/productsTable';
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -135,62 +136,54 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const list=()=>(
+  const list = () => (
     <>
-    <div className={classes.toolbarIcon}>
-    <IconButton className={clsx(
-        classes.menuButton,
-        !open && classes.menuButtonHidden
-      )} onClick={handleDrawerClose}>
-      <ChevronLeftIcon />
-    </IconButton>
-  </div>
-  <IconButton
-    edge="start"
-    color="inherit"
-    aria-label="open drawer"
-    onClick={handleDrawerOpen}
-    className={clsx(
-      classes.menuButton,
-      open && classes.menuButtonHidden
-    )}
-  >
-    <MenuIcon />
-  </IconButton>
-  </>)
+      <div className={classes.toolbarIcon}>
+        <IconButton className={clsx(
+          classes.menuButton,
+          !open && classes.menuButtonHidden
+        )} onClick={handleDrawerClose}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </div>
+      <IconButton
+        edge="start"
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        className={clsx(
+          classes.menuButton,
+          open && classes.menuButtonHidden
+        )}
+      >
+        <MenuIcon />
+      </IconButton>
+    </>)
   return (
     <>
-     <ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo={img}/>
-    <div className={classes.root}>
-    <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        
-        <Divider />
-        <List><MainListItems/></List>
-       
-      </Drawer>
-
-
-
-
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-      
-      <Fab className={classes.fab}  href="/Addproduct" variant="extended">
-        <AddIcon  />
-        ajouter maison
-       
-      </Fab>
-      <Products/>
-        </Container>
-      </main>
-    </div>
+      <ProfileHeader className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo={img} />
+      <div className={classes.root}>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <Divider />
+          <List><MainListItems /></List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Fab className={classes.fab} href="/Addproduct" variant="extended">
+              <AddIcon />
+              ajouter maison
+            </Fab>
+            <Products />
+          </Container>
+        </main>
+      </div>
     </>
   );
 }
