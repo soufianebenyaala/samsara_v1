@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import SearchResults from '../SearchResultCard/SearchResults'
+import DetailDrawer from './DetailDrawer'
 import MessageForm from './MessageForm'
 import RequestForm from './RequestForm'
 const DrawerSearch = (props) => {
@@ -19,12 +20,16 @@ const DrawerSearch = (props) => {
   const handelCloseOfTour=()=>{
     setTour(false)
   }
+  const [openDetail, setOpenDetail] = useState(false)
+  const handelOpenDetail=()=>{
+    setOpenDetail(true)
+  }
   return (
     <div>
       <MessageForm onClose={handelCloseOfMesssage} aria-labelledby="simple-dialog-title" open={Message}/>
       <RequestForm onClose={handelCloseOfTour} aria-labelledby="simple-dialog-title" open={Tour}/>
+      <DetailDrawer openDetail={openDetail}/>
       <SearchResults price={props.price}
-      
       NumberOfBathRooms={props.NumberOfBathRooms}
       NumberOfRooms={props.NumberOfRooms}
       image={props.image}
