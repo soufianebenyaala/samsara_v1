@@ -35,7 +35,7 @@ function MainListItems()  {
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Products" />
+        <ListItemText primary="Immobilier" />
       </ListItem>
     </Link>
     <Link className={classes.noLinks} href="/profile" >
@@ -44,6 +44,30 @@ function MainListItems()  {
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
+      </ListItem>
+    </Link>
+    <Link className={classes.noLinks} href="/profile" >
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="mesrende-vous" />
+      </ListItem>
+    </Link>
+    <Link className={classes.noLinks} href="/profile" >
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Whishlist" />
+      </ListItem>
+    </Link>
+    <Link className={classes.noLinks} href="/profile" >
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="messages" />
       </ListItem>
     </Link>
   </div>
