@@ -2,26 +2,22 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles'
 import ProfileHeader from '../navbar/ProfileHeader';
+import img from '../Home/blacklogo-01.svg'
 
 import {
- CssBaseline,
  Drawer,
  Box ,
- AppBar ,
- Toolbar ,
  List ,
  Typography,
  Divider ,
  IconButton ,
- Badge ,
  Container ,
  Grid ,
  Paper ,
  Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './DashbordComp/listItems';
+import  MainListItems  from './DashbordComp/MainListItems';
 import Chart from './DashbordComp/Chart';
 import Deposits from './DashbordComp/Deposits';
 import Orders from './DashbordComp/Order';
@@ -155,7 +151,7 @@ export default function Dashboard() {
   </>)
   return (
     <>
-    {<ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>}
+     <ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo={img}/>
     <div className={classes.root}>
     <Drawer
         variant="permanent"
@@ -166,7 +162,7 @@ export default function Dashboard() {
       >
         
         <Divider />
-        <List>{mainListItems}</List>
+        <List><MainListItems/></List>
         
       </Drawer>
 

@@ -1,26 +1,32 @@
-import React,{useState} from 'react';
-import ImageContainer from './CardComponent/ImageContainer'
-import UseStyles from './theme/index'
-import InfoConatiner from './CardComponent/InfoContainer'
+import React, { useState } from "react";
+import ImageContainer from "./CardComponent/ImageContainer";
+import UseStyles from "./theme/index";
+import InfoConatiner from "./CardComponent/InfoContainer";
 
-const SearchResults=(props)=> {
-    const classes = UseStyles();
-    const [isHidden, setisHidden] = useState(null);
-    const [isClicked, setClicked] = useState(false);
-    const handelClickMoreInfo=()=>{
-      console.log(isClicked)
-      setClicked(!isClicked)
-      var myclass=(isClicked)?null:(classes.hiddenNoMore)
-      setisHidden(myclass)
-    }
-    return (
-      <div 
-      onClick={()=>{props.setIDbuilding(props.idValue)}}
-      className={classes.listItemContainer}>
-        <div className={classes.listItem}>
-          <div className={`${classes.card} ${classes.content} `}>
-            <ImageContainer image={props.image}/>
-            <InfoConatiner price={props.price} 
+const SearchResults = (props) => {
+  const classes = UseStyles();
+  const [isHidden, setisHidden] = useState(null);
+  const [isClicked, setClicked] = useState(false);
+  const handelClickMoreInfo = () => {
+    console.log(isClicked);
+    setClicked(!isClicked);
+    var myclass = isClicked ? null : classes.hiddenNoMore;
+    setisHidden(myclass);
+  };
+  return (
+    <div
+      onClick={() => {
+        props.setIDbuilding(props.idValue);
+      }}
+      className={classes.listItemContainer}
+    >
+      <div className={classes.listItem}>
+        <div className={`${classes.card} ${classes.content} `}>
+          <ImageContainer image={props.image}
+            handelOpenDetail={props.handelOpenDetail}
+          />
+          <InfoConatiner
+            price={props.price}
             NumberOfBathRooms={props.NumberOfBathRooms}
             NumberOfRooms={props.NumberOfRooms}
             address={props.address}
@@ -28,12 +34,16 @@ const SearchResults=(props)=> {
             disc={props.disc}
             zip={props.zip}
             buildingName={props.buildingName}
+            handelClickOnTour={props.handelClickOnTour}
+            handelClickOnMessage={props.handelClickOnMessage}
+            isHidden={isHidden}
+            handelClickMoreInfo={handelClickMoreInfo}
             
-            handelClickOnTour={props.handelClickOnTour} handelClickOnMessage={props.handelClickOnMessage} isHidden={isHidden} handelClickMoreInfo={handelClickMoreInfo}/>
-          </div>
+          />
         </div>
       </div>
-    )
-}
+    </div>
+  );
+};
 
-export default SearchResults
+export default SearchResults;

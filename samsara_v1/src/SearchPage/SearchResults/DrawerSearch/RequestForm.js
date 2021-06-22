@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     background: "#2e64e2",
     boxShadow: "0 1px 2px 0 rgb(0 0 0 / 20%)",
-    textDecoration: "none",
+    textTransform: "none",
   },
   subHeader: {
     lineHeight: "24px",
@@ -511,6 +511,7 @@ const RequestForm = (props) => {
                   <IconButton
                     style={{ position: "absolute" }}
                     aria-label="delete"
+                    onClick={props.onClose}
                   >
                     <ClearIcon />
                   </IconButton>

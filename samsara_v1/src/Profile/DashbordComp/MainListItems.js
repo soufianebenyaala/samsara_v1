@@ -2,18 +2,27 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import Link from "@material-ui/core/Link";
+import { makeStyles } from '@material-ui/core/styles'
+const useStyles = makeStyles((theme) => ({
+  noLinks:{
+  textDecoration:"none",
+  color:"black",
+  "&:hover":{
+    textDecoration:"none",
+    color:"black",
+  }
+  }
+}))
 
-export const mainListItems = (
+function MainListItems()  {
+  const classes=useStyles()
+  return(
   <div>
-    <Link href="/Dashboard" >
+    <Link className={classes.noLinks}  href="/Dashboard" >
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
@@ -21,7 +30,7 @@ export const mainListItems = (
         <ListItemText primary="Dashboard" />
       </ListItem>
     </Link>
-    <Link href="/products" >
+    <Link className={classes.noLinks}  href="/products" >
       <ListItem button>
         <ListItemIcon>
           <ShoppingCartIcon />
@@ -29,7 +38,7 @@ export const mainListItems = (
         <ListItemText primary="Products" />
       </ListItem>
     </Link>
-    <Link href="/profile" >
+    <Link className={classes.noLinks} href="/profile" >
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
@@ -38,28 +47,6 @@ export const mainListItems = (
       </ListItem>
     </Link>
   </div>
-);
+)}
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
-);
+export default MainListItems

@@ -261,6 +261,7 @@ const MessageForm = (props) => {
                   <IconButton
                     style={{ position: "absolute" }}
                     aria-label="delete"
+                    onClick={props.onClose}
                   >
                     <ClearIcon />
                   </IconButton>

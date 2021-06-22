@@ -3,7 +3,15 @@ import SearchResults from "../SearchResultCard/SearchResults";
 import DetailDrawer from "./DetailDrawer";
 import MessageForm from "./MessageForm";
 import RequestForm from "./RequestForm";
+
 const DrawerSearch = (props) => {
+  const [openDetail, setOpenDetail] = useState(false);
+  const handelOpenDetail = (name) => {
+    setOpenDetail(true);
+  };
+  const handelCloseDetail = () => {
+    setOpenDetail(false);
+  };
   const [Message, setMessage] = useState(false);
   const handelClickOnMessage = () => {
     setMessage(true);
@@ -18,10 +26,7 @@ const DrawerSearch = (props) => {
   const handelCloseOfTour = () => {
     setTour(false);
   };
-  const [openDetail, setOpenDetail] = useState(false);
-  const handelOpenDetail = () => {
-    setOpenDetail(true);
-  };
+ 
   return (
     <div>
       <MessageForm
@@ -34,7 +39,10 @@ const DrawerSearch = (props) => {
         aria-labelledby="simple-dialog-title"
         open={Tour}
       />
-      <DetailDrawer openDetail={openDetail} />
+      <DetailDrawer
+        handelCloseDetail={handelCloseDetail}
+        openDetail={openDetail}
+      />
       <SearchResults
         price={props.price}
         idValue={props.idValue}
@@ -49,6 +57,7 @@ const DrawerSearch = (props) => {
         buildingName={props.buildingName}
         handelClickOnTour={handelClickOnTour}
         handelClickOnMessage={handelClickOnMessage}
+        handelOpenDetail={handelOpenDetail}
       />
     </div>
   );

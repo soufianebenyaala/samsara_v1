@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 const ImageContainer = (props) => {
     const classes = UseStyles();
     return(
-    <div className={classes.imgContainer}>
+    <div onClick={props.handelOpenDetail} className={classes.imgContainer}>
       <div className={classes.img} style={{backgroundImage: `url(${props.image}), url(https://img.zumpercdn.com/329255235/1280x960?auto=format&fit=crop&h=11&w=20&dpr=1)`,}}>
         <div className={classes.badges}>
           <Chip style={{backgroundColor:"#911ea0",lineHeight: '9px',height:'15px',textTransform:'uppercase',color: '#fff',fontWeight: '700',padding: '3px 0px',fontSize: '10px',}}  label="featured"/>

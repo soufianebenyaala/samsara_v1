@@ -1,18 +1,13 @@
-import React,{useState,useRef,useEffect,useContext } from 'react'
+import React,{useState,useEffect } from 'react'
 import { fade,makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import DrawerComponent from './DrawerComponent';
 import SearchBar from './SearchBar';
 import SignUpDialog from './SignUpDialog';
 import LogInDialog from './LogInDialog';
 import Avatar from '@material-ui/core/Avatar';
-import Drawer from '@material-ui/core/Drawer';
-import MenuIcon from '@material-ui/icons/Menu';
-
-import {AuthProvider} from "../contexts/AuthContext"
 import {useAuth} from '../contexts/AuthContext'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
@@ -110,6 +105,10 @@ const useStyles = makeStyles((theme) => ({
   fontColor: {
     color: props=> props.fontColor,
   },
+  myHeader:{
+    color:"black",
+    background:"white"
+  }
 }));
 
 function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url}){
@@ -194,7 +193,7 @@ function ProfileHeader(props) {
   
   return (
     <div className={classes.root}>
-      <AppBar className={props.className}  position={(props.position!=null)?props.position:'static'} color={props.color}>
+      <AppBar className={classes.myHeader}  position={(props.position!=null)?props.position:'static'} color={props.color}>
         <Toolbar >
           
           {props.list}
