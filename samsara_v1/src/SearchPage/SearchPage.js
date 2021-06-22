@@ -9,6 +9,7 @@ import theme from "../theme";
 import { db } from '../firebase';
 import { useState ,useEffect} from 'react';
 import {useAuth} from '../contexts/AuthContext';
+import { setISODay } from "date-fns/esm";
 
 const useStyles = makeStyles((theme) => ({
   mainView: {
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchPage(props) {
   const classes = useStyles();
+  const [loading, setLoading] = useState([])
+  const [IDbuilding,setIDbuilding]=useState("")
   const [blogs,setBlogs]=useState([])
   const fetchBlogs=async()=>{
     const response=db.collection('Allproduct');
@@ -53,13 +56,14 @@ function SearchPage(props) {
 
     data.docs.map(item=>{
       const x=item.data()
-      setBlogs(blogs =>[...blogs,x])
+      setBlogs(blogs =>[...blogs,{id:item.id,data:item.data()}])
     })
   }
-
   useEffect(() => {
     fetchBlogs();  
   }, [])
+
+
   return (
     <div>
         <SearchHeader mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
@@ -68,13 +72,13 @@ function SearchPage(props) {
           <div className={classes.RailRail}>
             <div className={classes.RailPlaceholder}>
               
-              <RailCurentSearchView blogs={blogs}/>
+              <RailCurentSearchView blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
             </div>
           </div>
         </div>
       </div>
       <div className={classes.mapContainer}>
-        <Maps blogs={blogs}/>
+        <Maps blogs={blogs} IDbuilding={IDbuilding} />
       </div>
     </div>
   );

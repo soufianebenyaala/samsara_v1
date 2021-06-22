@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function RailCurentSearchView (props){
   const classes=useStyles()
   
+
     return (
         <div className={classes.contentSection}>
             <div className={classes.StikyHeaderContainer}>
@@ -32,15 +33,20 @@ function RailCurentSearchView (props){
 
                    {props.blogs && props.blogs.map(blog=>{
                      return(
-                       <DrawerSearch price={blog.price}
-                       NumberOfBathRooms={blog.NumberOfBathRooms}
-                       NumberOfRooms={blog.NumberOfRooms}
-                       image={blog.urlimage[0]}
-                       address={blog.adress}
-                       tel={blog.telephone}
-                       disc={blog.discerption}
-                       zip={blog.zipcode}
-                       buildingName={blog.buildingName}
+                       <DrawerSearch 
+                       key={blog.id}
+                       id={blog.id}
+                       idValue={props.idValue}
+                       setIDbuilding={props.setIDbuilding}
+                       price={blog["data"].price}
+                       NumberOfBathRooms={blog["data"].NumberOfBathRooms}
+                       NumberOfRooms={blog["data"].NumberOfRooms}
+                       image={blog["data"].urlimage[0]}
+                       address={blog["data"].adress}
+                       tel={blog["data"].telephone}
+                       disc={blog["data"].discerption}
+                       zip={blog["data"].zipcode}
+                       buildingName={blog["data"].buildingName}
                        ></DrawerSearch>)}
                      )
                    }

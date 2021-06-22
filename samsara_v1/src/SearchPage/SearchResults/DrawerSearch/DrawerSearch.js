@@ -24,7 +24,8 @@ const DrawerSearch = (props) => {
       <MessageForm onClose={handelCloseOfMesssage} aria-labelledby="simple-dialog-title" open={Message}/>
       <RequestForm onClose={handelCloseOfTour} aria-labelledby="simple-dialog-title" open={Tour}/>
       <SearchResults price={props.price}
-      
+      idValue={props.idValue}
+      setIDbuilding={props.setIDbuilding}
       NumberOfBathRooms={props.NumberOfBathRooms}
       NumberOfRooms={props.NumberOfRooms}
       image={props.image}
