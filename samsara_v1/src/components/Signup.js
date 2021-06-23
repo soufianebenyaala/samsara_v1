@@ -99,7 +99,7 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
