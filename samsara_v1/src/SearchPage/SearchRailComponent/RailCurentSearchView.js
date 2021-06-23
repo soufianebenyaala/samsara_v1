@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DrawerSearch from "../SearchResults/DrawerSearch/DrawerSearch";
 import { makeStyles } from "@material-ui/core/styles";
 import StikyHeader from "./StikyHeader";
+import { SpeakerGroupSharp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   contentSection: {
@@ -19,19 +20,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 function RailCurentSearchView(props) {
   const classes = useStyles();
-  const [value,setValue]=useState('all')
-  const [nbrBath,setNbrBath]=useState('1')
+  
   
   const search=props.search
+  const value=props.value
+  const nbrBath=props.nbrBath
+  
   return (
     <div className={classes.contentSection}>
       <div className={classes.StikyHeaderContainer}>
-        <StikyHeader setValue={setValue}
-        setNbrBath={setNbrBath} />
+        <StikyHeader setValue={props.setValue}
+        setNbrBath={props.setNbrBath} />
         
         <div className={classes.listables}>
           {props.blogs &&
             props.blogs.filter((val)=>{
+              
  
               
 
@@ -59,6 +63,7 @@ function RailCurentSearchView(props) {
                 return val
               }
             }).map((blog) => {
+      
               return (
                 <DrawerSearch
                   key={blog.id}

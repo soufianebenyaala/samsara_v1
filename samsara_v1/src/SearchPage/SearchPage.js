@@ -64,6 +64,9 @@ function SearchPage(props) {
   useEffect(() => {
     fetchBlogs();  
   }, [])
+  const [item,setItem]=useState([])
+  const [value,setValue]=useState('all')
+  const [nbrBath,setNbrBath]=useState('all')
 
 
   return (
@@ -74,13 +77,17 @@ function SearchPage(props) {
           <div className={classes.RailRail}>
             <div className={classes.RailPlaceholder}>
               
-              <RailCurentSearchView search={search} blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
+              <RailCurentSearchView 
+              value={value} setValue={setValue} nbrBath={nbrBath} setNbrBath={setNbrBath}
+              item={item} setItem={setItem} search={search} blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
             </div>
           </div>
         </div>
       </div>
       <div className={classes.mapContainer}>
-        <Maps blogs={blogs} IDbuilding={IDbuilding} />
+        <Maps 
+         value={value} setValue={setValue} nbrBath={nbrBath} search={search} setNbrBath={setNbrBath}
+        blogs={blogs} IDbuilding={IDbuilding} />
       </div>
     </div>
   );
