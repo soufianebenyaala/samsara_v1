@@ -17,7 +17,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import Profile from "./Pages/Profile";
 import Dashbord from "./Pages/Dashbord";
@@ -26,7 +25,7 @@ import AddProduct from "./Pages/AddProduct";
 import Message from "./Pages/Message";
 import WishList from "./Pages/WishList"
 import RendezVous from "./Pages/RendezVous"
-
+import Error from "./Pages/Error"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -199,7 +198,10 @@ export default function AbstractProfile() {
               {SwitchToVendor?<Route  path="/profile/Rendez-Vous">
                 <RendezVous />
               </Route>:null}
-              
+              <Route path='*' exact={true}  >
+               
+                <Error />
+              </Route>
             </Switch>
           </main>
         </div>
