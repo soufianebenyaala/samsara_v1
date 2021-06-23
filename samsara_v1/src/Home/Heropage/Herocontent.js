@@ -58,13 +58,13 @@ function Herocontent(props) {
         <Typography variant='h3' 
                     className={classes.mainContent} 
                     gutterBottom>
-                        Make your move.
+                        House App.
         </Typography>
 
         <Typography variant='h5' 
                     style={{color:'#fff'}} 
                     gutterBottom>
-                        Find houses and apartments for rent.
+                        Trouver des maisons et appartements à louer .
         </Typography>
         <HeroSearchBar ></HeroSearchBar>
        
