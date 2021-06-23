@@ -40,7 +40,7 @@ const GeneralDetail = (props) => {
     return(
       <div>
       <div className={classes.priceAndIcon}>
-                  <Typography className={classes.price} component="div">${props.price}+</Typography>
+                  <Typography className={classes.price} component="div">  {`${props.price} TND`}</Typography>
                   <div className={`${classes.icons}`}>
                   <IconButton className={classes.iconBtn}  onClick={props.setOpen}>
                       <InfoOutlinedIcon className={classes.infoIcon}/>
