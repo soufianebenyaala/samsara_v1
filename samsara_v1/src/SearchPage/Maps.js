@@ -14,6 +14,9 @@ function Map(props) {
   const popup = () => {
     togglePopup(true)
   }
+  const value=props.value
+  const nbrBath=props.nbrBath
+  const search=props.search
   return (
     <ReactMapGL
       {...viewport}
@@ -23,7 +26,35 @@ function Map(props) {
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapStyle="mapbox://styles/soufiane0213/ckq539lxz0o8i18p3eep9obvt"
     >
-      {props.blogs && props.blogs.map((blog) => (
+      {props.blogs && props.blogs.filter((val)=>{
+              
+ 
+              
+
+              if(search==""){
+                if(value=='all'){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+                  
+                  
+                }
+                else if(value==val["data"].NumberOfRooms){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+  
+                }  
+              }else if(val["data"].buildingName.toLowerCase().includes(search.toLowerCase()))  {
+                return val
+              }
+            }).map((blog) => (
                 <Marker 
                 id={blog.id}
                 key={blog.id} 
