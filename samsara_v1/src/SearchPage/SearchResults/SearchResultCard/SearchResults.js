@@ -27,6 +27,7 @@ const SearchResults = (props) => {
             handelOpenDetail={props.handelOpenDetail}
           />
           <InfoConatiner
+            withoutHeart={props.withoutHeart}
             idValue={props.idValue}
             price={props.price}
             NumberOfBathRooms={props.NumberOfBathRooms}

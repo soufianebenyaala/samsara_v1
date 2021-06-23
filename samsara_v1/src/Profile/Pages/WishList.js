@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   paper:{
     padding:"20px"
   }
-  
+
 }));
 
 const WishList = () => {
@@ -57,6 +57,7 @@ const WishList = () => {
             <Container className={classes.container}>
               <Paper className={classes.paper} elevation={3}>
                 <DrawerSearch
+                  withoutHeart={true}
                   key={blog.id}
                   id={blog.id}
                   id_user={blog.userUid}
