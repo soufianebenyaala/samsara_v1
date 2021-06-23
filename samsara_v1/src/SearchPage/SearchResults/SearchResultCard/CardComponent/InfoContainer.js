@@ -8,7 +8,9 @@ const InfoContainer = (props) => {
   
   return(
     <div className={classes.infoContainer}>
-      <GeneralDetail price={props.price} 
+      <GeneralDetail
+      withoutHeart={props.withoutHeart}
+      price={props.price} 
       idValue={props.idValue}
       NumberOfBathRooms={props.NumberOfBathRooms}
       NumberOfRooms={props.NumberOfRooms}

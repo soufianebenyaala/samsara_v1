@@ -53,6 +53,7 @@ const DrawerSearch = (props) => {
         openDetail={openDetail}
       />
       <SearchResults
+        withoutHeart={props.withoutHeart}
         price={props.price}
         idValue={props.idValue}
         setIDbuilding={props.setIDbuilding}

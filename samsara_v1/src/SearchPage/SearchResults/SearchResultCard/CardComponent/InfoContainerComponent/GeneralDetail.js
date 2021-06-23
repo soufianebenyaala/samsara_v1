@@ -11,7 +11,7 @@ import Link from '@material-ui/core/Link';
 import { useAuth } from "../../../../../contexts/AuthContext";
 import { db } from "../../../../../firebase";
 import { useHistory } from "react-router-dom";
-
+import CloseIcon from '@material-ui/icons/Close';
 const GeneralDetail = (props) => {
     const classes = UseStyles();
     const preventDefault = (event) => event.preventDefault();
@@ -40,15 +40,18 @@ const GeneralDetail = (props) => {
     return(
       <div>
       <div className={classes.priceAndIcon}>
-                  <Typography className={classes.price} component="div">${props.price}+</Typography>
+                  <Typography className={classes.price} component="div">  {`${props.price} TND`}</Typography>
                   <div className={`${classes.icons}`}>
                   <IconButton className={classes.iconBtn}  onClick={props.setOpen}>
                       <InfoOutlinedIcon className={classes.infoIcon}/>
                     </IconButton>
                     <div className={classes.btnIconContainer}>
+                   {props.withoutHeart?<IconButton onClick={addToDataBase} className={classes.iconBtn} >
+                        <CloseIcon  className={`${classes.infoIcon} ${classes.heartIcon}`}/>
+                      </IconButton>:
                       <IconButton onClick={addToDataBase} className={classes.iconBtn} >
                         <FavoriteBorderIcon  className={`${classes.infoIcon} ${classes.heartIcon}`}/>
-                      </IconButton>
+                      </IconButton>}
                     </div>
                   </div>
                 </div>
