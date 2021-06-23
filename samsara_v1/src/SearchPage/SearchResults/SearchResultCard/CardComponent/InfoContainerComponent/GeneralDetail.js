@@ -31,10 +31,10 @@ const GeneralDetail = (props) => {
                   <div className={classes.bedAndBathInfo}>
                     <div className={classes.bedAndBathInfo}>
                     <img alt="" height="16" loading="lazy" src="https://d214hhm15p4t1d.cloudfront.net/nzr/eba3d027411e573009ffee8064fa4af6511c849d/img/bedIcon.3bf807c0.svg" width="16"/>
-                      <Typography className={classes.bedAndBathText}  component="div">Studio -{props.NumberOfRooms} Beds</Typography>
+                      <Typography className={classes.bedAndBathText}  component="div">Studio -{props.NumberOfBathRooms} Beds</Typography>
                       <img alt="" height="16" loading="lazy" src="https://d214hhm15p4t1d.cloudfront.net/nzr/eba3d027411e573009ffee8064fa4af6511c849d/img/bathIcon.4adadf28.svg" width="16"/>
                       <Typography className={classes.bedAndBathText} component="div">
-                        {props.NumberOfBathRooms} Baths</Typography>
+                        {props.NumberOfRooms} Baths</Typography>
                       
                     </div>
                   </div>

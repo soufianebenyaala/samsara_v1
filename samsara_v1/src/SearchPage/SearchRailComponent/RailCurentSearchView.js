@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DrawerSearch from "../SearchResults/DrawerSearch/DrawerSearch";
 import { makeStyles } from "@material-ui/core/styles";
 import StikyHeader from "./StikyHeader";
@@ -19,14 +19,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 function RailCurentSearchView(props) {
   const classes = useStyles();
-
+  const [value,setValue]=useState('all')
+  const [nbrBath,setNbrBath]=useState('1')
+  
+  const search=props.search
   return (
     <div className={classes.contentSection}>
       <div className={classes.StikyHeaderContainer}>
-        <StikyHeader />
+        <StikyHeader setValue={setValue}
+        setNbrBath={setNbrBath} />
+        
         <div className={classes.listables}>
           {props.blogs &&
-            props.blogs.map((blog) => {
+            props.blogs.filter((val)=>{
+ 
+              
+
+              if(search==""){
+                if(value=='all'){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+                  
+                  
+                }
+                else if(value==val["data"].NumberOfRooms){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+  
+                }  
+              }else if(val["data"].buildingName.toLowerCase().includes(search.toLowerCase()))  {
+                return val
+              }
+            }).map((blog) => {
               return (
                 <DrawerSearch
                   key={blog.id}

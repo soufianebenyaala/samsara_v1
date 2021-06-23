@@ -4,6 +4,8 @@ import React from "react";
 import { makeStyles,withStyles } from "@material-ui/core/styles";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
+import { useState ,useEffect} from 'react';
+import { setConstantValue } from "typescript";
 
 const useStyles=makeStyles((theme)=>({
     filter:{
@@ -160,6 +162,13 @@ const FilterToggleButton = withStyles({
   })(ToggleButtonGroup);
 const FilterWithTogelButtons = (props) => {
     const classes=useStyles()
+   
+      props.setValue(props.nbrOfRooms)
+      props.setNbrBath(props.nbrOfBath)
+
+    
+    
+     
   return (
     <ClickAwayListener onClickAway={props.handelCloseFilter}>
     <Paper className={`${classes.filter} ${props.type==="Bed"?classes.filterBeds:classes.filterBath}`}>
@@ -184,18 +193,47 @@ const FilterWithTogelButtons = (props) => {
           </Grid>
         </Grid>
         <Grid xs={12} item>
+        {props.type==="Bed"?
         <FilterToggleButtonContainer
-              value={props.nbrOfFilter}
-              onChange={props.handelNbrOfFilter}
-              arial-label={props.type==="Bed"?"number-of-beds":"number-of-bath"}
-              exclusive
-            >
-                {props.list.map(flt =>
-                    <FilterToggleButton value={flt}>{flt}</FilterToggleButton>
-                    )}
-              
-              
-            </FilterToggleButtonContainer>
+        value={props.nbrOfRooms}
+        onChange={props.handleChangeNbrOfRooms}
+        arial-label={props.type==="Bed"?"number-of-beds":"number-of-bath"}
+        exclusive
+      >
+          
+             
+          <FilterToggleButton  value="all" >all </FilterToggleButton>
+          <FilterToggleButton  value='1' >1 </FilterToggleButton>
+          <FilterToggleButton  value='2' >2</FilterToggleButton>
+          <FilterToggleButton  value='3' >3 </FilterToggleButton>
+          <FilterToggleButton  value='4+' >4+ </FilterToggleButton>
+             
+        
+        
+      </FilterToggleButtonContainer>
+      :
+      <FilterToggleButtonContainer
+      value={props.nbrOfBath}
+      onChange={props.handleChangeNbrOfBathRooms}
+      arial-label={props.type==="Bed"?"number-of-beds":"number-of-bath"}
+      exclusive
+    >
+        
+           
+        <FilterToggleButton  value="all" >all </FilterToggleButton>
+        <FilterToggleButton  value='1' >1 </FilterToggleButton>
+        <FilterToggleButton  value='2' >2</FilterToggleButton>
+        <FilterToggleButton  value='3' >3 </FilterToggleButton>
+        <FilterToggleButton  value='4+' >4+ </FilterToggleButton>
+           
+      
+      
+    </FilterToggleButtonContainer>}
+       
+          
+       
+          
+        
         </Grid>
       </Grid>
     </Paper>

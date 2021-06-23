@@ -240,6 +240,7 @@ export default function Dashboard() {
     history.push("/products");
   };
 
+
   console.log({
     urlfile,
     urlimage,
