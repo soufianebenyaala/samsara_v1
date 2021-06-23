@@ -60,7 +60,25 @@ function RailCurentSearchView(props) {
   
                 }  
               }else if(val["data"].buildingName.toLowerCase().includes(search.toLowerCase()))  {
-                return val
+                if(value=='all'){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+                  
+                  
+                }
+                else if(value==val["data"].NumberOfRooms){
+                  if(nbrBath=="all"){
+                    return val
+
+                  }else if(nbrBath==val["data"].NumberOfRooms){
+                    return val
+                  }
+  
+                }  
               }
             }).map((blog) => {
 
