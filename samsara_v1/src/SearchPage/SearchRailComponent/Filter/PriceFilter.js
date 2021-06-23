@@ -112,6 +112,30 @@ const PriceInput = withStyles({
     },
   },
 })(TextField);
+const CustomSlider = withStyles({
+  root: {
+      color: "#2e64e2",
+      height: 3,
+      padding: "13px 0",
+  },
+  track: {
+      height: 4,
+      borderRadius: 2,
+  },
+  thumb: {
+      height: 20,
+      width: 20,
+      backgroundColor: "#fff",
+      border: "1px solid currentColor",
+      marginTop: -9,
+      marginLeft: -11,
+      boxShadow: "#ebebeb 0 2px 2px",
+      "&:focus, &:hover, &$active": {
+          boxShadow: "#ccc 0 2px 3px 1px",
+      },
+      color: "#fff",
+  },
+})(Slider);
 const PriceFilter = (props) => {
     const classes=useStyles()
   return (
@@ -158,7 +182,7 @@ const PriceFilter = (props) => {
               </svg>
             </Grid>
             <Grid xs={11} item>
-              <Slider
+              <CustomSlider
                 value={props.value}
                 onChange={props.handleChange}
                 valueLabelDisplay="auto"
