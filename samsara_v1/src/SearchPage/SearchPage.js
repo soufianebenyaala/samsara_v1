@@ -69,7 +69,6 @@ function SearchPage(props) {
   const [value,setValue]=useState('all')
   const [nbrBath,setNbrBath]=useState('all')
 
-
   return (
     <div>
         <Header setSearch={setSearch} mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
@@ -79,6 +78,7 @@ function SearchPage(props) {
             <div className={classes.RailPlaceholder}>
               
               <RailCurentSearchView 
+              IDbuilding={IDbuilding}
               value={value} setValue={setValue} nbrBath={nbrBath} setNbrBath={setNbrBath}
               item={item} setItem={setItem} search={search} blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
             </div>

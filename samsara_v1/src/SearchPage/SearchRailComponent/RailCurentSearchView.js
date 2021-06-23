@@ -81,7 +81,7 @@ function RailCurentSearchView(props) {
                 }  
               }
             }).map((blog) => {
-
+              console.log(blog.id)
               return (
                 <DrawerSearch
                   key={blog.id}
