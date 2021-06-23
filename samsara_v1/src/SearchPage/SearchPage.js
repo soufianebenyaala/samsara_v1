@@ -5,6 +5,7 @@ import Maps from "./Maps";
 import { makeStyles } from "@material-ui/core/styles";
 import RailCurentSearchView from "./SearchRailComponent/RailCurentSearchView";
 import SearchHeader from '../navbar/SearchHeader'
+import Header from "../navbar/Header"
 import theme from "../theme";
 import { db } from '../firebase';
 import { useState ,useEffect} from 'react';
@@ -71,7 +72,7 @@ function SearchPage(props) {
 
   return (
     <div>
-        <SearchHeader setSearch={setSearch} mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
+        <Header setSearch={setSearch} mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
       <div className={classes.mainView}>
         <div className={classes.RailContainer}>
           <div className={classes.RailRail}>

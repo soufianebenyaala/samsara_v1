@@ -17,16 +17,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom";
 import Profile from "./Pages/Profile";
 import Dashbord from "./Pages/Dashbord";
 import Products from "./Pages/Products";
 import AddProduct from "./Pages/AddProduct";
 import Message from "./Pages/Message";
-import WishList from "./Pages/WishList"
-import RendezVous from "./Pages/RendezVous"
-
+import WishList from "./Pages/WishList";
+import RendezVous from "./Pages/RendezVous";
+import Error from "./Pages/Error";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -142,9 +141,11 @@ export default function AbstractProfile() {
     </>
   );
   const [SwitchToVendor, setSwitchToVendor] = useState(false);
+
   const handleChangeSwitchToVendor = (event) => {
     setSwitchToVendor(event.target.checked);
   };
+
   return (
     <>
       <Router>
@@ -181,25 +182,28 @@ export default function AbstractProfile() {
               <Route exact path="/profile">
                 <Profile />
               </Route>
-              {SwitchToVendor?<Route  path="/profile/Dashbord">
-                <Dashbord />
-              </Route>:null}
-              {SwitchToVendor?<Route  path="/profile/Immobilier">
-                <Products />
-              </Route>:null}
-             {SwitchToVendor? <Route  path="/profile/AddProduct">
-                <AddProduct />
-              </Route>:null}
-              <Route  path="/profile/Messages">
+              <Route path="/profile/Dashbord">
+                {SwitchToVendor ? <Dashbord /> : <Profile />}
+              </Route>
+              <Route path="/profile/Immobilier">
+                {SwitchToVendor ? <Products /> : <Profile />}
+              </Route>
+              <Route path="/profile/AddProduct">
+                {SwitchToVendor ? <AddProduct /> : <Profile />}
+              </Route>
+              <Route path="/profile/Messages">
+
                 <Message />
               </Route>
-              <Route  path="/profile/WishList">
+              <Route path="/profile/WishList">
                 <WishList />
               </Route>
-              {SwitchToVendor?<Route  path="/profile/Rendez-Vous">
-                <RendezVous />
-              </Route>:null}
-              
+              <Route path="/profile/Rendez-Vous">
+                {SwitchToVendor ? <RendezVous /> : <Profile />}
+              </Route>
+              <Route path="*" exact={true}>
+                <Error />
+              </Route>
             </Switch>
           </main>
         </div>

@@ -8,9 +8,34 @@ import { IconButton } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Link from '@material-ui/core/Link';
 
+import { useAuth } from "../../../../../contexts/AuthContext";
+import { db } from "../../../../../firebase";
+import { useHistory } from "react-router-dom";
+
 const GeneralDetail = (props) => {
     const classes = UseStyles();
     const preventDefault = (event) => event.preventDefault();
+    const { currentUser } = useAuth();
+    console.log(props.idValue)
+   
+   
+   
+   
+   
+   
+    const addToDataBase = async () => {
+      await db
+        .collection("users")
+        .doc(currentUser.uid)
+        .collection("wishList").doc(props.idValue).set(
+          {id:props.idValue
+
+          })
+        
+  
+      
+    };
+    
     
     return(
       <div>
@@ -21,9 +46,9 @@ const GeneralDetail = (props) => {
                       <InfoOutlinedIcon className={classes.infoIcon}/>
                     </IconButton>
                     <div className={classes.btnIconContainer}>
-                    <IconButton className={classes.iconBtn} >
-                      <FavoriteBorderIcon className={`${classes.infoIcon} ${classes.heartIcon}`}/>
-                    </IconButton>
+                      <IconButton onClick={addToDataBase} className={classes.iconBtn} >
+                        <FavoriteBorderIcon  className={`${classes.infoIcon} ${classes.heartIcon}`}/>
+                      </IconButton>
                     </div>
                   </div>
                 </div>
