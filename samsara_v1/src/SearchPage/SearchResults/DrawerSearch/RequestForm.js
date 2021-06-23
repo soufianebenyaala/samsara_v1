@@ -16,10 +16,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+
 import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -184,7 +181,7 @@ console.log( props.id_user)
               .add({
                 id_building: props.id_building,
                 id_userReceiver: props.id_user,
-                id_userSender: props.currentUser.uid,
+                id_userSender: currentUser.uid,
                 FullName: FullName,
                 Email: Email,
                 Phone: Phone,
