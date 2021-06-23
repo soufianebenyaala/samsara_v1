@@ -57,15 +57,15 @@ function MainListItems(props)  {
         <ListItemText primary="Mes Rendez-Vous" />
       </ListItem>
     </Link>:null}
-    <Link className={classes.noLinks} to="/profile" >
+    <Link className={classes.noLinks} to="/Wishlist" >
       <ListItem button>
         <ListItemIcon>
           <FavoriteIcon />
         </ListItemIcon>
-        <ListItemText primary="Whishlist" />
+        <ListItemText primary="Wishlist" />
       </ListItem>
     </Link>
-    <Link className={classes.noLinks} to="/profile" >
+    <Link className={classes.noLinks} to="/Messages" >
       <ListItem button>
         <ListItemIcon>
           <MessageIcon />

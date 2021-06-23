@@ -12,7 +12,7 @@ export default function Dashboard() {
   const classes = useStyles();
   return (
     <>
-      
+      Messsage
     </>
   );
 }
