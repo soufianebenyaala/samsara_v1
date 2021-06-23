@@ -317,7 +317,7 @@ function ProfileHeader(props) {
       >
         <Toolbar>
           {props.list}
-
+       
           <IconButton>
             <img alt="myLogo" className={classes.logo_img} src={props.Logo} />
           </IconButton>
