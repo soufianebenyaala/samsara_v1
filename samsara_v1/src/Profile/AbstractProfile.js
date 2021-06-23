@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import ProfileHeader from "../navbar/ProfileHeader";
@@ -19,10 +19,12 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import Profile from "./Pages/Profile"
-import Dashbord from "./Pages/Dashbord"
-import Products from "./Pages/Products"
-import AddProduct from "./Pages/AddProduct"
+import Profile from "./Pages/Profile";
+import Dashbord from "./Pages/Dashbord";
+import Products from "./Pages/Products";
+import AddProduct from "./Pages/AddProduct";
+import Message from "./Pages/Message";
+import WishList from "./Pages/WishList";
 
 const drawerWidth = 240;
 
@@ -175,19 +177,25 @@ export default function AbstractProfile() {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Switch>
-                <Route exact path="/profile">
-                    <Profile/>
-                </Route>
-                <Route exact path="/Dashbord">
-                    <Dashbord/>
-                </Route>
-                <Route exact path="/Products">
-                    <Products/>
-                </Route>
-                <Route exact path="/AddProduct">
-                    <AddProduct/>
-                </Route>
-                <Redirect exact path="/"/>
+              <Route exact path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/profile/Dashbord">
+                <Dashbord />
+              </Route>
+              <Route path="/profile/Immobilier">
+                <Products />
+              </Route>
+              <Route path="/profile/AddProduct">
+                <AddProduct />
+              </Route>
+              <Route path="/profile/Messages">
+                <Message />
+              </Route>
+              <Route path="/profile/WishList">
+                <WishList />
+              </Route>
+              <Redirect exact path="/profile" />
             </Switch>
           </main>
         </div>

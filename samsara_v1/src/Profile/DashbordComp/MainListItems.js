@@ -25,7 +25,7 @@ function MainListItems(props)  {
   const classes=useStyles()
   return(
   <div>
-    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/Dashbord" >
+    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/profile/Dashbord" >
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
@@ -33,7 +33,7 @@ function MainListItems(props)  {
         <ListItemText primary="Dashboard" />
       </ListItem>
     </Link>:null}
-    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/products" >
+    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/profile/Immobilier" >
       <ListItem button>
         <ListItemIcon>
           <HomeWorkIcon />
@@ -49,7 +49,7 @@ function MainListItems(props)  {
         <ListItemText primary="Profile" />
       </ListItem>
     </Link>
-    {props.SwitchToVendor?<Link className={classes.noLinks} to="/profile" >
+    {props.SwitchToVendor?<Link className={classes.noLinks} to="/profile/profile" >
       <ListItem button>
         <ListItemIcon>
           <NotificationsActiveIcon />
@@ -57,15 +57,15 @@ function MainListItems(props)  {
         <ListItemText primary="Mes Rendez-Vous" />
       </ListItem>
     </Link>:null}
-    <Link className={classes.noLinks} to="/profile" >
+    <Link className={classes.noLinks} to="/profile/Wishlist" >
       <ListItem button>
         <ListItemIcon>
           <FavoriteIcon />
         </ListItemIcon>
-        <ListItemText primary="Whishlist" />
+        <ListItemText primary="/profile/Wishlist" />
       </ListItem>
     </Link>
-    <Link className={classes.noLinks} to="/profile" >
+    <Link className={classes.noLinks} to="/profile/Messages" >
       <ListItem button>
         <ListItemIcon>
           <MessageIcon />
