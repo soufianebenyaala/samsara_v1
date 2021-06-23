@@ -56,7 +56,6 @@ function SearchPage(props) {
   const fetchBlogs=async()=>{
     const response=db.collection('Allproduct');
     const data=await response.get();
-
     data.docs.map(item=>{
       const x=item.data()
       setBlogs(blogs =>[...blogs,{id:item.id,data:item.data()}])

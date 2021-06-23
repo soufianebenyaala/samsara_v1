@@ -28,7 +28,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { db, storage, storageRef } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function createData(
   buildingName,
@@ -289,6 +289,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable(props) {
 
   const classes = useStyles();
+  const history = useHistory()
   const { currentUser } = useAuth();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -301,12 +302,12 @@ export default function EnhancedTable(props) {
 
   }
   const productDelete = (key)=>{
-    console.log(key)
-    //db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
+    db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
+    history.push("/profile/Immobilier")
   }
 
   addDataTorows(props.posts);
-  console.log(rows)
+
 
 
 
@@ -392,7 +393,7 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.buildingName);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  console.log(row.key)
+                  
                   return (
                     <TableRow
                       hover
@@ -440,9 +441,9 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          disabled
                           color="primary"
-                          onClick={productEdit(row.key)}
+                          component={Link}
+                          to="/profile/Edit-Immobilier"
                         >
                           <EditIcon />
                         </IconButton>
@@ -450,9 +451,9 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          disabled
+                          
                           color="primary"
-                          onClick={productDelete(row.key)}
+                          onClick={()=>{productDelete(row.key)}}
                         >
                           <DeleteIcon />
                         </IconButton>
