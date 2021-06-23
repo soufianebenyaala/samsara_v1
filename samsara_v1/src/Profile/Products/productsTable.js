@@ -28,7 +28,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { useAuth } from "../../contexts/AuthContext";
 import { db, storage, storageRef } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function createData(
   buildingName,
@@ -439,9 +439,9 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          
                           color="primary"
-                          onClick={()=>{productEdit(row.key)}}
+                          component={Link}
+                          to="/profile/Edit-Immobilier"
                         >
                           <EditIcon />
                         </IconButton>

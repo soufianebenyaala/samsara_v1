@@ -114,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "3px",
     boxShadow: "0 1px 2px 0 rgb(0 0 0 / 10%)",
   },
+  TextHeader:{
+    margin: "22px 0 5px",
+    color: "#2b2c2d",
+    fontWeight: "600",
+    fontSize: "22px",
+  }
 }));
 const tileData = [
   {
@@ -313,6 +319,25 @@ const DetailDrawer = (props) => {
                             ></Button>
                           </Grid>
                         </Grid>
+                      </Grid>
+                      <Grid xs={12} item>
+                      <Typography
+                              className={classes.TextHeader}
+                              component="h1"
+                            >
+                             The Tides at Lakeshore East Apartments
+
+                            </Typography>
+                      </Grid>
+                      <Grid xs={12} item>
+                      <Typography
+                              className={classes.subHeader}
+                              component="h1"
+                            >
+                             Managed by Lincoln Property Company<br/>
+                            Loop · 360 E South Water St, Chicago, IL 60601, USA
+
+                            </Typography>
                       </Grid>
                     </Grid>
                   </Grid>

@@ -26,6 +26,8 @@ import Message from "./Pages/Message";
 import WishList from "./Pages/WishList";
 import RendezVous from "./Pages/RendezVous";
 import Error from "./Pages/Error";
+import EditHome from "./Pages/EditHome";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -200,6 +202,9 @@ export default function AbstractProfile() {
               </Route>
               <Route path="/profile/Rendez-Vous">
                 {SwitchToVendor ? <RendezVous /> : <Profile />}
+              </Route>
+              <Route path="/profile/Edit-Immobilier">
+                {SwitchToVendor ? <EditHome /> : <Profile />}
               </Route>
               <Route path="*" exact={true}>
                 <Error />
