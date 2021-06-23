@@ -301,12 +301,11 @@ export default function EnhancedTable(props) {
 
   }
   const productDelete = (key)=>{
-    console.log(key)
-    //db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
+    db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
   }
 
   addDataTorows(props.posts);
-  console.log(rows)
+
 
 
 
@@ -392,7 +391,7 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.buildingName);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  console.log(row.key)
+                  
                   return (
                     <TableRow
                       hover
@@ -440,9 +439,9 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          disabled
+                          
                           color="primary"
-                          onClick={productEdit(row.key)}
+                          onClick={()=>{productEdit(row.key)}}
                         >
                           <EditIcon />
                         </IconButton>
@@ -450,9 +449,9 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          disabled
+                          
                           color="primary"
-                          onClick={productDelete(row.key)}
+                          onClick={()=>{productDelete(row.key)}}
                         >
                           <DeleteIcon />
                         </IconButton>
