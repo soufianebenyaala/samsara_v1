@@ -246,9 +246,9 @@ export default function Dashboard() {
       });
   }
   const submit = async () => {
-    await uploadimage()
-    await uploadfile()
-    await addToDataBase()
+    uploadimage()
+    uploadfile()
+    setTimeout(await addToDataBase(),7000)
     history.push("/products")
   }
 

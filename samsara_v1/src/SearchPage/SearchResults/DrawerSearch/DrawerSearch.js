@@ -30,11 +30,15 @@ const DrawerSearch = (props) => {
   return (
     <div>
       <MessageForm
+        id_building={props.idValue}
+        id_user={props.id_user}
         onClose={handelCloseOfMesssage}
         aria-labelledby="simple-dialog-title"
         open={Message}
       />
       <RequestForm
+        id_building={props.idValue}
+        id_user={props.id_user}
         onClose={handelCloseOfTour}
         aria-labelledby="simple-dialog-title"
         open={Tour}

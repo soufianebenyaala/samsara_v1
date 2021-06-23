@@ -24,16 +24,16 @@ function Map(props) {
       mapStyle="mapbox://styles/soufiane0213/ckq539lxz0o8i18p3eep9obvt"
     >
       {props.blogs && props.blogs.map((blog) => (
-        (props.IDbuilding == blog.id) ? (
-        <Marker 
-          id={blog.id}
-          key={blog.id} 
-          latitude={parseFloat(blog["data"].latitude)} 
-          longitude={parseFloat(blog["data"].longitude)} 
-          offsetLeft={-3.5 * viewport.zoom}
-          offsetTop={-7 * viewport.zoom}
-          >
-          <Room style={{ fontSize: viewport.zoom * 7, color: "red" }} />
+                <Marker 
+                id={blog.id}
+                key={blog.id} 
+                latitude={parseFloat(blog["data"].latitude)} 
+                longitude={parseFloat(blog["data"].longitude)} 
+                offsetLeft={-3.5 * viewport.zoom}
+                offsetTop={-7 * viewport.zoom}
+                >
+                <Room style={{ fontSize: viewport.zoom * 7, color: "red" }} />
+        {(props.IDbuilding == blog.id) ? (
           
             <Popup
               key={blog.id}
@@ -53,12 +53,14 @@ function Map(props) {
                 </span>
               </div>
             </Popup>
-            </Marker>) : (<></>)
+            ) : (<></>)}
           
 
        
 
-      ))}
+      
+      </Marker>))}
+
     </ReactMapGL>
   );
 }
