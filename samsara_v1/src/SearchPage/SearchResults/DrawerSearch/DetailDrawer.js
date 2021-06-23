@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     lineHeight: "29px",
   },
-  aminities_aminities:{
+  aminities_aminities: {
     position: "relative",
     display: "flex",
     flexGrow: "0",
@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "33.33%",
     alignItems: "center",
     paddingBottom: "20px",
-  }
+  },
 }));
 const tileData = [
   {
@@ -234,7 +234,11 @@ const DetailDrawer = (props) => {
     <Grid className={classes.navBar} xs={12} item>
       <Grid container>
         <Grid xs={1} item>
-          <Button className={classes.button} onClick={props.handelCloseDetail} startIcon={<CloseIcon />}></Button>
+          <Button
+            className={classes.button}
+            onClick={props.handelCloseDetail}
+            startIcon={<CloseIcon />}
+          ></Button>
         </Grid>
 
         <Grid xs={10} className={classes.navContainer} item>
@@ -325,7 +329,7 @@ const DetailDrawer = (props) => {
         <Grid container>
           {header()}
           <Grid className={classes.buble} xs={12} item>
-            <Grid  className={classes.content} container>
+            <Grid className={classes.content} container>
               <Grid xs={12} item>
                 <Grid justify="center" container>
                   {imagesStepper()}
@@ -412,22 +416,21 @@ const DetailDrawer = (props) => {
                           Amenities
                         </Typography>
                       </Grid>
-                      <Grid
-                        xs={12}
-                        className={classes.AminitiesContainer}
-                        item
-                      >
+                      <Grid xs={12} className={classes.AminitiesContainer} item>
                         {/* bouchle sur amminities */}
                         <Grid className={classes.aminities_aminities} xs={4}>
-                              <img height="20px" width="20px" src="https://d214hhm15p4t1d.cloudfront.net/nzr/92a84ff66ca6d42660a2bcb0c1406e8a0e718055/img/generic_icon.d8a77d2a.svg"/>
-                             <Typography> BBQ Areas</Typography> 
+                          <img
+                            height="20px"
+                            width="20px"
+                            src="https://d214hhm15p4t1d.cloudfront.net/nzr/92a84ff66ca6d42660a2bcb0c1406e8a0e718055/img/generic_icon.d8a77d2a.svg"
+                          />
+                          <Typography> BBQ Areas</Typography>
                         </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              
             </Grid>
           </Grid>
         </Grid>
