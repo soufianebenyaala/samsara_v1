@@ -26,7 +26,7 @@ const DrawerSearch = (props) => {
   const handelCloseOfTour = () => {
     setTour(false);
   };
- 
+
   return (
     <div>
       <MessageForm
@@ -39,6 +39,11 @@ const DrawerSearch = (props) => {
       <RequestForm
         id_building={props.idValue}
         id_user={props.id_user}
+        price={props.price}
+        image={props.image}
+        tel={props.tel}
+        zip={props.zip}
+        address={props.address}
         onClose={handelCloseOfTour}
         aria-labelledby="simple-dialog-title"
         open={Tour}

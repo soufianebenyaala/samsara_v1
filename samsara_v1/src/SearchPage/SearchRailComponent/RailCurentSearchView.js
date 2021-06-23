@@ -63,11 +63,12 @@ function RailCurentSearchView(props) {
                 return val
               }
             }).map((blog) => {
-      
+
               return (
                 <DrawerSearch
                   key={blog.id}
                   id={blog.id}
+                  id_user={blog["data"].userUid}
                   idValue={blog.id}
                   setIDbuilding={props.setIDbuilding}
                   price={blog["data"].price}
