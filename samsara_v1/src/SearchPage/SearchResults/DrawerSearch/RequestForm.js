@@ -141,7 +141,7 @@ const RequestForm = (props) => {
   const history = useHistory();
   const { currentUser } = useAuth();
   const [FullName, setFullName] = useState();
-  const [Email, setEmail] = useState();
+  const [Email, setEmail] = useState(currentUser.email);
   const [Phone, setPhone] = useState();
   const [message, setmessage] = useState("I saw your rental listing at Samsara and would like to learn more. I'm looking for a 2BR in the range of $2,900 to $4,100.");
   const [TimeChosen, setTimeChosen] = useState(1);
@@ -153,20 +153,18 @@ const RequestForm = (props) => {
   const [TourDate3, setTourDate3] = useState();
   const [selectedDate, setSelectedDate] = React.useState(new Date("2020-05-04T21:11:54"));
   const [state, setstate] = useState(true);
-
+console.log( props.id_user)
   const submit = async () => {
-    await db
-      .collection("users")
+    await db.collection("users")
       .doc(currentUser.uid)
       .collection("SendRequestTour")
       .add({
         id_building: props.id_building,
         id_userReceiver: props.id_user,
-        id_userSender: props.currentUser.uid,
+        id_userSender: currentUser.uid,
         FullName: FullName,
         Email: Email,
         Phone: Phone,
-        selectedDate: selectedDate,
         TourTime_date: { 1: { TourTime1: TourTime1, TourDate1: TourDate1 }, 2: { TourTime2: TourTime2, TourDate2: TourDate2 }, 3: { ourTime3: TourTime3, TourDate3: TourDate3 } },
         TimeChosen: TimeChosen,
         message: message,
@@ -190,7 +188,6 @@ const RequestForm = (props) => {
                 FullName: FullName,
                 Email: Email,
                 Phone: Phone,
-                selectedDate: selectedDate,
                 TourTime_date: { 1: { TourTime1: TourTime1, TourDate1: TourDate1 }, 2: { TourTime2: TourTime2, TourDate2: TourDate2 }, 3: { ourTime3: TourTime3, TourDate3: TourDate3 } },
                 TimeChosen: TimeChosen,
                 message: message,
@@ -343,6 +340,7 @@ const RequestForm = (props) => {
                       <TextField
                         onChange={(e) => { setEmail(e.target.value) }}
                         autoFocus
+                        value={Email}
                         margin="none"
                         id="Email"
                         label="Email"
@@ -350,24 +348,6 @@ const RequestForm = (props) => {
                         variant="outlined"
                         fullWidth
                       />
-                    </Grid>
-                    <Grid xs={12} item>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <KeyboardDatePicker
-                          fullWidth
-                          disableToolbar
-                          format="MM/dd/yyyy"
-                          margin="normal"
-                          id="date-picker-inline"
-                          label="Move-In Date"
-                          value={selectedDate}
-                          onChange={handleDateChange}
-                          KeyboardButtonProps={{
-                            "aria-label": "change date",
-                          }}
-                          inputVariant="outlined"
-                        />
-                      </MuiPickersUtilsProvider>
                     </Grid>
                     {TimeChosen > 0 ? <Grid xs={12} item>
                       <Grid spacing={2} container>
@@ -614,7 +594,7 @@ const RequestForm = (props) => {
                       className={classes.info}
                       style={{
                         backgroundImage:
-                          "url(https://img.zumpercdn.com/380573004/1280x960?auto=format&fit=crop&h=64&w=64&dpr=1)",
+                          "url("+props.image+")",
                       }}
                       item
                     />
@@ -627,12 +607,12 @@ const RequestForm = (props) => {
                             variant="h5"
                             component="span"
                           >
-                            $1,065—$3,946
+                            ${props.price}
                           </Typography>
                         </Grid>
                         <Grid xs={12} className={classes.nameContainer} item>
                           <Typography className={classes.name}>
-                            2660 at Cityplace
+                          {props.zip} at {props.address}
                           </Typography>
                           <CheckCircleIcon
                             height="15"
@@ -652,7 +632,7 @@ const RequestForm = (props) => {
                             className={classes.phone}
                             onClick={preventDefault}
                           >
-                            (682) 564-1803
+                            {props.tel}
                           </Link>
                         </Grid>
                       </Grid>
