@@ -160,7 +160,7 @@ function Header(props) {
   });
   const history = useHistory()
     const classes = useStyles(props);
-    const searchbar=props.mySearchBar?<SearchBar />:null
+    const searchbar=props.mySearchBar?<SearchBar  setSearch={props.setSearch} />:null
     const [openSignUp,isOpenSignUp]= useState(false);
     const handelClickOpenSignUp =()=>{
         isOpenSignUp(true);
