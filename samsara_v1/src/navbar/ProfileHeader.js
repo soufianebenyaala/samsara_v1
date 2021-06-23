@@ -16,14 +16,21 @@ import Badge from "@material-ui/core/Badge";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
-import MessageIcon from '@material-ui/icons/Message';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import MessageIcon from "@material-ui/icons/Message";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Menu from "@material-ui/core/Menu";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Divider from "@material-ui/core/Divider";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Typography from "@material-ui/core/Typography";
 const NotificationBadge = withStyles((theme) => ({
   badge: {
     top: "29%",
     right: "25%",
     border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
+    padding: "0 4px",
   },
 }))(Badge);
 const IOSSwitch = withStyles((theme) => ({
@@ -33,7 +40,7 @@ const IOSSwitch = withStyles((theme) => ({
     padding: 0,
     margin: theme.spacing(1),
   },
-  
+
   switchBase: {
     padding: 1,
     "&$checked": {
@@ -91,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  notification:{
+  notification: {
     display: "flex",
     marginRight: "20px",
   },
@@ -145,6 +152,17 @@ const useStyles = makeStyles((theme) => ({
   SignUp_button: {
     background: "#fff",
     textTransform: "none",
+  },
+  logout: {
+    background: "#fff",
+    textTransform: "none",
+    background: "cornflowerblue",
+    height: "40px",
+    color: "#fff",
+    borderRadius: "45%",
+    "&:hover": {
+      background: "black",
+    },
   },
   space_button: {
     marginRight: theme.spacing(1),
@@ -277,7 +295,7 @@ function ProfileHeader(props) {
   });
   const history = useHistory();
   const classes = useStyles(props);
-  
+
   const searchbar = props.mySearchBar ? <SearchBar /> : null;
   const [openSignUp, isOpenSignUp] = useState(false);
   const handelClickOpenSignUp = () => {
@@ -307,7 +325,15 @@ function ProfileHeader(props) {
       setError("Failed to log out");
     }
   }
+  const [MessageNotefication, setMessageNotefication] = React.useState(null);
 
+  const handleClickMessage = (event) => {
+    setMessageNotefication(event.currentTarget);
+  };
+
+  const handleCloseMessage = () => {
+    setMessageNotefication(null);
+  };
   return (
     <div className={classes.root}>
       <AppBar
@@ -325,27 +351,117 @@ function ProfileHeader(props) {
 
           <div className={classes.root} />
           <div className={classes.container}>
-          <div className={classes.notification}>
-          <NotificationBadge  badgeContent={4} color="primary">
-              <IconButton >
-                <FavoriteIcon style={{ color: 'cornflowerblue' }} />
-              </IconButton>
+            <div className={classes.notification}>
+              <NotificationBadge badgeContent={4} color="primary">
+                <IconButton>
+                  <FavoriteIcon style={{ color: "cornflowerblue" }} />
+                </IconButton>
               </NotificationBadge>
             </div>
-          <div className={classes.notification}>
-          <NotificationBadge  badgeContent={4} color="primary">
-              <IconButton >
-                <NotificationsActiveIcon style={{ color: 'cornflowerblue' }} />
-              </IconButton>
+            {props.SwitchToVendor ? (
+              <div className={classes.notification}>
+                <NotificationBadge badgeContent={4} color="primary">
+                  <IconButton>
+                    <NotificationsActiveIcon
+                      style={{ color: "cornflowerblue" }}
+                    />
+                  </IconButton>
+                </NotificationBadge>
+              </div>
+            ) : null}
+            <div className={classes.notification}>
+              <NotificationBadge badgeContent={4} color="primary">
+                <IconButton onClick={handleClickMessage}>
+                  <MessageIcon style={{ color: "cornflowerblue" }} />
+                </IconButton>
               </NotificationBadge>
             </div>
-          <div className={classes.notification}>
-          <NotificationBadge badgeContent={4} color="primary">
-              <IconButton >
-                <MessageIcon style={{ color: 'cornflowerblue' }} />
-              </IconButton>
-              </NotificationBadge>
-            </div>
+            <Menu
+              id="simple-menu"
+              anchorEl={MessageNotefication}
+              getContentAnchorEl={null}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              transformOrigin={{ vertical: "top", horizontal: "center" }}
+              open={Boolean(MessageNotefication)}
+              onClose={handleCloseMessage}
+            >
+              <List className={classes.root}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/1.jpg"
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Brunch this weekend?"
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          Ali Connors
+                        </Typography>
+                        {" — I'll be in your neighborhood doing errands this…"}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="Travis Howard"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Summer BBQ"
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          to Scott, Alex, Jennifer
+                        </Typography>
+                        {" — Wish I could come, but I'm out of town this…"}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="Cindy Baker"
+                      src="/static/images/avatar/3.jpg"
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Oui Oui"
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          Sandra Adams
+                        </Typography>
+                        {" — Do you have Paris recommendations? Have you ever…"}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              </List>
+            </Menu>
             <FormControlLabel
               label={props.SwitchToVendor ? "Loueur" : "Membre"}
               control={
@@ -368,7 +484,7 @@ function ProfileHeader(props) {
               <Button
                 onClick={handleLogout}
                 variant="contained"
-                className={`${classes.SignUp_button} ${classes.sm_hidden}`}
+                className={`${classes.logout} ${classes.sm_hidden}`}
               >
                 Log out
               </Button>
