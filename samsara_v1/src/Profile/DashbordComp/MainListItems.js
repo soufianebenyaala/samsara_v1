@@ -49,7 +49,7 @@ function MainListItems(props)  {
         <ListItemText primary="Profile" />
       </ListItem>
     </Link>
-    {props.SwitchToVendor?<Link className={classes.noLinks} to="/profile/profile" >
+    {props.SwitchToVendor?<Link className={classes.noLinks} to="/profile/Rendez-Vous" >
       <ListItem button>
         <ListItemIcon>
           <NotificationsActiveIcon />
@@ -62,7 +62,7 @@ function MainListItems(props)  {
         <ListItemIcon>
           <FavoriteIcon />
         </ListItemIcon>
-        <ListItemText primary="/profile/Wishlist" />
+        <ListItemText primary="Wishlist" />
       </ListItem>
     </Link>
     <Link className={classes.noLinks} to="/profile/Messages" >

@@ -9,8 +9,6 @@ import SearchBar from './SearchBar';
 import SignUpDialog from './SignUpDialog';
 import LogInDialog from './LogInDialog';
 import Avatar from '@material-ui/core/Avatar';
-
-import {AuthProvider} from "../contexts/AuthContext"
 import {useAuth} from '../contexts/AuthContext'
 import { Link } from 'react-router-dom';
 

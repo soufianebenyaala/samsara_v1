@@ -24,7 +24,8 @@ import Dashbord from "./Pages/Dashbord";
 import Products from "./Pages/Products";
 import AddProduct from "./Pages/AddProduct";
 import Message from "./Pages/Message";
-import WishList from "./Pages/WishList";
+import WishList from "./Pages/WishList"
+import RendezVous from "./Pages/RendezVous"
 
 const drawerWidth = 240;
 
@@ -180,22 +181,25 @@ export default function AbstractProfile() {
               <Route exact path="/profile">
                 <Profile />
               </Route>
-              <Route path="/profile/Dashbord">
+              {SwitchToVendor?<Route  path="/profile/Dashbord">
                 <Dashbord />
-              </Route>
-              <Route path="/profile/Immobilier">
+              </Route>:null}
+              {SwitchToVendor?<Route  path="/profile/Immobilier">
                 <Products />
-              </Route>
-              <Route path="/profile/AddProduct">
+              </Route>:null}
+             {SwitchToVendor? <Route  path="/profile/AddProduct">
                 <AddProduct />
-              </Route>
-              <Route path="/profile/Messages">
+              </Route>:null}
+              <Route  path="/profile/Messages">
                 <Message />
               </Route>
-              <Route path="/profile/WishList">
+              <Route  path="/profile/WishList">
                 <WishList />
               </Route>
-              <Redirect exact path="/profile" />
+              {SwitchToVendor?<Route  path="/profile/Rendez-Vous">
+                <RendezVous />
+              </Route>:null}
+              
             </Switch>
           </main>
         </div>
