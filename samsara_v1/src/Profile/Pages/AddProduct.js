@@ -237,7 +237,7 @@ export default function Dashboard() {
     await uploadimage();
     await uploadfile();
     await addToDataBase();
-    history.push("/products");
+    history.push("/profile/Immobilier");
   };
 
 

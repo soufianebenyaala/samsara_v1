@@ -289,6 +289,7 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable(props) {
 
   const classes = useStyles();
+  const history = useHistory()
   const { currentUser } = useAuth();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -302,6 +303,7 @@ export default function EnhancedTable(props) {
   }
   const productDelete = (key)=>{
     db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
+    history.push("/profile/Immobilier")
   }
 
   addDataTorows(props.posts);
