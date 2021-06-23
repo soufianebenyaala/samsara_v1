@@ -27,11 +27,11 @@ const GeneralDetail = (props) => {
       await db
         .collection("users")
         .doc(currentUser.uid)
-        .collection("wishList")
-        .add({
-          idBuilding:props.idValue,
-         
-        });
+        .collection("wishList").doc(props.idValue).set(
+          {id:props.idValue
+
+          })
+        
   
       
     };
