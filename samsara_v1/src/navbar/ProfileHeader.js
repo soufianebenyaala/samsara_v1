@@ -17,6 +17,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import MessageIcon from '@material-ui/icons/Message';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const NotificationBadge = withStyles((theme) => ({
   badge: {
     top: "29%",
@@ -216,7 +217,7 @@ function avater({
 }) {
   if (currentUser) {
     return (
-      <Link to={{ pathname: "/profile/account" }}>
+      <Link to={{ pathname: "/profile" }}>
         <StyledBadge
           overlap="circle"
           anchorOrigin={{
@@ -276,10 +277,7 @@ function ProfileHeader(props) {
   });
   const history = useHistory();
   const classes = useStyles(props);
-  const [SwitchToVendor, setSwitchToVendor] = useState(false);
-  const handleChangeSwitchToVendor = (event) => {
-    setSwitchToVendor(event.target.checked);
-  };
+  
   const searchbar = props.mySearchBar ? <SearchBar /> : null;
   const [openSignUp, isOpenSignUp] = useState(false);
   const handelClickOpenSignUp = () => {
@@ -327,7 +325,13 @@ function ProfileHeader(props) {
 
           <div className={classes.root} />
           <div className={classes.container}>
-            
+          <div className={classes.notification}>
+          <NotificationBadge  badgeContent={4} color="primary">
+              <IconButton >
+                <FavoriteIcon style={{ color: 'cornflowerblue' }} />
+              </IconButton>
+              </NotificationBadge>
+            </div>
           <div className={classes.notification}>
           <NotificationBadge  badgeContent={4} color="primary">
               <IconButton >
@@ -343,11 +347,11 @@ function ProfileHeader(props) {
               </NotificationBadge>
             </div>
             <FormControlLabel
-              label={SwitchToVendor ? "Membre" : "Loueur"}
+              label={props.SwitchToVendor ? "Loueur" : "Membre"}
               control={
                 <IOSSwitch
-                  checked={SwitchToVendor}
-                  onChange={handleChangeSwitchToVendor}
+                  checked={props.SwitchToVendor}
+                  onChange={props.handleChangeSwitchToVendor}
                   name="VendorOrConsumer"
                 />
               }

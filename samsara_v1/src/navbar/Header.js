@@ -113,7 +113,7 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
 
   if(currentUser){
     return(
-      <Link to={{ pathname :"/profile/account"}}>
+      <Link to={{ pathname :"/profile"}}>
         <Badge
         overlap="circle"
         anchorOrigin={{

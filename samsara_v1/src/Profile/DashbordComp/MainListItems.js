@@ -3,10 +3,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles'
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import MessageIcon from '@material-ui/icons/Message';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
   noLinks:{
   textDecoration:"none",
@@ -18,27 +21,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function MainListItems()  {
+function MainListItems(props)  {
   const classes=useStyles()
   return(
   <div>
-    <Link className={classes.noLinks}  href="/Dashboard" >
+    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/Dashbord" >
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
-    </Link>
-    <Link className={classes.noLinks}  href="/products" >
+    </Link>:null}
+    {props.SwitchToVendor?<Link className={classes.noLinks}  to="/products" >
       <ListItem button>
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <HomeWorkIcon />
         </ListItemIcon>
         <ListItemText primary="Immobilier" />
       </ListItem>
-    </Link>
-    <Link className={classes.noLinks} href="/profile" >
+    </Link>:null}
+    <Link className={classes.noLinks} to="/profile" >
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
@@ -46,26 +49,26 @@ function MainListItems()  {
         <ListItemText primary="Profile" />
       </ListItem>
     </Link>
-    <Link className={classes.noLinks} href="/profile" >
+    {props.SwitchToVendor?<Link className={classes.noLinks} to="/profile" >
       <ListItem button>
         <ListItemIcon>
-          <PeopleIcon />
+          <NotificationsActiveIcon />
         </ListItemIcon>
-        <ListItemText primary="mesrende-vous" />
+        <ListItemText primary="Mes Rendez-Vous" />
       </ListItem>
-    </Link>
-    <Link className={classes.noLinks} href="/profile" >
+    </Link>:null}
+    <Link className={classes.noLinks} to="/profile" >
       <ListItem button>
         <ListItemIcon>
-          <PeopleIcon />
+          <FavoriteIcon />
         </ListItemIcon>
         <ListItemText primary="Whishlist" />
       </ListItem>
     </Link>
-    <Link className={classes.noLinks} href="/profile" >
+    <Link className={classes.noLinks} to="/profile" >
       <ListItem button>
         <ListItemIcon>
-          <PeopleIcon />
+          <MessageIcon />
         </ListItemIcon>
         <ListItemText primary="messages" />
       </ListItem>
