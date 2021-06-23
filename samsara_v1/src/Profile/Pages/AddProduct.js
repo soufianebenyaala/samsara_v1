@@ -1,23 +1,11 @@
 import React, { useState } from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import img from '../Home/blacklogo-01.svg'
+import { Container } from "@material-ui/core";
 
-import {
-  Drawer,
-  List,
-  Divider,
-  IconButton,
-  Container,
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import  MainListItems from "./DashbordComp/MainListItems";
-import Checkout from "./Checkout/Checkout";
-import ProfileHeader from '../navbar/ProfileHeader';
+import Checkout from "../Checkout/Checkout";
 
-import { useAuth } from "../contexts/AuthContext";
-import { db, storage, storageRef } from "../firebase";
+import { useAuth } from "../../contexts/AuthContext";
+import { db, storage, storageRef } from "../../firebase";
 import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -120,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
 
   const history = useHistory();
   const { currentUser } = useAuth();
@@ -178,7 +165,7 @@ export default function Dashboard() {
         seturlfile(urlF);
       }
     }
-  }
+  };
   const uploadimage = async () => {
     var urlI = [];
     if (images != []) {
@@ -213,10 +200,11 @@ export default function Dashboard() {
         discerption: discerption,
         latitude: latitude,
         longitude: longitude,
-        telephone: telephone
+        telephone: telephone,
       });
 
-    await db.collection("users")
+    await db
+      .collection("users")
       .doc(currentUser.uid)
       .collection("products")
       .get()
@@ -239,18 +227,19 @@ export default function Dashboard() {
               discerption: doc.data().discerption,
               latitude: doc.data().latitude,
               longitude: doc.data().longitude,
-              telephone: doc.data().telephone
+              telephone: doc.data().telephone,
             });
           }
         });
       });
-  }
+  };
   const submit = async () => {
-    await uploadimage()
-    await uploadfile()
-    await addToDataBase()
-    history.push("/products")
-  }
+    await uploadimage();
+    await uploadfile();
+    await addToDataBase();
+    history.push("/products");
+  };
+
 
   console.log({
     urlfile,
@@ -270,97 +259,48 @@ export default function Dashboard() {
     latitude,
     loading,
   });
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const list=()=>(
-    <>
-    <div className={classes.toolbarIcon}>
-    <IconButton className={clsx(
-        classes.menuButton,
-        !open && classes.menuButtonHidden
-      )} onClick={handleDrawerClose}>
-      <ChevronLeftIcon />
-    </IconButton>
-  </div>
-  <IconButton
-    edge="start"
-    color="inherit"
-    aria-label="open drawer"
-    onClick={handleDrawerOpen}
-    className={clsx(
-      classes.menuButton,
-      open && classes.menuButtonHidden
-    )}
-  >
-    <MenuIcon />
-  </IconButton>
-  </>)
+
   return (
     <>
-     <ProfileHeader         className={clsx(classes.appBar, open && classes.appBarShift)} list={list()} fontColor='black' color='transparent' Logo={img}/>
-    <div className={classes.root}>
-    <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        
-        <Divider />
-        <List><MainListItems/></List>
-       
-      </Drawer>
-
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Checkout
-            setbuildingName={setbuildingName}
-            seturlfile={seturlfile}
-            seturlimage={seturlimage}
-            setloading={setloading}
-            setadress={setadress}
-            setzipcode={setzipcode}
-            setprice={setprice}
-            NbrOfBathRooms={NbrOfBathRooms}
-            handelNbrOfBathRooms={handleChangeNbrOfBathRooms}
-            NbrOfRooms={NbrOfRooms}
-            handelNbrOfRooms={handleChangeNbrOfRooms}
-            setCat={setCat}
-            setAmi={setAmi}
-            setfiles={setfiles}
-            setimages={setimages}
-            setdiscerption={setdiscerption}
-            Ami={Ami}
-            setlatitude={setlatitude}
-            setlongitude={setlongitude}
-            settelephone={settelephone}
-            telephone={telephone}
-            buildingName={buildingName}
-            urlfile={urlfile}
-            urlimage={urlimage}
-            adress={adress}
-            zipcode={zipcode}
-            price={price}
-            Cat={Cat}
-            files={files}
-            images={images}
-            discerption={discerption}
-            latitude={latitude}
-            longitude={longitude}
-
-            submit={submit}
+      <Container maxWidth="lg" className={classes.container}>
+        <Checkout
+          setbuildingName={setbuildingName}
+          seturlfile={seturlfile}
+          seturlimage={seturlimage}
+          setloading={setloading}
+          setadress={setadress}
+          setzipcode={setzipcode}
+          setprice={setprice}
+          NbrOfBathRooms={NbrOfBathRooms}
+          handelNbrOfBathRooms={handleChangeNbrOfBathRooms}
+          NbrOfRooms={NbrOfRooms}
+          handelNbrOfRooms={handleChangeNbrOfRooms}
+          setCat={setCat}
+          setAmi={setAmi}
+          setfiles={setfiles}
+          setimages={setimages}
+          setdiscerption={setdiscerption}
+          Ami={Ami}
+          setlatitude={setlatitude}
+          setlongitude={setlongitude}
+          settelephone={settelephone}
+          telephone={telephone}
+          buildingName={buildingName}
+          urlfile={urlfile}
+          urlimage={urlimage}
+          adress={adress}
+          zipcode={zipcode}
+          price={price}
+          Cat={Cat}
+          files={files}
+          images={images}
+          discerption={discerption}
+          latitude={latitude}
+          longitude={longitude}
+          submit={submit}
           //product={product}
-          />
-        </Container>
-      </main>
-    </div>
+        />
+      </Container>
     </>
   );
 }

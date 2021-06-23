@@ -113,7 +113,7 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
 
   if(currentUser){
     return(
-      <Link to={{ pathname :"/profile/account"}}>
+      <Link to={{ pathname :"/profile"}}>
         <Badge
         overlap="circle"
         anchorOrigin={{
@@ -213,12 +213,7 @@ function Header(props) {
 
           <div className={classes.root}/>
     
-          <Button 
-          size="medium" 
-          className={`${classes.space_button} ${classes.fontColor}`} >
-          Manage Rentals 
-          <div className={classes.free_chip}  >FREE</div>
-          </Button>
+          
 
           {avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp,url})}
           {currentUser ? 
