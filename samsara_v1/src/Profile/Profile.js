@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import ProfileHeader from '../navbar/ProfileHeader';
@@ -121,6 +121,8 @@ export default function Dashboard() {
   
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [nameUser,setNameUser]=useState("");
+  const [country,setCountry]=useState("");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -182,10 +184,10 @@ export default function Dashboard() {
             <Container maxWidth="lg">
               <Grid container spacing={3}>
                 <Grid style={{display: "flex"}} item lg={4} md={6} xs={12}>
-                  <AccountProfile />
+                  <AccountProfile country={country} nameUser={nameUser}/>
                 </Grid>
                 <Grid  item lg={8} md={6} xs={12}>
-                  <AccountProfileDetails />
+                  <AccountProfileDetails setCountry={setCountry} setNameUser={setNameUser} />
                 </Grid>
               </Grid>
             </Container>

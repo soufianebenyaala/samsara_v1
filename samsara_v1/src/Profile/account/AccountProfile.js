@@ -185,7 +185,7 @@ function AccountProfile(props) {
               >
                 <Grid xs={11} item>
                   <Typography color="textPrimary" gutterBottom variant="h3">
-                    {user.name}
+                    {props.nameUser}
                   </Typography>
                 </Grid>
               </Grid>
@@ -199,7 +199,7 @@ function AccountProfile(props) {
               >
                 <Grid xs={6} item>
                   <Typography color="textSecondary" variant="body1">
-                    {`${user.city} ${user.country}`}
+                    {props.country}
                   </Typography>
                 </Grid>
               </Grid>

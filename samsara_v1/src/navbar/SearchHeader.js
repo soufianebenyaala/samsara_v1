@@ -127,7 +127,7 @@ function avater({classes,currentUser,handelClickOpenSignIn,handelClickOpenSignUp
 }
 function Header(props) {
     const classes = useStyles(props);
-    const searchbar=props.mySearchBar?<SearchBar />:null
+    const searchbar=props.mySearchBar?<SearchBar setSearch={props.setSearch}/>:null
     const [openSignUp,isOpenSignUp]= useState(false);
     const handelClickOpenSignUp =()=>{
         isOpenSignUp(true);

@@ -79,6 +79,8 @@ const AccountProfileDetails = (props) => {
      })
     
   }
+  props.setNameUser(firstName+' '+lastName)
+  props.setCountry(country+' '+state)
 
 
   return (

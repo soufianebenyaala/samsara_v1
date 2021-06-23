@@ -50,6 +50,8 @@ function SearchPage(props) {
   const [loading, setLoading] = useState([])
   const [IDbuilding,setIDbuilding]=useState("")
   const [blogs,setBlogs]=useState([])
+  const [search,setSearch]=useState('') 
+  console.log(search)
   const fetchBlogs=async()=>{
     const response=db.collection('Allproduct');
     const data=await response.get();
@@ -66,13 +68,13 @@ function SearchPage(props) {
 
   return (
     <div>
-        <SearchHeader mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
+        <SearchHeader setSearch={setSearch} mySearchBar="true" position="fixed" fontColor={theme.palette.common.black} color="default" Logo="https://d214hhm15p4t1d.cloudfront.net/nzr/df796830ad47fb10c09fa97d4cde17024f286eb8/img/zumper-logo-text-white.bd50acd5.svg"/>
       <div className={classes.mainView}>
         <div className={classes.RailContainer}>
           <div className={classes.RailRail}>
             <div className={classes.RailPlaceholder}>
               
-              <RailCurentSearchView blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
+              <RailCurentSearchView search={search} blogs={blogs} setIDbuilding={setIDbuilding} IDbuilding={IDbuilding} />
             </div>
           </div>
         </div>

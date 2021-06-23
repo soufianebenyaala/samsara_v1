@@ -77,7 +77,7 @@ const FilterButton = withStyles({
     },
   },
 })(Button);
-const StikyHeader = () => {
+const StikyHeader = (props) => {
   const classes = useStyles();
   const [Price, setPrice] = useState(false);
   const handelClickPrice = () => {
@@ -100,14 +100,16 @@ const StikyHeader = () => {
   const handelCloseBath = () => {
     setBath(false);
   };
-  const [NbrOfBathRooms, setNbrOfBathRooms] = useState("1");
+  const [NbrOfBathRooms, setNbrOfBathRooms] = useState("all");
   const handleChangeNbrOfBathRooms = (event, newNbr) => {
     setNbrOfBathRooms(newNbr);
   };
-  const [NbrOfRooms, setNbrOfRooms] = useState("Studio");
+  const [NbrOfRooms, setNbrOfRooms] = useState("all");
   const handleChangeNbrOfRooms = (event, newNbr) => {
     setNbrOfRooms(newNbr);
   };
+  
+  
   return (
     <div className={classes.StikyHeader}>
       <div className={classes.HeaderContainer}>
@@ -140,18 +142,24 @@ const StikyHeader = () => {
         {Price ? <PriceFilter handelClosePrice={handelClosePrice} /> : null}
         {Bed ? (
           <FilterWithTogelButtons
+          setNbrBath={props.setNbrBath}
+          setValue={props.setValue}
             handelCloseFilter={handelCloseBed}
-            nbrOfFilter={NbrOfRooms}
-            handelNbrOfFilter={handleChangeNbrOfRooms}
+            nbrOfRooms={NbrOfRooms}
+            nbrOfBath={NbrOfBathRooms}
+            handleChangeNbrOfRooms={handleChangeNbrOfRooms}
             type="Bed"
             list={["Studio", "1", "2", "3", "4+"]}
           />
         ) : null}
         {Bath ? (
           <FilterWithTogelButtons
+          setNbrBath={props.setNbrBath}
             handelCloseFilter={handelCloseBath}
-            nbrOfFilter={NbrOfBathRooms}
-            handelNbrOfFilter={handleChangeNbrOfBathRooms}
+            setValue={props.setValue}
+            nbrOfBath={NbrOfBathRooms}
+            nbrOfRooms={NbrOfRooms}
+            handleChangeNbrOfBathRooms={handleChangeNbrOfBathRooms}
             type="Bath"
             list={["1", "2", "3", "4", "5+"]}
           />
