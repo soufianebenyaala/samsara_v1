@@ -13,14 +13,14 @@ const Contact = (props) => {
             style={{ marginRight: "10px" }}
             className={classes.btnMsg}
           >
-            Request a tour
+            Réserver
           </Button>
           <Button
             onClick={props.handelClickOnMessage}
             style={{ marginLeft: "10px" }}
             className={classes.btnMsg}
           >
-            message
+            Message
           </Button>
         </div>
       </div>
