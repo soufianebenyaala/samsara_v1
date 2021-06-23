@@ -20,14 +20,18 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { db } from "../../firebase";
 import { useState, useEffect } from "react";
 import ShowMoreText from "react-show-more-text";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import EditIcon from '@material-ui/icons/Edit';
+
+import { useAuth } from "../../contexts/AuthContext";
+import { db, storage, storageRef } from "../../firebase";
+import { useHistory } from "react-router-dom";
+
 function createData(
-  Building_name,
+  buildingName,
   address,
   zip_code,
   price,
@@ -37,7 +41,7 @@ function createData(
   discerption
 ) {
   return {
-    Building_name,
+    buildingName,
     address,
     zip_code,
     price,
@@ -50,24 +54,9 @@ function createData(
 var rows = [];
 
 function addDataTorows(blogs) {
-  /*for(var i = 0 ; i<blogs.length;i++){
-    rows[i]={Building_name:blogs[i].buildingName,address:blogs[i].adress ,zip_code:blogs[i].zipcode , price:blogs[i].price,NumberOfRooms:blogs[i].NumberOfRooms ,NumberOfBathRooms:blogs[i].NumberOfBathRooms ,categorie:blogs[i].categorie ,discerption:blogs[i].discerption}
-  }*/
-  blogs &&
-    blogs.map((blog) => {
-      rows.push({
-        id_Building:blog.id,
-        Building_name: blog["data"].buildingName,
-        address: blog["data"].adress,
-        zip_code: blog["data"].zipcode,
-        price: blog["data"].price,
-        NumberOfRooms: blog["data"].NumberOfRooms,
-        NumberOfBathRooms: blog["data"].NumberOfBathRooms,
-        categorie: blog["data"].categorie,
-        discerption: blog["data"].discerption,
-      });
-    });
+  rows = blogs
 }
+
 
 
 function descendingComparator(a, b, orderBy) {
@@ -98,7 +87,7 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "Building_name",
+    id: "buildingName",
     numeric: true,
     disablePadding: true,
     label: "Building name",
@@ -154,7 +143,7 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <TableHead style={{background: "cornflowerblue"}}>
+    <TableHead style={{ background: "cornflowerblue" }}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -170,7 +159,7 @@ function EnhancedTableHead(props) {
             align={headCell.numeric ? "center" : "left"}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
-            style={{color:"#fff"}}
+            style={{ color: "#fff" }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -209,13 +198,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: "1 1 100%",
   },
@@ -227,7 +216,7 @@ const EnhancedTableToolbar = (props) => {
 
   return (
     <Toolbar
-    style={{background: "cornflowerblue",color:"#fff"}}
+      style={{ background: "cornflowerblue", color: "#fff" }}
       className={clsx(classes.root, {
         [classes.highlight]: numSelected > 0,
       })}
@@ -297,8 +286,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
+
   const classes = useStyles();
+  const { currentUser } = useAuth();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -306,21 +297,18 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const [blogs, setBlogs] = useState([]);
-  const fetchBlogs = async () => {
-    const response =  db.collection("Allproduct");
-    const data = await response.get();
+  const productEdit = ()=>{
 
-    data.docs.map((item) => {
-       setBlogs((blogs) => [...blogs, {id:item.id,data:item.data()}]);
-    });
-  };
+  }
+  const productDelete = (key)=>{
+    console.log(key)
+    //db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
+  }
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
-  addDataTorows(blogs);
+  addDataTorows(props.posts);
   console.log(rows)
+
+
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -330,7 +318,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.Building_name);
+      const newSelecteds = rows.map((n) => n.buildingName);
       setSelected(newSelecteds);
       return;
     }
@@ -402,17 +390,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.Building_name);
+                  const isItemSelected = isSelected(row.buildingName);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
+                  console.log(row.key)
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.Building_name)}
+                      onClick={(event) => handleClick(event, row.key)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id_Building}
+
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -423,14 +411,14 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell
                         component="th"
-                        id={labelId}
+
                         scope="row"
                         padding="none"
                       >
-                        {row.Building_name}
+                        {row.buildingName}
                       </TableCell>
-                      <TableCell align="center">{row.address}</TableCell>
-                      <TableCell align="center">{row.zip_code}</TableCell>
+                      <TableCell align="center">{row.adress}</TableCell>
+                      <TableCell align="center">{row.zipcode}</TableCell>
                       <TableCell align="center">{row.price}</TableCell>
                       <TableCell align="center">{row.NumberOfRooms}</TableCell>
                       <TableCell align="center">
@@ -454,6 +442,7 @@ export default function EnhancedTable() {
                           aria-label="delete"
                           disabled
                           color="primary"
+                          onClick={productEdit(row.key)}
                         >
                           <EditIcon />
                         </IconButton>
@@ -463,11 +452,12 @@ export default function EnhancedTable() {
                           aria-label="delete"
                           disabled
                           color="primary"
+                          onClick={productDelete(row.key)}
                         >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
-                     
+
                     </TableRow>
                   );
                 })}
