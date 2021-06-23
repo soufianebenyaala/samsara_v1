@@ -8,7 +8,7 @@ import { Container } from "@material-ui/core";
 
 import Products from "../Products/productsTable";
 
-const drawerWidth = 240;
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   
@@ -23,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "cornflowerblue",
     color: "#fff",
   },
+  noLinks:{
+    textDecoration:"none",
+    color:"black",
+    "&:hover":{
+      textDecoration:"none",
+      color:"black",
+    }
+    }
 }));
 
 export default function Dashboard() {
@@ -30,11 +38,12 @@ export default function Dashboard() {
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>
-          
+          <Link className={classes.noLinks} to="/profile/AddProduct">
         <Fab className={classes.fab}  variant="extended">
           <AddIcon />
           ajouter maison
         </Fab>
+        </Link>
         <Products />
       </Container>
     </>

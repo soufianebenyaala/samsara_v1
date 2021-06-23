@@ -462,6 +462,7 @@ function ProfileHeader(props) {
                 </ListItem>
               </List>
             </Menu>
+            
             <FormControlLabel
               label={props.SwitchToVendor ? "Loueur" : "Membre"}
               control={
@@ -472,7 +473,7 @@ function ProfileHeader(props) {
                 />
               }
             />
-
+            
             {avater({
               classes,
               currentUser,
