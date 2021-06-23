@@ -150,6 +150,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "22px",
     lineHeight: "29px",
   },
+  aminities_aminities:{
+    position: "relative",
+    display: "flex",
+    flexGrow: "0",
+    flexShrink: "1",
+    flexBasis: "33.33%",
+    alignItems: "center",
+    paddingBottom: "20px",
+  }
 }));
 const tileData = [
   {
@@ -225,7 +234,7 @@ const DetailDrawer = (props) => {
     <Grid className={classes.navBar} xs={12} item>
       <Grid container>
         <Grid xs={1} item>
-          <Button className={classes.button} startIcon={<CloseIcon />}></Button>
+          <Button className={classes.button} onClick={props.handelCloseDetail} startIcon={<CloseIcon />}></Button>
         </Grid>
 
         <Grid xs={10} className={classes.navContainer} item>
@@ -258,7 +267,7 @@ const DetailDrawer = (props) => {
     </Grid>
   );
   const imagesStepper = () => (
-    <Grid xs={12} item>
+    <Grid xs={6} item>
       <div className={classes.root}>
         <Paper square elevation={0} className={classes.header1}>
           <Typography>{tileData[activeStep].label}</Typography>
@@ -316,9 +325,9 @@ const DetailDrawer = (props) => {
         <Grid container>
           {header()}
           <Grid className={classes.buble} xs={12} item>
-            <Grid className={classes.content} container>
-              <Grid xs={6}>
-                <Grid container>
+            <Grid  className={classes.content} container>
+              <Grid xs={12} item>
+                <Grid justify="center" container>
                   {imagesStepper()}
                   <Grid xs={12} className={classes.headerHeader} item>
                     <Grid container>
@@ -407,12 +416,18 @@ const DetailDrawer = (props) => {
                         xs={12}
                         className={classes.AminitiesContainer}
                         item
-                      ></Grid>
+                      >
+                        {/* bouchle sur amminities */}
+                        <Grid className={classes.aminities_aminities} xs={4}>
+                              <img height="20px" width="20px" src="https://d214hhm15p4t1d.cloudfront.net/nzr/92a84ff66ca6d42660a2bcb0c1406e8a0e718055/img/generic_icon.d8a77d2a.svg"/>
+                             <Typography> BBQ Areas</Typography> 
+                        </Grid>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid xs={6}></Grid>
+              
             </Grid>
           </Grid>
         </Grid>
