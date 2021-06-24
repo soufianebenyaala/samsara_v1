@@ -274,7 +274,7 @@ const RequestForm = (props) => {
     today.setMinutes(today.getMinutes() + 15);
   }
   return (
-    <SnackbarProvider maxSnack={3}>
+
 
       <Dialog
         onClose={props.onClose}
@@ -777,7 +777,7 @@ const RequestForm = (props) => {
           </Grid>
         </Grid>
       </Dialog>
-    </SnackbarProvider>
+  
 
   );
 };
