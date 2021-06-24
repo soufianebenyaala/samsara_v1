@@ -35,6 +35,7 @@ function RailCurentSearchView(props) {
         <div className={classes.listables}>
           {props.blogs &&
             props.blogs.filter((val)=>{
+              const find =(val["data"].buildingName+val["data"].adress+val["data"].state)
               
  
               
@@ -59,7 +60,7 @@ function RailCurentSearchView(props) {
                   }
   
                 }  
-              }else if(val["data"].buildingName.toLowerCase().includes(search.toLowerCase()))  {
+              }else if(find.toLowerCase().includes(search.toLowerCase()))  {
                 if(value=='all'){
                   if(nbrBath=="all"){
                     return val
