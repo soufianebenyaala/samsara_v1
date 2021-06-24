@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Drawer from "@material-ui/core/Drawer";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -18,6 +18,9 @@ import ShareIcon from "@material-ui/icons/Share";
 import FlagIcon from "@material-ui/icons/Flag";
 import CheckIcon from "@material-ui/icons/Check";
 import Contact from "../SearchResultCard/CardComponent/InfoContainerComponent/Contact";
+import ShowMoreText from "react-show-more-text";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 const useStyles = makeStyles((theme) => ({
   navBar: {
     display: "flex",
@@ -218,7 +221,10 @@ const tileData = [
 ];
 const DetailDrawer = (props) => {
   const theme = useTheme();
-
+  const [expand, setExpand] = useState(false);
+  const onClick = () => {
+    setExpand(!expand);
+  };
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = tileData.length;
 
@@ -428,6 +434,28 @@ const DetailDrawer = (props) => {
                         </Grid>
                       </Grid>
                     </Grid>
+                  </Grid>
+                  <Grid xs={12} item>
+                      <Grid container>
+                        <Grid xs={12} item>
+                        <Typography className={classes.TextHeader}>
+                        About The Tides at Lakeshore East
+                        </Typography>
+                        </Grid>
+                        <Grid xs={12} item>
+                        <ShowMoreText
+                          lines={2}
+                          more={<ExpandMore />}
+                          less={<ExpandLess />}
+                          onClick={onClick}
+                          expanded={expand}
+                          width={900}
+                        >
+                          Welcome to The Tides at Lakeshore EastLiving at The Tides is a great way to experience life and culture in the heart of Chicago! Featuring a modern contemporary feel, the Chicago apartment rentals at The Tides offer dramatic finishes including tiled entries, granite islands and cherry cabinetry, open floor plans with captivating views from the floor-to-ceiling windows, balconies and bay windows. Amenities abound in the exclusive Shore Club, a private club floor retreat, a full floor of amenities. In addition, life is easier with the Club Lincoln Perks program, giving you access to numerous events and preferred partner incentives and the Lakeshore East eco-friendly shuttle. This urban hideaway is located in the heart of Lakeshore East, Chicago's hottest residential community located where Lake Michigan meets the Chicago River, just north of Millennium Park. It is in this special corner of Chicago where the everyday conveniences of modern city life blend easily with the appeal of neighborhood charm. Our luxury apartments are more than just a place to call home they offer a unique lifestyle designed with attention to service and detail in mind.
+Year Built: 2007
+                        </ShowMoreText>
+                        </Grid>
+                      </Grid>
                   </Grid>
                 </Grid>
               </Grid>
