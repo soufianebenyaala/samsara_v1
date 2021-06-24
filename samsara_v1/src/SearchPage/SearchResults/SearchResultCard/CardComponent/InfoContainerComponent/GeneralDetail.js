@@ -12,16 +12,18 @@ import { useAuth } from "../../../../../contexts/AuthContext";
 import { db } from "../../../../../firebase";
 import { useHistory } from "react-router-dom";
 import CloseIcon from '@material-ui/icons/Close';
+import firebase from '../../../../../firebase'
+
 const GeneralDetail = (props) => {
     const classes = UseStyles();
+    const history = useHistory()
     const preventDefault = (event) => event.preventDefault();
     const { currentUser } = useAuth();
-    console.log(props.idValue)
    
    
    
    
-   
+
    
     const addToDataBase = async () => {
       await db
@@ -35,7 +37,17 @@ const GeneralDetail = (props) => {
   
       
     };
-    
+    const productDelete = (key)=>{
+      db.collection("users").doc(currentUser.uid).collection("wishList").doc(key).delete().then((a)=>{
+        window.location.reload(false);
+      })
+      
+      
+  
+    }
+  
+   
+   
     
     return(
       <div>
@@ -46,10 +58,10 @@ const GeneralDetail = (props) => {
                       <InfoOutlinedIcon className={classes.infoIcon}/>
                     </IconButton>
                     <div className={classes.btnIconContainer}>
-                   {props.withoutHeart?<IconButton onClick={addToDataBase} className={classes.iconBtn} >
+                   {props.withoutHeart?<IconButton onClick={() => {productDelete(props.blog.id)}} className={classes.iconBtn} >
                         <CloseIcon  className={`${classes.infoIcon} ${classes.heartIcon}`}/>
                       </IconButton>:
-                      <IconButton onClick={addToDataBase} className={classes.iconBtn} >
+                      <IconButton   onClick={addToDataBase} className={classes.iconBtn} >
                         <FavoriteBorderIcon  className={`${classes.infoIcon} ${classes.heartIcon}`}/>
                       </IconButton>}
                     </div>

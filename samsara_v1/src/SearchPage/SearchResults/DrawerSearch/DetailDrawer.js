@@ -13,9 +13,11 @@ import MobileStepper from "@material-ui/core/MobileStepper";
 import Paper from "@material-ui/core/Paper";
 import image from "./logo111.jpg";
 import image1 from "./logo111.png";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import ShareIcon from '@material-ui/icons/Share';
-import FlagIcon from '@material-ui/icons/Flag';
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ShareIcon from "@material-ui/icons/Share";
+import FlagIcon from "@material-ui/icons/Flag";
+import CheckIcon from "@material-ui/icons/Check";
+import Contact from "../SearchResultCard/CardComponent/InfoContainerComponent/Contact";
 const useStyles = makeStyles((theme) => ({
   navBar: {
     display: "flex",
@@ -106,20 +108,57 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     fontSize: "22px",
     lineHeight: "27.5px",
-    
   },
-  actionBtnContainer:{
+  actionBtnContainer: {
     display: "flex",
-     border: "1px solid #e4e7e9",
+    border: "1px solid #e4e7e9",
     borderRadius: "3px",
     boxShadow: "0 1px 2px 0 rgb(0 0 0 / 10%)",
   },
-  TextHeader:{
+  TextHeader: {
     margin: "22px 0 5px",
     color: "#2b2c2d",
     fontWeight: "600",
     fontSize: "22px",
-  }
+  },
+  MySubHeader: {
+    marginTop: "5px",
+    color: "#2b2c2d",
+    fontSize: "14px",
+    lineHeight: "21px",
+  },
+  chip: {
+    position: "relative",
+    display: "inline-block",
+    padding: "3px 6px",
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: "10px",
+    fontFamily: "Arial,sans-serif",
+    fontStyle: "normal",
+    lineHeight: "9px",
+    letterSpacing: ".3px",
+    textAlign: "center",
+    textTransform: "uppercase",
+    verticalAlign: "middle",
+    background: "#474e61",
+    borderRadius: "55px",
+    marginRight: "4px",
+  },
+  amineties: {
+    margin: "26px 0 0",
+    fontSize: "22px",
+    lineHeight: "29px",
+  },
+  aminities_aminities: {
+    position: "relative",
+    display: "flex",
+    flexGrow: "0",
+    flexShrink: "1",
+    flexBasis: "33.33%",
+    alignItems: "center",
+    paddingBottom: "20px",
+  },
 }));
 const tileData = [
   {
@@ -195,7 +234,11 @@ const DetailDrawer = (props) => {
     <Grid className={classes.navBar} xs={12} item>
       <Grid container>
         <Grid xs={1} item>
-          <Button className={classes.button} startIcon={<CloseIcon />}></Button>
+          <Button
+            className={classes.button}
+            onClick={props.handelCloseDetail}
+            startIcon={<CloseIcon />}
+          ></Button>
         </Grid>
 
         <Grid xs={10} className={classes.navContainer} item>
@@ -228,7 +271,7 @@ const DetailDrawer = (props) => {
     </Grid>
   );
   const imagesStepper = () => (
-    <Grid xs={12} item>
+    <Grid xs={6} item>
       <div className={classes.root}>
         <Paper square elevation={0} className={classes.header1}>
           <Typography>{tileData[activeStep].label}</Typography>
@@ -287,14 +330,14 @@ const DetailDrawer = (props) => {
           {header()}
           <Grid className={classes.buble} xs={12} item>
             <Grid className={classes.content} container>
-              <Grid xs={6}>
-                <Grid container>
+              <Grid xs={12} item>
+                <Grid justify="center" container>
                   {imagesStepper()}
                   <Grid xs={12} className={classes.headerHeader} item>
                     <Grid container>
                       <Grid xs={12} item>
                         <Grid justify="space-between" container>
-                          <Grid style={{marginTop: "auto",}} xs={4} item>
+                          <Grid style={{ marginTop: "auto" }} xs={4} item>
                             <Typography
                               className={classes.headerPrice}
                               component="h1"
@@ -302,48 +345,92 @@ const DetailDrawer = (props) => {
                               $2,183—$8,392
                             </Typography>
                           </Grid>
-                          <Grid  className={classes.actionBtnContainer} xs={5} item>
+                          <Grid
+                            className={classes.actionBtnContainer}
+                            xs={5}
+                            item
+                          >
                             <Button
-                            style={{flexGrow: "1", borderRight: "1px solid #e4e7e9",
-                            borderRadius: "3px 0 0 3px",}}
+                              style={{
+                                flexGrow: "1",
+                                borderRight: "1px solid #e4e7e9",
+                                borderRadius: "3px 0 0 3px",
+                              }}
                               startIcon={<FavoriteBorderIcon />}
                             ></Button>
                             <Button
-                            style={{flexGrow: "1"}}
+                              style={{ flexGrow: "1" }}
                               startIcon={<ShareIcon />}
                             ></Button>
                             <Button
-                            style={{flexGrow: "1" ,borderLeft: "1px solid #e4e7e9",
-                            borderRadius: "3px 0 0 3px",}}
+                              style={{
+                                flexGrow: "1",
+                                borderLeft: "1px solid #e4e7e9",
+                                borderRadius: "3px 0 0 3px",
+                              }}
                               startIcon={<FlagIcon />}
                             ></Button>
                           </Grid>
                         </Grid>
                       </Grid>
                       <Grid xs={12} item>
-                      <Typography
-                              className={classes.TextHeader}
-                              component="h1"
-                            >
-                             The Tides at Lakeshore East Apartments
-
-                            </Typography>
+                        <Typography
+                          className={classes.TextHeader}
+                          component="h1"
+                        >
+                          The Tides at Lakeshore East Apartments
+                        </Typography>
                       </Grid>
                       <Grid xs={12} item>
-                      <Typography
-                              className={classes.subHeader}
-                              component="h1"
-                            >
-                             Managed by Lincoln Property Company<br/>
-                            Loop · 360 E South Water St, Chicago, IL 60601, USA
-
-                            </Typography>
+                        <Typography
+                          className={classes.MySubHeader}
+                          component="h1"
+                        >
+                          Managed by Lincoln Property Company
+                          <br />
+                          Loop · 360 E South Water St, Chicago, IL 60601, USA
+                        </Typography>
+                      </Grid>
+                      <Grid style={{ marginTop: "12px" }} xs={12} item>
+                        <div className={classes.chip}>
+                          <CheckIcon style={{ fontSize: "10px" }} />
+                          VERIFIED
+                        </div>
+                        <div className={classes.chip}>ONLINE</div>
+                        <div className={classes.chip}>TOURSRENT</div>
+                        <div className={classes.chip}>SPECIALPET</div>
+                        <div className={classes.chip}>FRIENDLY</div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid xs={12} item>
+                    <Contact
+                      handelClickOnTour={props.handelClickOnTour}
+                      handelClickOnMessage={props.handelClickOnMessage}
+                    />
+                  </Grid>
+                  <Grid xs={12} className={classes.amineties} item>
+                    <Grid container>
+                      <Grid xs={12} item>
+                        <Typography className={classes.TextHeader}>
+                          Amenities
+                        </Typography>
+                      </Grid>
+                      <Grid xs={12} className={classes.AminitiesContainer} item>
+                        {/* bouchle sur amminities */}
+                        <Grid className={classes.aminities_aminities} xs={4}>
+                          <img
+                            height="20px"
+                            width="20px"
+                            src="https://d214hhm15p4t1d.cloudfront.net/nzr/92a84ff66ca6d42660a2bcb0c1406e8a0e718055/img/generic_icon.d8a77d2a.svg"
+                          />
+                          <Typography> BBQ Areas</Typography>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid xs={6}></Grid>
             </Grid>
           </Grid>
         </Grid>

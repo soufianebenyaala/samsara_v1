@@ -156,7 +156,6 @@ const HeroSearchBar = (props) => {
        
         <div className={classes.divider}></div>
         <Button size='large' className={classes.searchButton} variant="contained" color="primary">Chercher</Button>
-                    
         </div>
         {anchorEl && <Box  className={classes.popoverStyle}>
                         <ListItem button>

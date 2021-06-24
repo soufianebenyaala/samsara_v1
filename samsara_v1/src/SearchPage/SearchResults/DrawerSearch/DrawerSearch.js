@@ -50,9 +50,14 @@ const DrawerSearch = (props) => {
       />
       <DetailDrawer
         handelCloseDetail={handelCloseDetail}
+        handelClickOnTour={handelClickOnTour}
+        handelClickOnMessage={handelClickOnMessage}
         openDetail={openDetail}
       />
       <SearchResults
+      blog={props.blog}
+      key={props.key}
+        id_building={props.idValue}
         withoutHeart={props.withoutHeart}
         price={props.price}
         idValue={props.idValue}

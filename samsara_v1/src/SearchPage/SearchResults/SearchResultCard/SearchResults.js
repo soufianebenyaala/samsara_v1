@@ -13,9 +13,11 @@ const SearchResults = (props) => {
     var myclass = isClicked ? null : classes.hiddenNoMore;
     setisHidden(myclass);
   };
+  
   return (
     <div
       onClick={() => {
+        if(props.setIDbuilding)
         props.setIDbuilding(props.idValue);
       }}
       className={classes.listItemContainer}
@@ -27,6 +29,10 @@ const SearchResults = (props) => {
             handelOpenDetail={props.handelOpenDetail}
           />
           <InfoConatiner
+          blog={props.blog}
+          key={props.key}
+          id_building={props.id_building}
+          IDbuilding={props.IDbuilding}
             withoutHeart={props.withoutHeart}
             idValue={props.idValue}
             price={props.price}

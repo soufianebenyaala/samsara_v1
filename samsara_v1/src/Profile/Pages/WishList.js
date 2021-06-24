@@ -40,7 +40,8 @@ const WishList = () => {
       console.log(item.id);
       whishProducts.docs.map((val) => {
         if (val.id == item.id) {
-          setWish((wish) => [...wish, val.data()]);
+          
+          setWish((wish) => [...wish, {id:val.id,data:val.data()}]);
         }
       });
     });
@@ -57,20 +58,21 @@ const WishList = () => {
             <Container className={classes.container}>
               <Paper className={classes.paper} elevation={3}>
                 <DrawerSearch
+                 blog={blog}
                   withoutHeart={true}
                   key={blog.id}
-                  id={blog.id}
-                  id_user={blog.userUid}
-                  idValue={blog.id}
-                  price={blog.price}
-                  NumberOfBathRooms={blog.NumberOfBathRooms}
-                  NumberOfRooms={blog.NumberOfRooms}
-                  image={blog.urlimage[0]}
-                  address={blog.adress}
-                  tel={blog.telephone}
-                  disc={blog.discerption}
-                  zip={blog.zipcode}
-                  buildingName={blog.buildingName}
+                 
+                  id_user={blog["data"].userUid}
+                 
+                  price={blog["data"].price}
+                  NumberOfBathRooms={blog["data"].NumberOfBathRooms}
+                  NumberOfRooms={blog["data"].NumberOfRooms}
+                  image={blog["data"].urlimage[0]}
+                  address={blog["data"].adress}
+                  tel={blog["data"].telephone}
+                  disc={blog["data"].discerption}
+                  zip={blog["data"].zipcode}
+                  buildingName={blog["data"].buildingName}
                 ></DrawerSearch>
               </Paper>
             </Container>
