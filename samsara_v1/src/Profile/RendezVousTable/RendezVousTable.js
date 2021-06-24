@@ -92,8 +92,9 @@ const headCells = [
     disablePadding: true,
     label: "FullName",
   },
-  { id: "Email", numeric: false, disablePadding: true, label: "address" },
-  { id: "message", numeric: false, disablePadding: true, label: "zip code" },
+  { id: "Email", numeric: false, disablePadding: true, label: "Email" },
+  { id: "Phone", numeric: false, disablePadding: true, label: "Phone" },
+  { id: "message", numeric: false, disablePadding: true, label: "message" },
   {
     id: "edit",
     numeric: true,
@@ -395,25 +396,14 @@ export default function EnhancedTable(props) {
                       >
                         {row.FullName}
                       </TableCell>
-                      <TableCell align="center">{row.Email}</TableCell>
-                      <TableCell align="center">{row.Phone}</TableCell>
-                      <TableCell align="center">{row.message}</TableCell>
-                      <TableCell align="center">{row.NumberOfRooms}</TableCell>
-                      <TableCell align="left">
-                        <ShowMoreText
-                          lines={2}
-                          more={<ExpandMore />}
-                          less={<ExpandLess />}
-                          onClick={onClick}
-                          expanded={expand}
-                          width={100}
-                        >
-                          {row.discerption}
-                        </ShowMoreText>
-                      </TableCell>
+                      <TableCell align="left">{row.Email}</TableCell>
+                      <TableCell align="left">{row.Phone}</TableCell>
+                      <TableCell align="left">{row.message}</TableCell>
+                      <TableCell align="left">{row.NumberOfRooms}</TableCell>
+    
                       <TableCell align="left">
                         <IconButton
-                          aria-label="delete"
+                          aria-label="Edit"
                           color="primary"
                           component={Link}
                           to={"/profile/Edit-Immobilier/?id="+row.key}
