@@ -20,17 +20,71 @@ import { bool } from 'prop-types';
 
 const states = [
   {
-    value: 'alabama',
-    label: 'Alabama'
+    value: 'Gabes',
+    label: 'Gabes'
   },
   {
-    value: 'new-york',
-    label: 'New York'
+    value: 'Tunis',
+    label: 'Tunis'
   },
   {
-    value: 'san-francisco',
-    label: 'San Francisco'
+    value: 'Hammemet',
+    label: 'Hammemet'
+  
+  },
+  {
+    value: 'Sousse',
+    label: 'Sousse'
+  
+  },
+  {
+    value: 'Sfax',
+    label: 'Sfax'
+  
+  },
+  {
+    value: 'Monastir',
+    label: 'Monastir'
+  
+  },
+  {
+    value: 'Kairouan',
+    label: 'Kairouan'
+  
+  },
+  {
+    value: 'Bizert',
+    label: 'Bizert'
+  
+  },
+  {
+    value: 'Tozeur',
+    label: 'Tozeur'
+  
+  },
+  {
+    value: 'Mahdia',
+    label: 'Mahdia'
+  
+  },
+  {
+    value: 'Nabeul',
+    label: 'Nabeul'
+  },
+  {
+    value: 'Marsa',
+    label: 'Marsa'
+  },
+  {
+    value: 'Douz',
+    label: 'Douz'
+  },
+  {
+    value: 'Djerba',
+    label: 'Djerba'
   }
+  
+  
 ];
 
 const AccountProfileDetails = (props) => {

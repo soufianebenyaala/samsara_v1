@@ -50,8 +50,8 @@ const WishList = () => {
   const classes = useStyles();
   return (
     <div>
-      {wish &&
-        wish.map((blog) => {
+      {wish ?
+        (wish && wish.map((blog) => {
           return (
             <Container className={classes.container}>
               <Paper className={classes.paper} elevation={3}>
@@ -74,7 +74,11 @@ const WishList = () => {
               </Paper>
             </Container>
           );
-        })}
+         })
+        )
+        : (
+         <h1> whishlist est vide </h1>
+      )}
     </div>
   );
 };

@@ -143,12 +143,8 @@ const RequestForm = (props) => {
   const [Phone, setPhone] = useState();
   const [message, setmessage] = useState("I saw your rental listing at Samsara and would like to learn more. I'm looking for a 2BR in the range of $2,900 to $4,100.");
   const [TimeChosen, setTimeChosen] = useState(1);
-  const [TourTime1, setTourTime1] = useState();
-  const [TourTime2, setTourTime2] = useState();
-  const [TourTime3, setTourTime3] = useState();
-  const [TourDate1, setTourDate1] = useState();
-  const [TourDate2, setTourDate2] = useState();
-  const [TourDate3, setTourDate3] = useState();
+  const [TourTime, setTourTime] = useState();
+  const [TourDate, setTourDate] = useState();
   const [selectedDate, setSelectedDate] = React.useState(new Date("2020-05-04T21:11:54"));
   const [state, setstate] = useState(true);
 
@@ -164,7 +160,7 @@ const RequestForm = (props) => {
         FullName: FullName,
         Email: Email,
         Phone: Phone,
-        TourTime_date: { 1: { TourTime1: TourTime1, TourDate1: TourDate1 }, 2: { TourTime2: TourTime2, TourDate2: TourDate2 }, 3: { ourTime3: TourTime3, TourDate3: TourDate3 } },
+        TourTime_date: { TourTime: TourTime, TourDate: TourDate },
         TimeChosen: TimeChosen,
         message: message,
         valide: false
@@ -187,7 +183,7 @@ const RequestForm = (props) => {
                 FullName: FullName,
                 Email: Email,
                 Phone: Phone,
-                TourTime_date: { 1: { TourTime1: TourTime1, TourDate1: TourDate1 }, 2: { TourTime2: TourTime2, TourDate2: TourDate2 }, 3: { ourTime3: TourTime3, TourDate3: TourDate3 } },
+                TourTime_date: { TourTime: TourTime, TourDate: TourDate },
                 TimeChosen: TimeChosen,
                 message: message,
                 valide: 0
@@ -202,15 +198,10 @@ const RequestForm = (props) => {
 
 
 
-  const handleChangeOfTourDate1 = (event) => {
-    setTourDate1(event.target.value);
+  const handleChangeOfTourDate = (event) => {
+    setTourDate(event.target.value);
   };
-  const handleChangeOfTourDate2 = (event) => {
-    setTourDate2(event.target.value);
-  };
-  const handleChangeOfTourDate3 = (event) => {
-    setTourDate3(event.target.value);
-  };
+
 
   const handleAddOfTimeChosen = () => {
     if (TimeChosen < 3) {
@@ -224,14 +215,8 @@ const RequestForm = (props) => {
 
   };
 
-  const handleChangeOfTourTime1 = (event) => {
-    setTourTime1(event.target.value);
-  };
-  const handleChangeOfTourTime2 = (event) => {
-    setTourTime2(event.target.value);
-  };
-  const handleChangeOfTourTime3 = (event) => {
-    setTourTime3(event.target.value);
+  const handleChangeOfTourTime = (event) => {
+    setTourTime(event.target.value);
   };
 
   const handelStateChange = (event) => {
@@ -268,447 +253,297 @@ const RequestForm = (props) => {
   return (
 
 
-      <Dialog
-        onClose={props.onClose}
-        aria-labelledby="simple-dialog-title"
-        open={props.open}
-        fullWidth={true}
-        maxWidth="md"
-      >
-        <Grid justify="center" container>
-          <Grid xs={12} item>
-            <Grid container>
-              <Grid xs={8} item>
-                <Grid spacing={2} container>
-                  <Container style={{ padding: "20px 30px" }}>
-                    <Grid xs={12} item>
-                      <Typography
-                        className={classes.header}
-                        component="h1"
-                        variant="h4"
-                      >
-                        Tour this place
-                      </Typography>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <Typography
-                        className={classes.subHeader}
-                        component="h4"
-                        variant="h5"
-                      >
-                        Provide your availability for a tour in the property's
-                        time zone.
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      style={{ paddingTop: "19px" }}
-                      justify="space-around"
-                      spacing={2}
-                      container
+    <Dialog
+      onClose={props.onClose}
+      aria-labelledby="simple-dialog-title"
+      open={props.open}
+      fullWidth={true}
+      maxWidth="md"
+    >
+      <Grid justify="center" container>
+        <Grid xs={12} item>
+          <Grid container>
+            <Grid xs={8} item>
+              <Grid spacing={2} container>
+                <Container style={{ padding: "20px 30px" }}>
+                  <Grid xs={12} item>
+                    <Typography
+                      className={classes.header}
+                      component="h1"
+                      variant="h4"
                     >
-                      <Grid xs={12} item>
-                        <TextField
-                          onChange={(e) => { setFullName(e.target.value) }}
-                          autoFocus
-                          margin="none"
-                          id="Full-Name"
-                          label="Full Name"
-                          type="Name"
+                      Tour this place
+                    </Typography>
+                  </Grid>
+                  <Grid xs={12} item>
+                    <Typography
+                      className={classes.subHeader}
+                      component="h4"
+                      variant="h5"
+                    >
+                      Provide your availability for a tour in the property's
+                      time zone.
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    style={{ paddingTop: "19px" }}
+                    justify="space-around"
+                    spacing={2}
+                    container
+                  >
+                    <Grid xs={12} item>
+                      <TextField
+                        onChange={(e) => { setFullName(e.target.value) }}
+                        autoFocus
+                        margin="none"
+                        id="Full-Name"
+                        label="Full Name"
+                        type="Name"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid xs={12} item>
+                      <TextField
+                        onChange={(e) => { setPhone(e.target.value) }}
+                        autoFocus
+                        margin="none"
+                        id="Phone"
+                        label="Phone"
+                        type="Phone"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid xs={12} item>
+                      <TextField
+                        onChange={(e) => { setEmail(e.target.value) }}
+                        autoFocus
+                        value={Email}
+                        margin="none"
+                        id="Email"
+                        label="Email"
+                        type="Email"
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid spacing={2} container>
+                      <Grid xs={5} item>
+                        <FormControl
                           variant="outlined"
+                          className={classes.formControl}
                           fullWidth
-                        />
+                        >
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            Date
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={TourDate}
+                            onChange={handleChangeOfTourDate}
+                            label="Date"
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            {workingDays.map((day) => (
+                              <MenuItem value={day}>{day}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
                       </Grid>
-                      <Grid xs={12} item>
-                        <TextField
-                          onChange={(e) => { setPhone(e.target.value) }}
-                          autoFocus
-                          margin="none"
-                          id="Phone"
-                          label="Phone"
-                          type="Phone"
+                      <Grid xs={4} item>
+                        <FormControl
                           variant="outlined"
+                          className={classes.formControl}
                           fullWidth
-                        />
-                      </Grid>
-                      <Grid xs={12} item>
-                        <TextField
-                          onChange={(e) => { setEmail(e.target.value) }}
-                          autoFocus
-                          value={Email}
-                          margin="none"
-                          id="Email"
-                          label="Email"
-                          type="Email"
-                          variant="outlined"
-                          fullWidth
-                        />
-                      </Grid>
-                      {TimeChosen > 0 ? <Grid xs={12} item>
-                        <Grid spacing={2} container>
-                          <Grid xs={5} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Date
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourDate1}
-                                onChange={handleChangeOfTourDate1}
-                                label="Date"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                {workingDays.map((day) => (
-                                  <MenuItem value={day}>{day}</MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={4} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                time
-                              </InputLabel>
-                              <Select
-                                native
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourTime1}
-                                onChange={handleChangeOfTourTime1}
-                                label="time"
-                              >
-                                <option aria-label="None" value="" />
+                        >
+                          <InputLabel id="demo-simple-select-outlined-label">
+                            time
+                          </InputLabel>
+                          <Select
+                            native
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={TourTime}
+                            onChange={handleChangeOfTourTime}
+                            label="time"
+                          >
+                            <option aria-label="None" value="" />
 
-                                {workingHours.map((h) => (
-                                  <option value={h}>{h}</option>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={2} item>
-                            <IconButton
-                              aria-label="delete"
-                              onClick={handleReduceOfTimeChosen}
-                            >
-                              <ClearIcon />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      </Grid> : null}
-                      {TimeChosen > 1 ? <Grid xs={12} item>
-                        <Grid spacing={2} container>
-                          <Grid xs={5} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Date
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourDate2}
-                                onChange={handleChangeOfTourDate2}
-                                label="Date"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                {workingDays.map((day) => (
-                                  <MenuItem value={day}>{day}</MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={4} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                time
-                              </InputLabel>
-                              <Select
-                                native
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourTime2}
-                                onChange={handleChangeOfTourTime2}
-                                label="time"
-                              >
-                                <option aria-label="None" value="" />
-
-                                {workingHours.map((h) => (
-                                  <option value={h}>{h}</option>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={2} item>
-                            <IconButton
-                              onClick={handleReduceOfTimeChosen}
-                              aria-label="delete"
-                            >
-                              <ClearIcon />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      </Grid> : null}
-                      {TimeChosen > 2 ? <Grid xs={12} item>
-                        <Grid spacing={2} container>
-                          <Grid xs={5} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                Date
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourDate3}
-                                onChange={handleChangeOfTourDate3}
-                                label="Date"
-                              >
-                                <MenuItem value="">
-                                  <em>None</em>
-                                </MenuItem>
-                                {workingDays.map((day) => (
-                                  <MenuItem value={day}>{day}</MenuItem>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={4} item>
-                            <FormControl
-                              variant="outlined"
-                              className={classes.formControl}
-                              fullWidth
-                            >
-                              <InputLabel id="demo-simple-select-outlined-label">
-                                time
-                              </InputLabel>
-                              <Select
-                                native
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={TourTime3}
-                                onChange={handleChangeOfTourTime3}
-                                label="time"
-                              >
-                                <option aria-label="None" value="" />
-
-                                {workingHours.map((h) => (
-                                  <option value={h}>{h}</option>
-                                ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid xs={2} item>
-                            <IconButton
-                              aria-label="delete"
-                              onClick={handleReduceOfTimeChosen}
-                            >
-                              <ClearIcon />
-                            </IconButton>
-                          </Grid>
-                        </Grid>
-                      </Grid> : null}
-                      {TimeChosen < 3 ? <Grid xs={12} item>
-                        <Button onClick={handleAddOfTimeChosen} disableRipple color="primary">
-                          + Add another (up to 3)
-                        </Button>
-
-                      </Grid> : null}
-                      <Grid xs={12} item>
-                        <TextField
-                          onChange={(e) => { setmessage(e.target.value) }}
-                          id="outlined-multiline-static"
-                          label="Message"
-                          multiline
-                          rows={4}
-                          Value={message}
-                          variant="outlined"
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid xs={12} item>
-                        <Typography className={classes.terms}>
-                          By sending this inquiry, I accept Samsara's{" "}
-                          <Link href="#" onClick={preventDefault}>
-                            Terms and Conditions
-                          </Link>{" "}
-                          and{" "}
-                          <Link href="#" onClick={preventDefault}>
-                            Privacy Policy
-                          </Link>{" "}
-                          and{" "}
-                          <Link href="#" onClick={preventDefault}>
-                            Community Values
-                          </Link>
-                          .
-                        </Typography>
+                            {workingHours.map((h) => (
+                              <option value={h}>{h}</option>
+                            ))}
+                          </Select>
+                        </FormControl>
                       </Grid>
                     </Grid>
-                  </Container>
+                    <Grid xs={12} item>
+                      <TextField
+                        onChange={(e) => { setmessage(e.target.value) }}
+                        id="outlined-multiline-static"
+                        label="Message"
+                        multiline
+                        rows={4}
+                        Value={message}
+                        variant="outlined"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid xs={12} item>
+                      <Typography className={classes.terms}>
+                        By sending this inquiry, I accept Samsara's{" "}
+                        <Link href="#" onClick={preventDefault}>
+                          Terms and Conditions
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="#" onClick={preventDefault}>
+                          Privacy Policy
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="#" onClick={preventDefault}>
+                          Community Values
+                        </Link>
+                        .
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Container>
+              </Grid>
+            </Grid>
+
+            <Grid xs={4} className={classes.propretyInfo} item>
+              <Grid xs={12} item>
+                <Grid style={{ display: "flex" }} justify="flex-end" container>
+                  <IconButton
+                    style={{ position: "absolute" }}
+                    aria-label="delete"
+                    onClick={props.onClose}
+                  >
+                    <ClearIcon />
+                  </IconButton>
                 </Grid>
               </Grid>
-
-              <Grid xs={4} className={classes.propretyInfo} item>
+              <Grid container>
                 <Grid xs={12} item>
-                  <Grid style={{ display: "flex" }} justify="flex-end" container>
-                    <IconButton
-                      style={{ position: "absolute" }}
-                      aria-label="delete"
-                      onClick={props.onClose}
-                    >
-                      <ClearIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid xs={12} item>
-                    <Grid style={{ display: "flex" }} container>
-                      <Grid
-                        className={classes.info}
-                        style={{
-                          backgroundImage:
-                            "url(" + props.image + ")",
-                        }}
-                        item
-                      />
+                  <Grid style={{ display: "flex" }} container>
+                    <Grid
+                      className={classes.info}
+                      style={{
+                        backgroundImage:
+                          "url(" + props.image + ")",
+                      }}
+                      item
+                    />
 
-                      <Grid xs={12} item>
-                        <Grid container>
-                          <Grid xs={12} style={{ padding: "15px 0 9px" }} item>
-                            <Typography
-                              className={classes.price}
-                              variant="h5"
-                              component="span"
-                            >
-                              ${props.price}
-                            </Typography>
-                          </Grid>
-                          <Grid xs={12} className={classes.nameContainer} item>
-                            <Typography className={classes.name}>
-                              {props.zip} at {props.address}
-                            </Typography>
-                            <CheckCircleIcon
-                              height="15"
-                              width="15"
-                              style={{ marginLeft: "5px" }}
-                              color="primary"
-                            />
-                          </Grid>
-                          <Grid xs={12} className={classes.phoneContainer} item>
-                            <PhoneInTalkIcon
-                              height="15"
-                              width="15"
-                              style={{ marginRight: "5px" }}
-                              color="primary"
-                            />
-                            <Link
-                              className={classes.phone}
-                              onClick={preventDefault}
-                            >
-                              {props.tel}
-                            </Link>
-                          </Grid>
+                    <Grid xs={12} item>
+                      <Grid container>
+                        <Grid xs={12} style={{ padding: "15px 0 9px" }} item>
+                          <Typography
+                            className={classes.price}
+                            variant="h5"
+                            component="span"
+                          >
+                            ${props.price}
+                          </Typography>
+                        </Grid>
+                        <Grid xs={12} className={classes.nameContainer} item>
+                          <Typography className={classes.name}>
+                            {props.zip} at {props.address}
+                          </Typography>
+                          <CheckCircleIcon
+                            height="15"
+                            width="15"
+                            style={{ marginLeft: "5px" }}
+                            color="primary"
+                          />
+                        </Grid>
+                        <Grid xs={12} className={classes.phoneContainer} item>
+                          <PhoneInTalkIcon
+                            height="15"
+                            width="15"
+                            style={{ marginRight: "5px" }}
+                            color="primary"
+                          />
+                          <Link
+                            className={classes.phone}
+                            onClick={preventDefault}
+                          >
+                            {props.tel}
+                          </Link>
                         </Grid>
                       </Grid>
-                      <Grid xs={12} className={classes.hoursText} item>
-                        Open today
-                      </Grid>
-                      <Grid xs={12} className={classes.hoursToday} item>
-                        9 am - 6 pm
-                      </Grid>
-                      <Grid xs={12} item>
-                        <Accordion>
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                          >
-                            <Typography className={classes.heading}>
-                              Show Full Hours
-                            </Typography>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Grid container>
-                              <Grid xs={12} item>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Monday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
+                    </Grid>
+                    <Grid xs={12} className={classes.hoursText} item>
+                      Open today
+                    </Grid>
+                    <Grid xs={12} className={classes.hoursToday} item>
+                      9 am - 6 pm
+                    </Grid>
+                    <Grid xs={12} item>
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography className={classes.heading}>
+                            Show Full Hours
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Grid container>
+                            <Grid xs={12} item>
+                              <Grid justify="space-between" container>
+                                <Grid xs={5} item>
+                                  Monday{" "}
                                 </Grid>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Tuesday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
-                                </Grid>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Wednesday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
-                                </Grid>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Thursday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
-                                </Grid>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Friday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
-                                </Grid>
-                                <Grid justify="space-between" container>
-                                  <Grid xs={5} item>
-                                    Saturday{" "}
-                                  </Grid>
-                                  <Grid xs={7} item>
-                                    {" "}
-                                    9 am - 6 pm
-                                  </Grid>
+                                <Grid xs={7} item>
+                                  {" "}
+                                  9 am - 6 pm
                                 </Grid>
                               </Grid>
                               <Grid justify="space-between" container>
                                 <Grid xs={5} item>
-                                  Sunday{" "}
+                                  Tuesday{" "}
+                                </Grid>
+                                <Grid xs={7} item>
+                                  {" "}
+                                  9 am - 6 pm
+                                </Grid>
+                              </Grid>
+                              <Grid justify="space-between" container>
+                                <Grid xs={5} item>
+                                  Wednesday{" "}
+                                </Grid>
+                                <Grid xs={7} item>
+                                  {" "}
+                                  9 am - 6 pm
+                                </Grid>
+                              </Grid>
+                              <Grid justify="space-between" container>
+                                <Grid xs={5} item>
+                                  Thursday{" "}
+                                </Grid>
+                                <Grid xs={7} item>
+                                  {" "}
+                                  9 am - 6 pm
+                                </Grid>
+                              </Grid>
+                              <Grid justify="space-between" container>
+                                <Grid xs={5} item>
+                                  Friday{" "}
+                                </Grid>
+                                <Grid xs={7} item>
+                                  {" "}
+                                  9 am - 6 pm
+                                </Grid>
+                              </Grid>
+                              <Grid justify="space-between" container>
+                                <Grid xs={5} item>
+                                  Saturday{" "}
                                 </Grid>
                                 <Grid xs={7} item>
                                   {" "}
@@ -716,60 +551,70 @@ const RequestForm = (props) => {
                                 </Grid>
                               </Grid>
                             </Grid>
-                          </AccordionDetails>
-                        </Accordion>
-                      </Grid>
+                            <Grid justify="space-between" container>
+                              <Grid xs={5} item>
+                                Sunday{" "}
+                              </Grid>
+                              <Grid xs={7} item>
+                                {" "}
+                                9 am - 6 pm
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </AccordionDetails>
+                      </Accordion>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid
-            xs={12}
-            className={`${classes.formRow} ${classes.bottomBar}`}
-            item
-          >
-            <Grid container>
-              <Grid xs={8} item>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={state}
-                      onChange={handelStateChange}
-                      name="checkedB"
-                      color="primary"
-                    />
-                  }
-                  label="Create an alert for listings like this"
-                />
-              </Grid>
-              <Grid xs={4} item>
-                <Grid container>
-                  <Grid xs={5} style={{ display: "flex" }} item>
-                    <Button className={classes.secondaryBut} variant="contained"
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
-                  <Grid xs={7} style={{ display: "flex" }} item>
-                    <Button
-                      className={classes.primaryBut}
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      onClick={submit}
-                    >
-                      Check Availabelty
-                    </Button>
-                  </Grid>
+        </Grid>
+        <Grid
+          xs={12}
+          className={`${classes.formRow} ${classes.bottomBar}`}
+          item
+        >
+          <Grid container>
+            <Grid xs={8} item>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={state}
+                    onChange={handelStateChange}
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
+                label="Create an alert for listings like this"
+              />
+            </Grid>
+            <Grid xs={4} item>
+              <Grid container>
+                <Grid xs={5} style={{ display: "flex" }} item>
+                  <Button className={classes.secondaryBut} variant="contained"
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
+                <Grid xs={7} style={{ display: "flex" }} item>
+                  <Button
+                    className={classes.primaryBut}
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={submit}
+                  >
+                    Check Availabelty
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Dialog>
-  
+      </Grid>
+    </Dialog>
+
 
   );
 };

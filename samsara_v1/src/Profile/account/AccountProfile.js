@@ -37,7 +37,7 @@ function AccountProfile(props) {
     progress: 0,
     downloadURL: null,
     user: {
-      avatar: "asba",
+      avatar: "",
       city: "Los Angeles",
       country: "USA",
       jobTitle: "Senior Developer",

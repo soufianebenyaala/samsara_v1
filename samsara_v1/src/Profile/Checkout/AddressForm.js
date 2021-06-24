@@ -87,18 +87,7 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
+const names = ["AC", "TV", "Swimming Pool", "Garden", "Basment"]
 
 function getStyles(name, Ami, theme) {
   return {
@@ -164,9 +153,9 @@ export default function AddressForm(props) {
               }}
             >
               <option aria-label="None" value="" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
+              <option value={"Building"}>Building</option>
+              <option value={"Apartment"}>Apartment</option>
+              <option value={"Studio"}>Studio</option>
             </Select>
           </FormControl>
         </Grid>

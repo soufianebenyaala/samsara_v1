@@ -3,9 +3,11 @@ import SearchResults from "../SearchResultCard/SearchResults";
 import DetailDrawer from "./DetailDrawer";
 import MessageForm from "./MessageForm";
 import RequestForm from "./RequestForm";
+import { useAuth } from "../../../contexts/AuthContext"
 
 const DrawerSearch = (props) => {
   const [openDetail, setOpenDetail] = useState(false);
+  const { currentUser } = useAuth()
   const handelOpenDetail = (name) => {
     setOpenDetail(true);
   };
@@ -27,27 +29,34 @@ const DrawerSearch = (props) => {
     setTour(false);
   };
 
+
   return (
     <div>
-      <MessageForm
-        id_building={props.idValue}
-        id_user={props.id_user}
-        onClose={handelCloseOfMesssage}
-        aria-labelledby="simple-dialog-title"
-        open={Message}
-      />
-      <RequestForm
-        id_building={props.idValue}
-        id_user={props.id_user}
-        price={props.price}
-        image={props.image}
-        tel={props.tel}
-        zip={props.zip}
-        address={props.address}
-        onClose={handelCloseOfTour}
-        aria-labelledby="simple-dialog-title"
-        open={Tour}
-      />
+      {currentUser ? (
+        <>
+          <MessageForm
+            id_building={props.idValue}
+            id_user={props.id_user}
+            onClose={handelCloseOfMesssage}
+            aria-labelledby="simple-dialog-title"
+            open={Message}
+          />
+          <RequestForm
+            id_building={props.idValue}
+            id_user={props.id_user}
+            price={props.price}
+            image={props.image}
+            tel={props.tel}
+            zip={props.zip}
+            address={props.address}
+            onClose={handelCloseOfTour}
+            aria-labelledby="simple-dialog-title"
+            open={Tour}
+          />
+        </>) : (
+        <>
+        </>
+      )}
       <DetailDrawer
         handelCloseDetail={handelCloseDetail}
         handelClickOnTour={handelClickOnTour}

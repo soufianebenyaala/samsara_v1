@@ -334,6 +334,9 @@ function ProfileHeader(props) {
   const handleCloseMessage = () => {
     setMessageNotefication(null);
   };
+  const handleroute=()=>{
+    history.push("/")
+  }
   return (
     <div className={classes.root}>
       <AppBar
@@ -344,8 +347,8 @@ function ProfileHeader(props) {
         <Toolbar>
           {props.list}
        
-          <IconButton component={Link} to="/">
-            <img alt="myLogo" className={classes.logo_img} src={props.Logo} />
+          <IconButton >
+            <img alt="myLogo" className={classes.logo_img} src={props.Logo} onClick={handleroute} />
           </IconButton>
           {searchbar}
 

@@ -97,7 +97,9 @@ const headCells = [
     { id: "Email", numeric: false, disablePadding: true, label: "Email" },
     { id: "Phone", numeric: false, disablePadding: true, label: "Phone" },
     { id: "message", numeric: false, disablePadding: true, label: "message" },
+    { id: "date", numeric: false, disablePadding: true, label: "date" },
     { id: "state", numeric: false, disablePadding: true, label: "state" },
+ 
     {
         id: "valide",
         numeric: true,
@@ -221,7 +223,7 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    Mes Proprites
+                   Mes Rendez-Vous
                 </Typography>
             )}
 
@@ -448,6 +450,7 @@ const action =(valide)=>{
                                             <TableCell align="left">{row.Email}</TableCell>
                                             <TableCell align="left">{row.Phone}</TableCell>
                                             <TableCell align="left">{row.message}</TableCell>
+                                            <TableCell align="left">{row.TourTime_date["TourDate"]} {row.TourTime_date["TourTime"]} </TableCell>
                                             {action(row.valide)}
 
                                             <TableCell align="left">
