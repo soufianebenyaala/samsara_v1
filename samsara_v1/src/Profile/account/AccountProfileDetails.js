@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState ,useEffect} from 'react';
 import {useAuth} from '../../contexts/AuthContext';
+import { useHistory } from "react-router-dom";
 
 import {
   Box,
@@ -34,7 +35,7 @@ const states = [
 
 const AccountProfileDetails = (props) => {
   const [loading, setLoading] = useState([])
-
+  const history = useHistory()
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -68,8 +69,8 @@ const AccountProfileDetails = (props) => {
     }
   }, [loading])
 
-  function updateProfile(){
-     db.collection("users").doc(currentUser.uid).set({
+  async function updateProfile(){
+     await db.collection("users").doc(currentUser.uid).set({
      firstName:firstName,
      lastName:lastName,
      email:currentUser.email,
@@ -77,7 +78,7 @@ const AccountProfileDetails = (props) => {
      country:country,
      state:state
      })
-    
+    history.push("/profile")
   }
   props.setNameUser(firstName+' '+lastName)
   props.setCountry(country+' '+state)
