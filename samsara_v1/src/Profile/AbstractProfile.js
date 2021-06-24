@@ -159,6 +159,7 @@ export default function AbstractProfile() {
           fontColor="black"
           color="transparent"
           Logo={img}
+          mySearchBar="true"
         />
         <div className={classes.root}>
           <Drawer

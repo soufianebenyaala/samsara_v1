@@ -206,7 +206,7 @@ function Header(props) {
         handelClickOpenSignUp={handelClickOpenSignUp} 
         color={props.fontColor} />
 
-          <IconButton >
+          <IconButton component={Link} to="/">
               <img alt="myLogo" className={classes.logo_img}  src={props.Logo} />
           </IconButton>
          {searchbar}

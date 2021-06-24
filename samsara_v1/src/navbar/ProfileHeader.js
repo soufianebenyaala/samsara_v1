@@ -344,7 +344,7 @@ function ProfileHeader(props) {
         <Toolbar>
           {props.list}
        
-          <IconButton>
+          <IconButton component={Link} to="/">
             <img alt="myLogo" className={classes.logo_img} src={props.Logo} />
           </IconButton>
           {searchbar}
