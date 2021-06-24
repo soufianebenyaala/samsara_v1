@@ -137,6 +137,8 @@ const HeroSearchBar = (props) => {
       }
     }
     const RegionList=["Atlanta Apartments","Austin Apartments","Baltimore Apartments","Boston Apartments","Charlotte Apartments","Chicago Apartments", "Dallas Apartments","Denver Apartments","Detroit Apartments","Houston Apartments","Las Vegas Apartments","Los Angeles Apartments","Miami Apartments","Minneapolis Apartments","New York Apartments","Philadelphia Apartments","Phoenix Apartments","Pittsburgh Apartments","Portland Apartments","San Antonio Apartments","San Diego Apartments","San Francisco Apartments","Seattle Apartments", "Tampa Apartments ","Washingt on DC Apartments"];    
+    const [searchIndex,setSearchIndex]=useState("")
+    console.log(searchIndex)
     return (
       <div className={classes.autocompleteSearch}>
         <div className={classes.search} ref={searchContainer}>
@@ -151,11 +153,12 @@ const HeroSearchBar = (props) => {
           }}
           aria-describedby={id}
           onClick={handleClick}
+          onChange={e => setSearchIndex(e.target.value)}
           inputProps={{ 'aria-label': 'search' }}
         ></InputBase>
        
         <div className={classes.divider}></div>
-        <Button size='large' className={classes.searchButton} variant="contained" color="primary">Chercher</Button>
+        <Button href={"/search/?searchIndex="+searchIndex} size='large' className={classes.searchButton} variant="contained" color="primary">Chercher</Button>
         </div>
         {anchorEl && <Box  className={classes.popoverStyle}>
                         <ListItem button>
