@@ -54,7 +54,8 @@ const DrawerSearch = (props) => {
         handelClickOnMessage={handelClickOnMessage}
         openDetail={openDetail}
         blog={props.blog}
-      key={props.key}
+        key={props.key}
+        aminities={props.aminities}
         id_building={props.idValue}
         withoutHeart={props.withoutHeart}
         price={props.price}
@@ -71,8 +72,8 @@ const DrawerSearch = (props) => {
         buildingName={props.buildingName}
       />
       <SearchResults
-      blog={props.blog}
-      key={props.key}
+        blog={props.blog}
+        key={props.key}
         id_building={props.idValue}
         withoutHeart={props.withoutHeart}
         price={props.price}

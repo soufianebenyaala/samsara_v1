@@ -11,10 +11,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
-  paper:{
-    padding:"20px"
-  }
-
+  paper: {
+    padding: "20px",
+  },
 }));
 
 const WishList = () => {
@@ -40,8 +39,7 @@ const WishList = () => {
       console.log(item.id);
       whishProducts.docs.map((val) => {
         if (val.id == item.id) {
-          
-          setWish((wish) => [...wish, {id:val.id,data:val.data()}]);
+          setWish((wish) => [...wish, { id: val.id, data: val.data() }]);
         }
       });
     });
@@ -58,12 +56,11 @@ const WishList = () => {
             <Container className={classes.container}>
               <Paper className={classes.paper} elevation={3}>
                 <DrawerSearch
-                 blog={blog}
+                  blog={blog}
                   withoutHeart={true}
                   key={blog.id}
-                 
                   id_user={blog["data"].userUid}
-                 
+                  images={blog["data"].urlimage}
                   price={blog["data"].price}
                   NumberOfBathRooms={blog["data"].NumberOfBathRooms}
                   NumberOfRooms={blog["data"].NumberOfRooms}

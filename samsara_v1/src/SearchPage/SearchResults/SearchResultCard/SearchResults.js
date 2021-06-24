@@ -40,6 +40,7 @@ const SearchResults = (props) => {
             NumberOfRooms={props.NumberOfRooms}
             address={props.address}
             tel={props.tel}
+            
             disc={props.disc}
             zip={props.zip}
             buildingName={props.buildingName}
