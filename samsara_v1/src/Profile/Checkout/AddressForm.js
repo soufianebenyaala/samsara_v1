@@ -127,6 +127,7 @@ export default function AddressForm(props) {
     }
     props.setAmi(value);
   };
+  console.log(props.Ami)
 
   return (
     <React.Fragment>

@@ -8,7 +8,7 @@ import { Container } from "@material-ui/core";
 
 import Products from "../Products/productsTable";
 import { useAuth } from "../../contexts/AuthContext";
-import { db, storage, storageRef } from "../../firebase";
+import { db } from "../../firebase";
 import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
@@ -63,7 +63,7 @@ export default function Dashboard() {
       subscriber();
     };
   }, [loading]);
-  console.log(posts);
+
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>

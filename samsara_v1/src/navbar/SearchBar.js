@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
+      color: "black",
       [theme.breakpoints.up('md')]: {
         width: '20ch',
       },
@@ -49,7 +50,7 @@ const SearchBar = (props) => {
     return (
         <div className={classes.search}>
         <div className={classes.searchIcon}>
-          <SearchIcon />
+          <SearchIcon style={{color:"cornflowerblue"}} />
         </div>
         <InputBase
           placeholder="Search…"

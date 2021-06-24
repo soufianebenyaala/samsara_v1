@@ -88,25 +88,8 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
 }));
-/*var product = {
-  buildingName: "",
-  urlimage: "",
-  urlimage: "",
-  adress: "",
-  zipcode: "",
-  price: "",
-  NbrOfRooms: "",
-  NbrOfBathRooms: "",
-  Cat: "",
-  Ami: "",
-  files: "",
-  images: "",
-  discerption: "",
-  latitude: "",
-  longitude: "",
-};*/
+export default function Dashboard(props) {
 
-export default function Dashboard() {
   const classes = useStyles();
 
   const history = useHistory();
@@ -137,22 +120,9 @@ export default function Dashboard() {
   const handleChangeNbrOfRooms = (event, newNbr) => {
     setNbrOfRooms(newNbr);
   };
-  /*seturlfile, 
-  seturlimage, 
-  setloading, 
-  setadress, 
-  setzipcode, 
-  setprice, 
-  setNbrOfRooms, 
-  setNbrOfBathRooms,
-  setCat
-  setAmi
-  setfiles
-  setimages
-  setdiscerption*/
   const uploadfile = async () => {
     var urlF = [];
-    if (files != []) {
+    if (files !== []) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         // Upload file and metadata to the object 'images/mountains.jpg'
@@ -168,7 +138,7 @@ export default function Dashboard() {
   };
   const uploadimage = async () => {
     var urlI = [];
-    if (images != []) {
+    if (images !== []) {
       for (let i = 0; i < images.length; i++) {
         const image = images[i];
         await storageRef.child("images/" + image.name).put(image);
@@ -239,27 +209,6 @@ export default function Dashboard() {
     await addToDataBase();
     history.push("/profile/Immobilier");
   };
-
-
-  console.log({
-    urlfile,
-    urlimage,
-    loading,
-    adress,
-    zipcode,
-    price,
-    NbrOfRooms,
-    NbrOfBathRooms,
-    Cat,
-    Ami,
-    files,
-    images,
-    discerption,
-    longitude,
-    latitude,
-    loading,
-  });
-
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>
