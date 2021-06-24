@@ -65,7 +65,9 @@ function SearchPage(props) {
     fetchBlogs(); 
     const queryParams = new URLSearchParams(window.location.search);
     const productid = queryParams.get('searchIndex')
-    setSearch(productid) 
+    if(productid){
+      setSearch(productid)
+    }
   }, [])
   const [item,setItem]=useState([])
   const [value,setValue]=useState('all')
