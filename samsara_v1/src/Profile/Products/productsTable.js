@@ -27,7 +27,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import EditIcon from '@material-ui/icons/Edit';
 
 import { useAuth } from "../../contexts/AuthContext";
-import { db, storage, storageRef } from "../../firebase";
+import { db, } from "../../firebase";
 import { Link, useHistory } from "react-router-dom";
 
 function createData(
