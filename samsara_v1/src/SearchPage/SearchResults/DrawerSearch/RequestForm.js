@@ -31,7 +31,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useAuth } from "../../../contexts/AuthContext";
 import { db, storage, storageRef } from "../../../firebase";
 import { useHistory } from "react-router-dom";
-import { SnackbarProvider, useSnackbar } from 'notistack';
+
 
 const useStyles = makeStyles((theme) => ({
   propretyInfo: {
