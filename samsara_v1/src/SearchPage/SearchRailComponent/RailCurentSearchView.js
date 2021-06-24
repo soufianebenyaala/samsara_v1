@@ -94,6 +94,7 @@ function RailCurentSearchView(props) {
                   NumberOfBathRooms={blog["data"].NumberOfBathRooms}
                   NumberOfRooms={blog["data"].NumberOfRooms}
                   image={blog["data"].urlimage[0]}
+                  images={blog["data"].urlimage}
                   address={blog["data"].adress}
                   tel={blog["data"].telephone}
                   disc={blog["data"].discerption}
