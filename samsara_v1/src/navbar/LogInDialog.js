@@ -65,12 +65,12 @@ function LogInDialog(props) {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
-    console.log(email);
+
     async function handleSubmit(e) {
       e.preventDefault()
   
       
-      console.log(email);
+     
       try {
         setError("")
         setLoading(true)

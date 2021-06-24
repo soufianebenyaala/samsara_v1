@@ -298,9 +298,6 @@ export default function EnhancedTable(props) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const productEdit = ()=>{
-
-  }
   const productDelete = (key)=>{
     db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
     history.push("/profile/Immobilier")
@@ -443,7 +440,7 @@ export default function EnhancedTable(props) {
                           aria-label="delete"
                           color="primary"
                           component={Link}
-                          to="/profile/Edit-Immobilier"
+                          to={"/profile/Edit-Immobilier/?id="+row.key}
                         >
                           <EditIcon />
                         </IconButton>
