@@ -190,7 +190,7 @@ const RequestForm = (props) => {
                 TourTime_date: { 1: { TourTime1: TourTime1, TourDate1: TourDate1 }, 2: { TourTime2: TourTime2, TourDate2: TourDate2 }, 3: { ourTime3: TourTime3, TourDate3: TourDate3 } },
                 TimeChosen: TimeChosen,
                 message: message,
-                valide: false
+                valide: 0
               });
 
           }
@@ -200,15 +200,7 @@ const RequestForm = (props) => {
 
   }
 
-  console.log({
-    FullName: FullName,
-    Email: Email,
-    Phone: Phone,
-    selectedDate: selectedDate,
-    TourTime: [{ TourTime1, TourDate1 }, { TourTime2, TourDate2 }, { TourTime3, TourDate3 }],
-    TimeChosen: TimeChosen
 
-  })
 
   const handleChangeOfTourDate1 = (event) => {
     setTourDate1(event.target.value);

@@ -91,26 +91,6 @@ function AccountProfile(props) {
           document.getElementById("file").value = null;
         });
     });
-
-    /*
-    uploadTask.on(firebase.storage.TaskEvent.STATE_,
-      (snapshot) =>{
-        var progress = Math.round((snapshot.bytesTransferred/snapshot.totalBytes))*100
-        this.setState({progress})
-      },(error) =>{
-        throw error
-      },() =>{
-        // uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) =>{
-    
-        uploadTask.snapshot.ref.getDownloadURL().then((url) =>{
-          this.setState({
-            downloadURL: url
-          })
-        })
-      document.getElementById("file").value = null
-    
-     }
-    ) */
   };
 
   return (
