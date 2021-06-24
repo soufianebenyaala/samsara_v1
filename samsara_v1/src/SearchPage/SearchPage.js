@@ -52,7 +52,7 @@ function SearchPage(props) {
   const [IDbuilding,setIDbuilding]=useState("")
   const [blogs,setBlogs]=useState([])
   const [search,setSearch]=useState('') 
-  console.log(search)
+  
   const fetchBlogs=async()=>{
     const response=db.collection('Allproduct');
     const data=await response.get();
@@ -62,7 +62,12 @@ function SearchPage(props) {
     })
   }
   useEffect(() => {
-    fetchBlogs();  
+    fetchBlogs(); 
+    const queryParams = new URLSearchParams(window.location.search);
+    const productid = queryParams.get('searchIndex')
+    if(productid){
+      setSearch(productid)
+    }
   }, [])
   const [item,setItem]=useState([])
   const [value,setValue]=useState('all')
