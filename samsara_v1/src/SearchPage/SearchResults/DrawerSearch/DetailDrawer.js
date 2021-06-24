@@ -220,7 +220,7 @@ const DetailDrawer = (props) => {
   const theme = useTheme();
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tileData.length;
+  const maxSteps = props.images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -243,10 +243,10 @@ const DetailDrawer = (props) => {
 
         <Grid xs={10} className={classes.navContainer} item>
           <Typography className={classes.header} component="div">
-            $2,183—$8,392
+            {props.price} DT
           </Typography>
           <Typography className={classes.subHeader} component="div">
-            Union Denver Apartments
+            {props.buildingName}
           </Typography>
         </Grid>
 
@@ -274,12 +274,13 @@ const DetailDrawer = (props) => {
     <Grid xs={6} item>
       <div className={classes.root}>
         <Paper square elevation={0} className={classes.header1}>
-          <Typography>{tileData[activeStep].label}</Typography>
+          
         </Paper>
         <img
           className={classes.img}
-          src={tileData[activeStep].img}
-          alt={tileData[activeStep].label}
+          src={props.images[activeStep]}
+          alt="check your photos !"
+          
         />
         <MobileStepper
           style={{ background: "cornflowerblue" }}
@@ -342,7 +343,7 @@ const DetailDrawer = (props) => {
                               className={classes.headerPrice}
                               component="h1"
                             >
-                              $2,183—$8,392
+                              {props.price} DT
                             </Typography>
                           </Grid>
                           <Grid
@@ -378,7 +379,7 @@ const DetailDrawer = (props) => {
                           className={classes.TextHeader}
                           component="h1"
                         >
-                          The Tides at Lakeshore East Apartments
+                          The Tides at {props.address}
                         </Typography>
                       </Grid>
                       <Grid xs={12} item>
@@ -386,9 +387,9 @@ const DetailDrawer = (props) => {
                           className={classes.MySubHeader}
                           component="h1"
                         >
-                          Managed by Lincoln Property Company
+                          Managed by {props.buildingName}
                           <br />
-                          Loop · 360 E South Water St, Chicago, IL 60601, USA
+                          {}
                         </Typography>
                       </Grid>
                       <Grid style={{ marginTop: "12px" }} xs={12} item>

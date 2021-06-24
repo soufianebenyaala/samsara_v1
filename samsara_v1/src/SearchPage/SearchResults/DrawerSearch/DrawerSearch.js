@@ -53,6 +53,22 @@ const DrawerSearch = (props) => {
         handelClickOnTour={handelClickOnTour}
         handelClickOnMessage={handelClickOnMessage}
         openDetail={openDetail}
+        blog={props.blog}
+      key={props.key}
+        id_building={props.idValue}
+        withoutHeart={props.withoutHeart}
+        price={props.price}
+        idValue={props.idValue}
+        setIDbuilding={props.setIDbuilding}
+        NumberOfBathRooms={props.NumberOfBathRooms}
+        NumberOfRooms={props.NumberOfRooms}
+        image={props.image}
+        address={props.address}
+        tel={props.tel}
+        disc={props.disc}
+        images={props.images}
+        zip={props.zip}
+        buildingName={props.buildingName}
       />
       <SearchResults
       blog={props.blog}
