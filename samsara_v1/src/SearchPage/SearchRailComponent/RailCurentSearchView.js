@@ -20,89 +20,78 @@ const useStyles = makeStyles((theme) => ({
 }));
 function RailCurentSearchView(props) {
   const classes = useStyles();
-  
-  
-  const search=props.search
-  const value=props.value
-  const nbrBath=props.nbrBath
-  
+
+  const search = props.search;
+  const value = props.value;
+  const nbrBath = props.nbrBath;
+
   return (
     <div className={classes.contentSection}>
       <div className={classes.StikyHeaderContainer}>
-        <StikyHeader setValue={props.setValue}
-        setNbrBath={props.setNbrBath} />
-        
+        <StikyHeader setValue={props.setValue} setNbrBath={props.setNbrBath} />
+
         <div className={classes.listables}>
           {props.blogs &&
-            props.blogs.filter((val)=>{
-              const find =(val["data"].buildingName+val["data"].adress+val["data"].state)
-              
- 
-              
+            props.blogs
+              .filter((val) => {
+                const find =
+                  val["data"].buildingName +
+                  val["data"].adress +
+                  val["data"].state;
 
-              if(search==""){
-                if(value=='all'){
-                  if(nbrBath=="all"){
-                    return val
-
-                  }else if(nbrBath==val["data"].NumberOfRooms){
-                    return val
+                if (search == "") {
+                  if (value == "all") {
+                    if (nbrBath == "all") {
+                      return val;
+                    } else if (nbrBath == val["data"].NumberOfRooms) {
+                      return val;
+                    }
+                  } else if (value == val["data"].NumberOfRooms) {
+                    if (nbrBath == "all") {
+                      return val;
+                    } else if (nbrBath == val["data"].NumberOfRooms) {
+                      return val;
+                    }
                   }
-                  
-                  
+                } else if (find.toLowerCase().includes(search.toLowerCase())) {
+                  if (value == "all") {
+                    if (nbrBath == "all") {
+                      return val;
+                    } else if (nbrBath == val["data"].NumberOfRooms) {
+                      return val;
+                    }
+                  } else if (value == val["data"].NumberOfRooms) {
+                    if (nbrBath == "all") {
+                      return val;
+                    } else if (nbrBath == val["data"].NumberOfRooms) {
+                      return val;
+                    }
+                  }
                 }
-                else if(value==val["data"].NumberOfRooms){
-                  if(nbrBath=="all"){
-                    return val
-
-                  }else if(nbrBath==val["data"].NumberOfRooms){
-                    return val
-                  }
-  
-                }  
-              }else if(find.toLowerCase().includes(search.toLowerCase()))  {
-                if(value=='all'){
-                  if(nbrBath=="all"){
-                    return val
-
-                  }else if(nbrBath==val["data"].NumberOfRooms){
-                    return val
-                  }
-                  
-                  
-                }
-                else if(value==val["data"].NumberOfRooms){
-                  if(nbrBath=="all"){
-                    return val
-
-                  }else if(nbrBath==val["data"].NumberOfRooms){
-                    return val
-                  }
-  
-                }  
-              }
-            }).map((blog) => {
-              console.log(blog.id)
-              return (
-                <DrawerSearch
-                  key={blog.id}
-                  id={blog.id}
-                  id_user={blog["data"].userUid}
-                  idValue={blog.id}
-                  setIDbuilding={props.setIDbuilding}
-                  price={blog["data"].price}
-                  NumberOfBathRooms={blog["data"].NumberOfBathRooms}
-                  NumberOfRooms={blog["data"].NumberOfRooms}
-                  image={blog["data"].urlimage[0]}
-                  images={blog["data"].urlimage}
-                  address={blog["data"].adress}
-                  tel={blog["data"].telephone}
-                  disc={blog["data"].discerption}
-                  zip={blog["data"].zipcode}
-                  buildingName={blog["data"].buildingName}
-                ></DrawerSearch>
-              );
-            })}
+              })
+              .map((blog) => {
+                console.log(blog.id);
+                return (
+                  <DrawerSearch
+                    key={blog.id}
+                    id={blog.id}
+                    id_user={blog["data"].userUid}
+                    idValue={blog.id}
+                    setIDbuilding={props.setIDbuilding}
+                    price={blog["data"].price}
+                    NumberOfBathRooms={blog["data"].NumberOfBathRooms}
+                    NumberOfRooms={blog["data"].NumberOfRooms}
+                    image={blog["data"].urlimage[0]}
+                    images={blog["data"].urlimage}
+                    address={blog["data"].adress}
+                    tel={blog["data"].telephone}
+                    disc={blog["data"].discerption}
+                    zip={blog["data"].zipcode}
+                    aminities={blog["data"].aminities}
+                    buildingName={blog["data"].buildingName}
+                  ></DrawerSearch>
+                );
+              })}
         </div>
       </div>
     </div>
