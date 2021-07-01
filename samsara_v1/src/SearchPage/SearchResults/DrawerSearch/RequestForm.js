@@ -32,7 +32,6 @@ import { useAuth } from "../../../contexts/AuthContext";
 import { db, storage, storageRef } from "../../../firebase";
 import { useHistory } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme) => ({
   propretyInfo: {
     display: "flex",
@@ -141,21 +140,25 @@ const RequestForm = (props) => {
   const [FullName, setFullName] = useState();
   const [Email, setEmail] = useState(currentUser.email);
   const [Phone, setPhone] = useState();
-  const [message, setmessage] = useState("I saw your rental listing at Samsara and would like to learn more. I'm looking for a 2BR in the range of $2,900 to $4,100.");
+  const [message, setmessage] = useState(
+    "I saw your rental listing at Samsara and would like to learn more. I'm looking for a 2BR in the range of $2,900 to $4,100."
+  );
   const [TimeChosen, setTimeChosen] = useState(1);
   const [TourTime, setTourTime] = useState();
   const [TourDate, setTourDate] = useState();
-  const [selectedDate, setSelectedDate] = React.useState(new Date("2020-05-04T21:11:54"));
+  const [selectedDate, setSelectedDate] = React.useState(
+    new Date("2020-05-04T21:11:54")
+  );
   const [state, setstate] = useState(true);
 
-  console.log(props.id_user)
   const submit = async () => {
-    await db.collection("users")
+    await db
+      .collection("users")
       .doc(currentUser.uid)
       .collection("SendRequestTour")
       .add({
         id_building: props.id_building,
-        id_userReceiver: props.id_user,
+        id_userReceiver: props.building.id_user,
         id_userSender: currentUser.uid,
         FullName: FullName,
         Email: Email,
@@ -163,15 +166,19 @@ const RequestForm = (props) => {
         TourTime_date: { TourTime: TourTime, TourDate: TourDate },
         TimeChosen: TimeChosen,
         message: message,
-        valide: false
+        valide: false,
       });
-    await db.collection("users")
+    await db
+      .collection("users")
       .doc(currentUser.uid)
       .collection("SendRequestTour")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach(async (doc) => {
-          if (doc.data().id_userReceiver == props.id_user && doc.exists) {
+          if (
+            doc.data().id_userReceiver == props.building.id_user &&
+            doc.exists
+          ) {
             await db
               .collection("users")
               .doc(props.id_user)
@@ -186,22 +193,17 @@ const RequestForm = (props) => {
                 TourTime_date: { TourTime: TourTime, TourDate: TourDate },
                 TimeChosen: TimeChosen,
                 message: message,
-                valide: 0
+                valide: 0,
               });
-
           }
         });
       });
-    props.onClose()
-
-  }
-
-
+    props.onClose();
+  };
 
   const handleChangeOfTourDate = (event) => {
     setTourDate(event.target.value);
   };
-
 
   const handleAddOfTimeChosen = () => {
     if (TimeChosen < 3) {
@@ -212,7 +214,6 @@ const RequestForm = (props) => {
     if (TimeChosen <= 3) {
       setTimeChosen(TimeChosen - 1);
     }
-
   };
 
   const handleChangeOfTourTime = (event) => {
@@ -224,7 +225,6 @@ const RequestForm = (props) => {
   };
   const classes = useStyles();
   const preventDefault = (event) => event.preventDefault();
-
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -242,17 +242,17 @@ const RequestForm = (props) => {
   today.setMinutes(0);
 
   while (today.getHours() <= 16) {
-    let time = `${today.getHours() % 12 < 10 && today.getHours() != 12
-      ? "0" + (today.getHours() % 12)
-      : today.getHours()
-      }:${today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes()
-      } ${today.getHours() < 12 ? "AM" : "PM"}`;
+    let time = `${
+      today.getHours() % 12 < 10 && today.getHours() != 12
+        ? "0" + (today.getHours() % 12)
+        : today.getHours()
+    }:${
+      today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes()
+    } ${today.getHours() < 12 ? "AM" : "PM"}`;
     workingHours.push(time);
     today.setMinutes(today.getMinutes() + 15);
   }
   return (
-
-
     <Dialog
       onClose={props.onClose}
       aria-labelledby="simple-dialog-title"
@@ -293,7 +293,9 @@ const RequestForm = (props) => {
                   >
                     <Grid xs={12} item>
                       <TextField
-                        onChange={(e) => { setFullName(e.target.value) }}
+                        onChange={(e) => {
+                          setFullName(e.target.value);
+                        }}
                         autoFocus
                         margin="none"
                         id="Full-Name"
@@ -305,7 +307,9 @@ const RequestForm = (props) => {
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
-                        onChange={(e) => { setPhone(e.target.value) }}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                        }}
                         autoFocus
                         margin="none"
                         id="Phone"
@@ -317,7 +321,9 @@ const RequestForm = (props) => {
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
-                        onChange={(e) => { setEmail(e.target.value) }}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
                         autoFocus
                         value={Email}
                         margin="none"
@@ -349,7 +355,9 @@ const RequestForm = (props) => {
                               <em>None</em>
                             </MenuItem>
                             {workingDays.map((day) => (
-                              <MenuItem value={day}>{day}</MenuItem>
+                              <MenuItem key={day} value={day}>
+                                {day}
+                              </MenuItem>
                             ))}
                           </Select>
                         </FormControl>
@@ -374,7 +382,9 @@ const RequestForm = (props) => {
                             <option aria-label="None" value="" />
 
                             {workingHours.map((h) => (
-                              <option value={h}>{h}</option>
+                              <option key={h} value={h}>
+                                {h}
+                              </option>
                             ))}
                           </Select>
                         </FormControl>
@@ -382,7 +392,9 @@ const RequestForm = (props) => {
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
-                        onChange={(e) => { setmessage(e.target.value) }}
+                        onChange={(e) => {
+                          setmessage(e.target.value);
+                        }}
                         id="outlined-multiline-static"
                         label="Message"
                         multiline
@@ -432,8 +444,7 @@ const RequestForm = (props) => {
                     <Grid
                       className={classes.info}
                       style={{
-                        backgroundImage:
-                          "url(" + props.image + ")",
+                        backgroundImage: "url(" + props.image + ")",
                       }}
                       item
                     />
@@ -592,8 +603,7 @@ const RequestForm = (props) => {
             <Grid xs={4} item>
               <Grid container>
                 <Grid xs={5} style={{ display: "flex" }} item>
-                  <Button className={classes.secondaryBut} variant="contained"
-                  >
+                  <Button className={classes.secondaryBut} variant="contained">
                     Cancel
                   </Button>
                 </Grid>
@@ -614,8 +624,6 @@ const RequestForm = (props) => {
         </Grid>
       </Grid>
     </Dialog>
-
-
   );
 };
 

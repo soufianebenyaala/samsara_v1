@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import DrawerSearch from "../../SearchPage/SearchResults/DrawerSearch/DrawerSearch";
-import { useAuth } from "../../contexts/AuthContext";
-import { db } from "../../firebase";
 import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,71 +17,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WishList = () => {
-  const [loading, setLoading] = useState([]);
-
-  const [blogs, setBlogs] = useState([]);
-  const [wish, setWish] = useState([]);
-
-  const { currentUser } = useAuth();
-
-  const fetchBlogs = async () => {
-    const response = db
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("wishList");
-
-    const data = await response.get();
-    const products = db.collection("Allproduct");
-    const whishProducts = await products.get();
-
-    data.docs.map((item) => {
-      setBlogs((blogs) => [...blogs, item.id]);
-      console.log(item.id);
-      whishProducts.docs.map((val) => {
-        if (val.id == item.id) {
-          setWish((wish) => [...wish, { id: val.id, data: val.data() }]);
-        }
-      });
-    });
-  };
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+const WishList = (props) => {
   const classes = useStyles();
+
   return (
     <div>
-      {wish ?
-        (wish && wish.map((blog) => {
-          return (
-            <Container className={classes.container}>
-              <Paper className={classes.paper} elevation={3}>
-                <DrawerSearch
-                  blog={blog}
-                  withoutHeart={true}
-                  key={blog.id}
-                  id_user={blog["data"].userUid}
-                  images={blog["data"].urlimage}
-                  price={blog["data"].price}
-                  NumberOfBathRooms={blog["data"].NumberOfBathRooms}
-                  NumberOfRooms={blog["data"].NumberOfRooms}
-                  image={blog["data"].urlimage[0]}
-                  address={blog["data"].adress}
-                  tel={blog["data"].telephone}
-                  disc={blog["data"].discerption}
-                  zip={blog["data"].zipcode}
-                  buildingName={blog["data"].buildingName}
-                ></DrawerSearch>
-              </Paper>
-            </Container>
-          );
-         })
+      {props.wishList_user_products[`users/${props.authuser}/wishList`] ? (
+        props.wishList_user_products[`users/${props.authuser}/wishList`] &&
+        props.wishList_user_products[`users/${props.authuser}/wishList`].map(
+          (blog) => {
+            return (
+              <Container className={classes.container}>
+                <Paper className={classes.paper} elevation={3}>
+                  <DrawerSearch
+                    key={blog}
+                    id={blog}
+                    setIDbuilding={props.setIDbuilding}
+                    building={props.Allproducts[blog.id]}
+                    id_building={blog.id}
+                    withoutHeart={true}
+                  ></DrawerSearch>
+                </Paper>
+              </Container>
+            );
+          }
         )
-        : (
-         <h1> whishlist est vide </h1>
+      ) : (
+        <h1> whishlist est vide </h1>
       )}
     </div>
   );
 };
 
-export default WishList;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    Allproducts: state.firestore.data.Allproduct,
+    wishList_user_products: state.firestore.ordered,
+    authuser: state.firebase.auth.uid,
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect((props) => [
+    {
+      collection: `users/${props.authuser}/wishList`,
+    },
+  ]),
+  firestoreConnect((props) => [
+    {
+      collection: "Allproduct",
+    },
+  ])
+)(WishList);

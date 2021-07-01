@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-
+import { ToastContainer } from "react-toastify";
 import { Container } from "@material-ui/core";
 
 import Products from "../Products/productsTable";
-import { useAuth } from "../../contexts/AuthContext";
-import { db } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 import { Link } from "react-router-dom";
 
@@ -35,38 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
-  const history = useHistory();
-  const { currentUser } = useAuth();
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState([]);
-
-  useEffect(() => {
-    const getPostsFromFirebase = [];
-    const subscriber = db
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("products")
-      .onSnapshot((querySnaphot) => {
-        querySnaphot.forEach((doc) => {
-          getPostsFromFirebase.push({
-            ...doc.data(),
-            key: doc.id,
-          });
-        });
-        setPosts(getPostsFromFirebase);
-        setLoading(false);
-      });
-
-    return () => {
-      subscriber();
-    };
-  }, [loading]);
 
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>
+        <ToastContainer />
         <Link className={classes.noLinks} to="/profile/AddProduct">
           <Fab className={classes.fab} variant="extended">
             <AddIcon />
@@ -74,8 +49,23 @@ export default function Dashboard() {
           </Fab>
         </Link>
 
-        <Products posts={posts} />
+        <Products posts={props.user_products} />
       </Container>
     </>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user_products: state.firestore.ordered.Allproduct,
+    authuser: state.firebase.auth.uid,
+  };
+};
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect((props) => [
+    {
+      collection: "Allproduct",
+      where: ["userUid", "==", props.authuser],
+    },
+  ])
+)(Dashboard);

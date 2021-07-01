@@ -1,59 +1,60 @@
-import React, { useRef, useState } from "react"
-import { useAuth } from "../contexts/AuthContext"
-import { useHistory } from "react-router-dom"
-import Link from '@material-ui/core/Link';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Alert from '@material-ui/lab/Alert';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-
+import React, { useRef, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useHistory } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Alert from "@material-ui/lab/Alert";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { signIn } from "../store/action/authActions";
+import { Redirect } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {"Copyright © "} {new Date().getFullYear()}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh",
   },
   image: {
-    backgroundImage: 'url(https://i.ibb.co/wLQB3XG/pexels-maria-orlova-4913428.jpg)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage:
+      "url(https://i.ibb.co/wLQB3XG/pexels-maria-orlova-4913428.jpg)",
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -61,31 +62,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+function SignInSide(props) {
   const classes = useStyles();
   const [emailRef, setemailRef] = useState("");
   const [passwordRef, setpasswordRef] = useState("");
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   async function handleSubmit(e) {
-    e.preventDefault()
-
-    try {
-      setError("")
-      setLoading(true)
-      await login(emailRef, passwordRef)
-      history.push("/")
-    } catch {
-      setError("Failed to log in")
-    }
-
-    setLoading(false)
+    e.preventDefault();
+    props.signIn({ emailRef, passwordRef });
   }
-
-
+  const { uid } = props;
+  if (uid) return <Redirect to="/" />;
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -159,6 +150,17 @@ export default function SignInSide() {
     </Grid>
   );
 }
+const mapStateToProps = (state) => {
+  console.log(state);
+  const uid = state.firebase.auth.uid;
+  return {
+    uid: uid,
+  };
+};
 
-
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignInSide);

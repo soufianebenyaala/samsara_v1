@@ -1,7 +1,7 @@
-import firebase from "firebase/app"
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/storage'
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 
 const app = firebase.initializeApp({
   //apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,13 +16,13 @@ const app = firebase.initializeApp({
   authDomain: "pfa-project-324ed.firebaseapp.com",
   projectId: "pfa-project-324ed",
   storageBucket: "pfa-project-324ed.appspot.com",
-  databaseURL:"https://pfa-project-324ed.firebaseio.com",
+  databaseURL: "https://pfa-project-324ed.firebaseio.com",
   messagingSenderId: "195818161328",
-  appId: "1:195818161328:web:9ee6d9fd99a31a8896a775"
-})
+  appId: "1:195818161328:web:9ee6d9fd99a31a8896a775",
+});
 
-export const auth = app.auth()
-export const db = firebase.firestore()
+export const auth = app.auth();
+export const db = firebase.firestore();
 export const storage = firebase.storage();
 export const storageRef = storage.ref();
-export default app
+export default firebase;

@@ -225,13 +225,13 @@ const DetailDrawer = (props) => {
   const onClick = () => {
     setExpand(!expand);
   };
+
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = props.images.length;
+  const maxSteps = props.building.urlimage.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-  console.log(props.aminities);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -250,10 +250,10 @@ const DetailDrawer = (props) => {
 
         <Grid xs={10} className={classes.navContainer} item>
           <Typography className={classes.header} component="div">
-            {props.price} DT
+            {props.building.price} DT
           </Typography>
           <Typography className={classes.subHeader} component="div">
-            {props.buildingName}
+            {props.building.buildingName}
           </Typography>
         </Grid>
 
@@ -283,7 +283,7 @@ const DetailDrawer = (props) => {
         <Paper square elevation={0} className={classes.header1}></Paper>
         <img
           className={classes.img}
-          src={props.images[activeStep]}
+          src={props.building.urlimage[activeStep]}
           alt="check your photos !"
         />
         <MobileStepper
@@ -347,7 +347,7 @@ const DetailDrawer = (props) => {
                               className={classes.headerPrice}
                               component="h1"
                             >
-                              {props.price} DT
+                              {props.building.price} DT
                             </Typography>
                           </Grid>
                           <Grid
@@ -383,7 +383,7 @@ const DetailDrawer = (props) => {
                           className={classes.TextHeader}
                           component="h1"
                         >
-                          The Tides at {props.address}
+                          The Tides at {props.building.adress}
                         </Typography>
                       </Grid>
                       <Grid xs={12} item>
@@ -391,7 +391,7 @@ const DetailDrawer = (props) => {
                           className={classes.MySubHeader}
                           component="h1"
                         >
-                          Managed by {props.buildingName}
+                          Managed by {props.building.buildingName}
                           <br />
                           {}
                         </Typography>
@@ -424,10 +424,12 @@ const DetailDrawer = (props) => {
                       <Grid xs={12} className={classes.AminitiesContainer} item>
                         {/* bouchle sur amminities */}
 
-                        {props.aminities &&
-                          props.aminities.map((item) => {
+                        {props.building.aminities &&
+                          props.building.aminities.map((item) => {
                             return (
                               <Grid
+                                key={item}
+                                item
                                 className={classes.aminities_aminities}
                                 xs={4}
                               >
@@ -447,7 +449,7 @@ const DetailDrawer = (props) => {
                     <Grid container>
                       <Grid xs={12} item>
                         <Typography className={classes.TextHeader}>
-                          About The Tides at {props.buildingName}
+                          About The Tides at {props.building.buildingName}
                         </Typography>
                       </Grid>
                       <Grid xs={12} item>
@@ -459,7 +461,7 @@ const DetailDrawer = (props) => {
                           expanded={expand}
                           width={900}
                         >
-                          {props.disc}
+                          {props.building.discerption}
                         </ShowMoreText>
                       </Grid>
                     </Grid>

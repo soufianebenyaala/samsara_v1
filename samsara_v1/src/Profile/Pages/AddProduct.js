@@ -5,8 +5,10 @@ import { Container } from "@material-ui/core";
 import Checkout from "../Checkout/Checkout";
 
 import { useAuth } from "../../contexts/AuthContext";
-import { db, storage, storageRef } from "../../firebase";
+
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { addProduct } from "../../store/action/productsActions";
 
 const drawerWidth = 240;
 
@@ -88,8 +90,7 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
 }));
-export default function Dashboard(props) {
-
+function Dashboard(props) {
   const classes = useStyles();
 
   const history = useHistory();
@@ -120,95 +121,27 @@ export default function Dashboard(props) {
   const handleChangeNbrOfRooms = (event, newNbr) => {
     setNbrOfRooms(newNbr);
   };
-  const uploadfile = async () => {
-    var urlF = [];
-    if (files !== []) {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        await storageRef.child("files/" + file.name).put(file);
-        var DownloadURL = await storage
-          .ref("files")
-          .child(file.name)
-          .getDownloadURL();
-        urlF.push(DownloadURL);
-        seturlfile(urlF);
-      }
-    }
-  };
-  const uploadimage = async () => {
-    var urlI = [];
-    if (images !== []) {
-      for (let i = 0; i < images.length; i++) {
-        const image = images[i];
-        await storageRef.child("images/" + image.name).put(image);
-        var DownloadURL = await storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL();
-        urlI.push(DownloadURL);
-        seturlimage(urlI);
-      }
-    }
-  };
-  const addToDataBase = async () => {
-    await db
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("products")
-      .add({
-        buildingName: buildingName,
-        adress: adress,
-        zipcode: zipcode,
-        price: price,
-        NumberOfRooms: NbrOfRooms,
-        NumberOfBathRooms: NbrOfBathRooms,
-        categorie: Cat,
-        aminities: Ami,
-        urlimage: urlimage,
-        urlfile: urlfile,
-        discerption: discerption,
-        latitude: latitude,
-        longitude: longitude,
-        telephone: telephone,
-      });
 
-    await db
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("products")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach(async (doc) => {
-          if (doc.exists) {
-            // Convert to City object
-            await db.collection("Allproduct").doc(doc.id).set({
-              userUid: currentUser.uid,
-              buildingName: doc.data().buildingName,
-              adress: doc.data().adress,
-              zipcode: doc.data().zipcode,
-              price: doc.data().price,
-              NumberOfRooms: doc.data().NumberOfRooms,
-              NumberOfBathRooms: doc.data().NumberOfBathRooms,
-              categorie: doc.data().categorie,
-              aminities: doc.data().aminities,
-              urlimage: doc.data().urlimage,
-              urlfile: doc.data().urlfile,
-              discerption: doc.data().discerption,
-              latitude: doc.data().latitude,
-              longitude: doc.data().longitude,
-              telephone: doc.data().telephone,
-            });
-          }
-        });
-      });
-  };
   const submit = async () => {
-    await uploadimage();
-    await uploadfile();
-    await addToDataBase();
+    props.addProduct({
+      userUid: currentUser.uid,
+      buildingName: buildingName,
+      adress: adress,
+      zipcode: zipcode,
+      price: price,
+      images: images,
+      NumberOfRooms: NbrOfRooms,
+      NumberOfBathRooms: NbrOfBathRooms,
+      categorie: Cat,
+      aminities: Ami,
+      discerption: discerption,
+      latitude: latitude,
+      longitude: longitude,
+      telephone: telephone,
+    });
     history.push("/profile/Immobilier");
   };
+
   return (
     <>
       <Container maxWidth="lg" className={classes.container}>
@@ -247,9 +180,14 @@ export default function Dashboard(props) {
           latitude={latitude}
           longitude={longitude}
           submit={submit}
-          //product={product}
         />
       </Container>
     </>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProduct: (product) => dispatch(addProduct(product)),
+  };
+};
+export default connect(null, mapDispatchToProps)(Dashboard);

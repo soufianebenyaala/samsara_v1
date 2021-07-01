@@ -7,6 +7,9 @@ import theme from "../theme";
 import { db } from "../firebase";
 import { useState, useEffect } from "react";
 import img from "../Home/blacklogo-01.svg";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 const useStyles = makeStyles((theme) => ({
   mainView: {
@@ -52,16 +55,7 @@ function SearchPage(props) {
   const [blogs, setBlogs] = useState([]);
   const [search, setSearch] = useState("");
 
-  const fetchBlogs = async () => {
-    const response = db.collection("Allproduct");
-    const data = await response.get();
-    data.docs.map((item) => {
-      const x = item.data();
-      setBlogs((blogs) => [...blogs, { id: item.id, data: item.data() }]);
-    });
-  };
   useEffect(() => {
-    fetchBlogs();
     const queryParams = new URLSearchParams(window.location.search);
     const productid = queryParams.get("searchIndex");
     if (productid) {
@@ -71,7 +65,6 @@ function SearchPage(props) {
   const [item, setItem] = useState([]);
   const [value, setValue] = useState("all");
   const [nbrBath, setNbrBath] = useState("all");
-
   return (
     <div>
       <Header
@@ -88,7 +81,6 @@ function SearchPage(props) {
           <div className={classes.RailRail}>
             <div className={classes.RailPlaceholder}>
               <RailCurentSearchView
-                IDbuilding={IDbuilding}
                 value={value}
                 setValue={setValue}
                 nbrBath={nbrBath}
@@ -96,27 +88,36 @@ function SearchPage(props) {
                 item={item}
                 setItem={setItem}
                 search={search}
-                blogs={blogs}
                 setIDbuilding={setIDbuilding}
-                IDbuilding={IDbuilding}
+                blogs={props.products.Allproduct}
               />
             </div>
           </div>
         </div>
       </div>
       <div className={classes.mapContainer}>
-        <Maps
-          value={value}
-          setValue={setValue}
-          nbrBath={nbrBath}
-          search={search}
-          setNbrBath={setNbrBath}
-          blogs={blogs}
-          IDbuilding={IDbuilding}
-        />
+        {
+          <Maps
+            value={value}
+            setValue={setValue}
+            nbrBath={nbrBath}
+            search={search}
+            setNbrBath={setNbrBath}
+            blogs={props.products.Allproduct}
+            IDbuilding={IDbuilding}
+          />
+        }
       </div>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    products: state.firestore.data,
+  };
+};
 
-export default SearchPage;
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "Allproduct" }])
+)(SearchPage);

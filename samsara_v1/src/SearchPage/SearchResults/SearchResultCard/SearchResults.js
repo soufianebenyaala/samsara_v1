@@ -8,42 +8,30 @@ const SearchResults = (props) => {
   const [isHidden, setisHidden] = useState(null);
   const [isClicked, setClicked] = useState(false);
   const handelClickMoreInfo = () => {
-    console.log(isClicked);
     setClicked(!isClicked);
     var myclass = isClicked ? null : classes.hiddenNoMore;
     setisHidden(myclass);
   };
-  
+  //building
+  //id_building
   return (
     <div
       onClick={() => {
-        if(props.setIDbuilding)
-        props.setIDbuilding(props.idValue);
+        if (props.setIDbuilding) props.setIDbuilding(props.id_building);
       }}
       className={classes.listItemContainer}
     >
       <div className={classes.listItem}>
         <div className={`${classes.card} ${classes.content} `}>
           <ImageContainer
-            image={props.image}
+            image={props.building.urlimage[0]}
             handelOpenDetail={props.handelOpenDetail}
           />
           <InfoConatiner
-          blog={props.blog}
-          key={props.key}
-          id_building={props.id_building}
-          IDbuilding={props.IDbuilding}
             withoutHeart={props.withoutHeart}
-            idValue={props.idValue}
-            price={props.price}
-            NumberOfBathRooms={props.NumberOfBathRooms}
-            NumberOfRooms={props.NumberOfRooms}
-            address={props.address}
-            tel={props.tel}
-            
-            disc={props.disc}
-            zip={props.zip}
-            buildingName={props.buildingName}
+            building={props.building}
+            id_building={props.id_building}
+            key={props.id_building}
             handelClickOnTour={props.handelClickOnTour}
             handelClickOnMessage={props.handelClickOnMessage}
             isHidden={isHidden}

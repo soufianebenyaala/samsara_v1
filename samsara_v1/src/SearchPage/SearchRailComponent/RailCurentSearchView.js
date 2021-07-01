@@ -32,63 +32,51 @@ function RailCurentSearchView(props) {
 
         <div className={classes.listables}>
           {props.blogs &&
-            props.blogs
+            Object.keys(props.blogs)
               .filter((val) => {
                 const find =
-                  val["data"].buildingName +
-                  val["data"].adress +
-                  val["data"].state;
+                  props.blogs[val].buildingName +
+                  props.blogs[val].adress +
+                  props.blogs[val].state;
 
                 if (search == "") {
                   if (value == "all") {
                     if (nbrBath == "all") {
-                      return val;
-                    } else if (nbrBath == val["data"].NumberOfRooms) {
-                      return val;
+                      return props.blogs[val];
+                    } else if (nbrBath == props.blogs[val].NumberOfRooms) {
+                      return props.blogs[val];
                     }
-                  } else if (value == val["data"].NumberOfRooms) {
+                  } else if (value == props.blogs[val].NumberOfRooms) {
                     if (nbrBath == "all") {
-                      return val;
-                    } else if (nbrBath == val["data"].NumberOfRooms) {
-                      return val;
+                      return props.blogs[val];
+                    } else if (nbrBath == props.blogs[val].NumberOfRooms) {
+                      return props.blogs[val];
                     }
                   }
                 } else if (find.toLowerCase().includes(search.toLowerCase())) {
                   if (value == "all") {
                     if (nbrBath == "all") {
-                      return val;
-                    } else if (nbrBath == val["data"].NumberOfRooms) {
-                      return val;
+                      return props.blogs[val];
+                    } else if (nbrBath == props.blogs[val].NumberOfRooms) {
+                      return props.blogs[val];
                     }
-                  } else if (value == val["data"].NumberOfRooms) {
+                  } else if (value == props.blogs[val].NumberOfRooms) {
                     if (nbrBath == "all") {
-                      return val;
-                    } else if (nbrBath == val["data"].NumberOfRooms) {
-                      return val;
+                      return props.blogs[val];
+                    } else if (nbrBath == props.blogs[val].NumberOfRooms) {
+                      return props.blogs[val];
                     }
                   }
                 }
               })
               .map((blog) => {
-                console.log(blog.id);
                 return (
                   <DrawerSearch
-                    key={blog.id}
-                    id={blog.id}
-                    id_user={blog["data"].userUid}
-                    idValue={blog.id}
+                    key={blog}
+                    id={blog}
                     setIDbuilding={props.setIDbuilding}
-                    price={blog["data"].price}
-                    NumberOfBathRooms={blog["data"].NumberOfBathRooms}
-                    NumberOfRooms={blog["data"].NumberOfRooms}
-                    image={blog["data"].urlimage[0]}
-                    images={blog["data"].urlimage}
-                    address={blog["data"].adress}
-                    tel={blog["data"].telephone}
-                    disc={blog["data"].discerption}
-                    zip={blog["data"].zipcode}
-                    aminities={blog["data"].aminities}
-                    buildingName={blog["data"].buildingName}
+                    building={props.blogs[blog]}
+                    id_building={blog}
                   ></DrawerSearch>
                 );
               })}

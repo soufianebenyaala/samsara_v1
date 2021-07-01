@@ -3,11 +3,11 @@ import SearchResults from "../SearchResultCard/SearchResults";
 import DetailDrawer from "./DetailDrawer";
 import MessageForm from "./MessageForm";
 import RequestForm from "./RequestForm";
-import { useAuth } from "../../../contexts/AuthContext"
+import { useAuth } from "../../../contexts/AuthContext";
 
 const DrawerSearch = (props) => {
   const [openDetail, setOpenDetail] = useState(false);
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const handelOpenDetail = (name) => {
     setOpenDetail(true);
   };
@@ -29,73 +29,47 @@ const DrawerSearch = (props) => {
     setTour(false);
   };
 
-
   return (
     <div>
       {currentUser ? (
         <>
           <MessageForm
-            id_building={props.idValue}
-            id_user={props.id_user}
+            key={"MessageForm" + props.id_building}
+            building={props.building}
+            id_building={props.id_building}
             onClose={handelCloseOfMesssage}
             aria-labelledby="simple-dialog-title"
             open={Message}
           />
           <RequestForm
-            id_building={props.idValue}
-            id_user={props.id_user}
-            price={props.price}
-            image={props.image}
-            tel={props.tel}
-            zip={props.zip}
+            key={"RequestForm" + props.id_building}
+            building={props.building}
+            id_building={props.id_building}
             address={props.address}
             onClose={handelCloseOfTour}
             aria-labelledby="simple-dialog-title"
             open={Tour}
           />
-        </>) : (
-        <>
         </>
+      ) : (
+        <></>
       )}
       <DetailDrawer
+        key={"DetailDrawer" + props.id_building}
+        building={props.building}
+        id_building={props.id_building}
         handelCloseDetail={handelCloseDetail}
         handelClickOnTour={handelClickOnTour}
         handelClickOnMessage={handelClickOnMessage}
         openDetail={openDetail}
-        blog={props.blog}
-        key={props.key}
-        aminities={props.aminities}
-        id_building={props.idValue}
-        withoutHeart={props.withoutHeart}
-        price={props.price}
-        idValue={props.idValue}
-        setIDbuilding={props.setIDbuilding}
-        NumberOfBathRooms={props.NumberOfBathRooms}
-        NumberOfRooms={props.NumberOfRooms}
-        image={props.image}
-        address={props.address}
-        tel={props.tel}
-        disc={props.disc}
-        images={props.images}
-        zip={props.zip}
-        buildingName={props.buildingName}
       />
       <SearchResults
-        blog={props.blog}
-        key={props.key}
-        id_building={props.idValue}
         withoutHeart={props.withoutHeart}
-        price={props.price}
-        idValue={props.idValue}
         setIDbuilding={props.setIDbuilding}
-        NumberOfBathRooms={props.NumberOfBathRooms}
-        NumberOfRooms={props.NumberOfRooms}
-        image={props.image}
-        address={props.address}
-        tel={props.tel}
-        disc={props.disc}
-        zip={props.zip}
-        buildingName={props.buildingName}
+        building={props.building}
+        id_building={props.id_building}
+        key={"SearchResults" + props.id_building}
+        withoutHeart={props.withoutHeart}
         handelClickOnTour={handelClickOnTour}
         handelClickOnMessage={handelClickOnMessage}
         handelOpenDetail={handelOpenDetail}

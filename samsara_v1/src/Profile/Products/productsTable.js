@@ -24,10 +24,10 @@ import { useState, useEffect } from "react";
 import ShowMoreText from "react-show-more-text";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import EditIcon from '@material-ui/icons/Edit';
-
+import EditIcon from "@material-ui/icons/Edit";
+import { connect } from "react-redux";
 import { useAuth } from "../../contexts/AuthContext";
-import { db, } from "../../firebase";
+import { removeProduct } from "../../store/action/productsActions";
 import { Link, useHistory } from "react-router-dom";
 
 function createData(
@@ -54,10 +54,10 @@ function createData(
 var rows = [];
 
 function addDataTorows(blogs) {
-  rows = blogs
+  if (blogs && blogs.length !== 0) {
+    rows = blogs;
+  }
 }
-
-
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -198,13 +198,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-      }
+          color: theme.palette.secondary.main,
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+        }
       : {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
-      },
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.secondary.dark,
+        },
   title: {
     flex: "1 1 100%",
   },
@@ -286,10 +286,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable(props) {
-
+function EnhancedTable(props) {
   const classes = useStyles();
-  const history = useHistory()
+  const history = useHistory();
   const { currentUser } = useAuth();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -298,15 +297,12 @@ export default function EnhancedTable(props) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const productDelete = (key)=>{
-    db.collection("users").doc(currentUser.uid).collection("products").doc(key).delete()
-    history.push("/profile/Immobilier")
-  }
+  const productDelete = (product) => {
+    props.removeProduct(product);
+    history.push("/profile/Immobilier");
+  };
 
   addDataTorows(props.posts);
-
-
-
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -390,15 +386,14 @@ export default function EnhancedTable(props) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.buildingName);
                   const labelId = `enhanced-table-checkbox-${index}`;
-                  
+
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.key)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -407,12 +402,7 @@ export default function EnhancedTable(props) {
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
-                      <TableCell
-                        component="th"
-
-                        scope="row"
-                        padding="none"
-                      >
+                      <TableCell component="th" scope="row" padding="none">
                         {row.buildingName}
                       </TableCell>
                       <TableCell align="center">{row.adress}</TableCell>
@@ -440,7 +430,7 @@ export default function EnhancedTable(props) {
                           aria-label="delete"
                           color="primary"
                           component={Link}
-                          to={"/profile/Edit-Immobilier/?id="+row.key}
+                          to={"/profile/Edit-Immobilier/?id=" + row.id}
                         >
                           <EditIcon />
                         </IconButton>
@@ -448,14 +438,14 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">
                         <IconButton
                           aria-label="delete"
-                          
                           color="primary"
-                          onClick={()=>{productDelete(row.key)}}
+                          onClick={() => {
+                            productDelete(row);
+                          }}
                         >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
-
                     </TableRow>
                   );
                 })}
@@ -484,3 +474,9 @@ export default function EnhancedTable(props) {
     </div>
   );
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeProduct: (product) => dispatch(removeProduct(product)),
+  };
+};
+export default connect(null, mapDispatchToProps)(EnhancedTable);
