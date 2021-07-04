@@ -14,6 +14,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
+import { logOut } from "../store/action/authActions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -196,7 +198,7 @@ function Header(props) {
     setError("");
 
     try {
-      await logout();
+      await props.logOut();
       history.push("/");
     } catch {
       setError("Failed to log out");
@@ -259,5 +261,15 @@ function Header(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    uid: state.firebase.auth.uid,
+  };
+};
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logOut()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

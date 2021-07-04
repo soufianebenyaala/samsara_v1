@@ -50,7 +50,6 @@ const WishList = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     Allproducts: state.firestore.data.Allproduct,
     wishList_user_products: state.firestore.ordered,

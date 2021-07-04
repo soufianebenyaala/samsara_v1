@@ -8,37 +8,73 @@ import {
   Redirect,
 } from "react-router-dom";
 import Login from "./components/Login";
-import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
-import UpdateProfile from "./components/UpdateProfile";
+import VerifyEmail from "./components/VerifyEmail";
 import Home from "./Home/Home";
 import Search from "./SearchPage/SearchPage";
 import Profile from "./Profile/AbstractProfile";
 import Error from "./Profile/Pages/Error";
+import { connect } from "react-redux";
 
-function App() {
+function App({ loggedIn, emailVerified }) {
+  let routes;
+  console.log(loggedIn, emailVerified);
+  if (loggedIn && !emailVerified) {
+    routes = (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/search" component={Search} />
+        <Route path="/verify-email" component={VerifyEmail} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/*" exact={true}>
+          <div style={{ height: "100vh" }}>
+            <Error />
+          </div>
+        </Route>
+        <Redirect to="/verify-email" />
+      </Switch>
+    );
+  } else if (loggedIn && emailVerified) {
+    routes = (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/search" component={Search} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/*" exact={true}>
+          <div style={{ height: "100vh" }}>
+            <Error />
+          </div>
+        </Route>
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/search" component={Search} />
+      </Switch>
+    );
+  }
+
   return (
-    <div>
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <PrivateRoute path="/update-profile" component={UpdateProfile} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-            <Route path="/search" component={Search} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/*" exact={true}>
-              <div style={{height:"100vh"}}>
-              <Error />
-              </div>
-            </Route>
-          </Switch>
-        </AuthProvider>
-      </Router>
-    </div>
+    <Router>
+      <AuthProvider>{routes} </AuthProvider>
+    </Router>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.firebase.auth.uid,
+    emailVerified: state.firebase.auth.emailVerified,
+  };
+};
 
-export default App;
+export default connect(mapStateToProps)(App);

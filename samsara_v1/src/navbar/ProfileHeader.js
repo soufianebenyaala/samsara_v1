@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar";
 import SignUpDialog from "./SignUpDialog";
 import LogInDialog from "./LogInDialog";
 import Avatar from "@material-ui/core/Avatar";
-import { useAuth } from "../contexts/AuthContext";
+
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase";
@@ -25,6 +25,9 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import { logOut } from "../store/action/authActions";
+
 const NotificationBadge = withStyles((theme) => ({
   badge: {
     top: "29%",
@@ -226,14 +229,8 @@ const StyledBadge = withStyles((theme) => ({
     },
   },
 }))(Badge);
-function avater({
-  classes,
-  currentUser,
-  handelClickOpenSignIn,
-  handelClickOpenSignUp,
-  url,
-}) {
-  if (currentUser) {
+function avater({ classes, props, url }) {
+  if (props.uid) {
     return (
       <Link to={{ pathname: "/profile" }}>
         <StyledBadge
@@ -275,16 +272,17 @@ function avater({
     );
   }
 }
+
 function ProfileHeader(props) {
   const [url, seturl] = useState("");
   useEffect(() => {
     // Update the document title using the browser API
     async function getphoto() {
-      if (currentUser) {
+      if (props.uid) {
         var storage = firebase.storage();
         var storageRef = storage.ref();
         storageRef
-          .child("profile/" + currentUser.uid)
+          .child("profile/" + props.uid)
           .getDownloadURL()
           .then((URL) => {
             seturl(URL);
@@ -313,13 +311,11 @@ function ProfileHeader(props) {
     isOpenSignIn(false);
   };
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
-
   async function handleLogout() {
     setError("");
 
     try {
-      await logout();
+      await props.logOut();
       history.push("/");
     } catch {
       setError("Failed to log out");
@@ -334,9 +330,9 @@ function ProfileHeader(props) {
   const handleCloseMessage = () => {
     setMessageNotefication(null);
   };
-  const handleroute=()=>{
-    history.push("/")
-  }
+  const handleroute = () => {
+    history.push("/");
+  };
   return (
     <div className={classes.root}>
       <AppBar
@@ -346,9 +342,9 @@ function ProfileHeader(props) {
       >
         <Toolbar>
           {props.list}
-       
-          <IconButton >
-            <img alt="myLogo" className={classes.logo_img} src={props.Logo} onClick={handleroute} />
+
+          <IconButton onClick={handleroute}>
+            <img alt="myLogo" className={classes.logo_img} src={props.Logo} />
           </IconButton>
           {searchbar}
 
@@ -465,7 +461,7 @@ function ProfileHeader(props) {
                 </ListItem>
               </List>
             </Menu>
-            
+
             <FormControlLabel
               label={props.SwitchToVendor ? "Loueur" : "Membre"}
               control={
@@ -476,15 +472,9 @@ function ProfileHeader(props) {
                 />
               }
             />
-            
-            {avater({
-              classes,
-              currentUser,
-              handelClickOpenSignIn,
-              handelClickOpenSignUp,
-              url,
-            })}
-            {currentUser ? (
+
+            {avater({ classes, props, url })}
+            {props.uid ? (
               <Button
                 onClick={handleLogout}
                 variant="contained"
@@ -513,5 +503,15 @@ function ProfileHeader(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    uid: state.firebase.auth.uid,
+  };
+};
 
-export default ProfileHeader;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => dispatch(logOut()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileHeader);

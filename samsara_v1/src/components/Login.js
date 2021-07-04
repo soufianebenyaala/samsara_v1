@@ -1,6 +1,4 @@
-import React, { useRef, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -17,6 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { signIn } from "../store/action/authActions";
+import { useHistory } from "react-router-dom";
+
 import { Redirect } from "react-router-dom";
 
 function Copyright() {
@@ -66,17 +66,25 @@ function SignInSide(props) {
   const classes = useStyles();
   const [emailRef, setemailRef] = useState("");
   const [passwordRef, setpasswordRef] = useState("");
-  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    props.signIn({ emailRef, passwordRef });
+
+    try {
+      setError("");
+      setLoading(true);
+      await props.signIn({ emailRef, passwordRef });
+    } catch {
+      setError("Failed to log in");
+    }
+    setLoading(false);
   }
-  const { uid } = props;
-  if (uid) return <Redirect to="/" />;
+  if (props.uid) {
+    return <Redirect to="/" />;
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -150,11 +158,12 @@ function SignInSide(props) {
     </Grid>
   );
 }
+
 const mapStateToProps = (state) => {
   console.log(state);
-  const uid = state.firebase.auth.uid;
   return {
-    uid: uid,
+    emailVerified: state.firebase.auth.emailVerified,
+    uid: state.firebase.auth.uid,
   };
 };
 

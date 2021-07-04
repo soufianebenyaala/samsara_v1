@@ -92,7 +92,7 @@ function AccountProfile(props) {
         });
     });
   };
-
+  console.log(props.user_detail);
   return (
     <Card style={{ display: "flex", flexDirection: "column" }} {...props}>
       <CardContent style={{ flexGrow: 1 }}>
@@ -144,8 +144,10 @@ function AccountProfile(props) {
                   />
                   <label htmlFor="file">
                     <Button
-                      style={{backgroundColor: "cornflowerblue",
-                        textTransform: "none",}}
+                      style={{
+                        backgroundColor: "cornflowerblue",
+                        textTransform: "none",
+                      }}
                       variant="contained"
                       color="primary"
                       component="span"
@@ -165,7 +167,8 @@ function AccountProfile(props) {
               >
                 <Grid xs={11} item>
                   <Typography color="textPrimary" gutterBottom variant="h3">
-                    {props.nameUser}
+                    {props.user_detail && props.user_detail.firstName}{" "}
+                    {props.user_detail && props.user_detail.lastName}
                   </Typography>
                 </Grid>
               </Grid>
@@ -179,7 +182,7 @@ function AccountProfile(props) {
               >
                 <Grid xs={6} item>
                   <Typography color="textSecondary" variant="body1">
-                    {props.country}
+                    {props.user_detail && props.user_detail.state}
                   </Typography>
                 </Grid>
               </Grid>

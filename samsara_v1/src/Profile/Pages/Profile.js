@@ -6,6 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container, Grid, IconButton } from "@material-ui/core";
 import AccountProfile from "../../Profile/account/AccountProfile";
 import AccountProfileDetails from "../../Profile/account/AccountProfileDetails";
+import VerifyEmail from "../../components/VerifyEmail";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(4),
@@ -21,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(true);
-  const [nameUser, setNameUser] = useState("");
-  const [country, setCountry] = useState("");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -66,18 +70,42 @@ export default function Dashboard() {
           <Container maxWidth="lg">
             <Grid container spacing={3}>
               <Grid className={classes.flexIt} item lg={4} md={6} xs={12}>
-                <AccountProfile country={country} nameUser={nameUser} />
-              </Grid>
-              <Grid item lg={8} md={6} xs={12}>
-                <AccountProfileDetails
-                  setCountry={setCountry}
-                  setNameUser={setNameUser}
+                <AccountProfile
+                  user_detail={props.users && props.users[props.loggedIn]}
                 />
               </Grid>
+              <Grid item lg={8} md={6} xs={12}>
+                <AccountProfileDetails />
+              </Grid>
             </Grid>
+            {!props.emailVerified ? (
+              <Grid container spacing={3}>
+                <Grid item lg={12} md={6} xs={12}>
+                  <VerifyEmail />
+                </Grid>
+              </Grid>
+            ) : (
+              <></>
+            )}
           </Container>
         </Box>
       </Container>
     </>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.firebase.auth.uid,
+    emailVerified: state.firebase.auth.emailVerified,
+    users: state.firestore.data.users,
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect((props) => [
+    {
+      collection: "users",
+    },
+  ])
+)(Dashboard);
